@@ -29,20 +29,26 @@
     },
     methods: {
       submit(){
-        this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/login",this.user).then(res=>{
+        if(sessionStorage.getItem("username")!=null||sessionStorage.getItem("userId")!=null){
+          alert("您已登录");
+          this.$router.push("/homepage");
+        }
+        else {
+          this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/login",this.user).then(res=>{
             if (this.user.password==3){//if (res.data.success){
-                alert(res.data.msg);
-                sessionStorage.setItem("username",this.user.username);
-                sessionStorage.setItem("userId",res.data.ID);
-                this.$router.push("/homepage");
+              sessionStorage.setItem("username",this.user.username);
+              sessionStorage.setItem("userId",res.data.ID);
+              alert(res.data.msg);
+              this.$router.push("/homepage");
             }
             else{
-                alert("登录失败");
-                this.$router.push("/login");
+              alert("登录失败");
+              this.$router.push("/login");
             }
-        })
+          })
+        }
       }
-  }
+    }
 }
 </script>
 <style>

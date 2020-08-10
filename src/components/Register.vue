@@ -6,7 +6,13 @@
       <el-input type="text" v-model="RegisterForm.username" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass" label="密码">
-      <el-input type="password" v-model="RegisterForm.password" auto-complete="off" placeholder="密码"></el-input>
+      <el-input type="password" v-model="RegisterForm.password1" auto-complete="off" placeholder="请输入您的密码"></el-input>
+    </el-form-item>
+    <el-form-item prop="checkPass">
+      <el-input type="password" v-model="RegisterForm.password2" auto-complete="off" placeholder="请重复输入密码"></el-input>
+    </el-form-item>
+    <el-form-item prop="checkPass" label="邮箱">
+      <el-input type="email" v-model="RegisterForm.email" auto-complete="off" placeholder="请输入您的邮箱" ></el-input>
     </el-form-item>
     <br>
     <el-form-item style="width: 80%">
@@ -21,14 +27,38 @@
         checked: true,
         RegisterForm: {
           username: '',
-          password: ''
+          password1: '',
+          password2: '',
+          email: '',
         },
-        loading: false,
+        loading: false
       }
     },
     methods: {
-        
-  }
+      submit(){
+        if(sessionStorage.getItem("username")!=null||sessionStorage.getItem("userId")!=null){
+          alert("您已登录");
+          this.$router.push("/homepage");
+        }
+        else if (this.RegisterForm.password1!==this.RegisterForm.password2){
+          alert("两次密码不一致，请重新输入");
+        }
+        else{
+          this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/register",this.user).then(res=>{
+            if (this.RegisterForm.password1==3){//if (res.data.success){
+              sessionStorage.setItem("username",this.RegisterForm.username);
+              sessionStorage.setItem("userId",res.data.ID);
+              alert(res.data.msg);
+              this.$router.push("/homepage");
+            }
+            else{
+              alert("注册失败");
+              this.$router.push("/register");
+            }
+          })
+        }
+      }
+    }
 }
 </script>
 <style>
