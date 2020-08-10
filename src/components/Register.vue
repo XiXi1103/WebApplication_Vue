@@ -44,6 +44,12 @@
           alert("两次密码不一致，请重新输入");
         }
         else{
+          // this.$http.post("http://localhost:8081/register",//
+          //         {
+          //           username:this.RegisterForm.username,
+          //           password:this.RegisterForm.password1,
+          //           email:this.RegisterForm.email
+          // }).then(res=>{ //严：springboot开启8081端口测试
           this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/register",this.user).then(res=>{
             if (this.RegisterForm.password1==3){//if (res.data.success){
               sessionStorage.setItem("username",this.RegisterForm.username);
