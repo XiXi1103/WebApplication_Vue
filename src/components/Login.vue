@@ -1,40 +1,68 @@
 <template>
-    <div>
-        登录注册界面
-        <el-input v-model="user.username" placeholder="用户名"></el-input>
-        <el-input v-model="user.passwd" placeholder="密码" type="password"></el-input>
-        <input type="button" @click="submit" value="登录">
-    </div>
+  <el-form  class="login-container" label-position="left"
+           label-width="0px" v-loading="loading">
+    <h3 class="login_title">登录</h3>
+    <el-form-item prop="account">
+      <el-input type="text" v-model="user.username" auto-complete="off" placeholder="账号"></el-input>
+    </el-form-item>
+    <el-form-item prop="checkPass">
+      <el-input type="password" v-model="user.password" auto-complete="off" placeholder="密码"></el-input>
+    </el-form-item>
+    <br>
+    <el-form-item style="width: 100%">
+      <el-button type="primary" @click="submit" style="width: 50%">登录</el-button>
+    </el-form-item>
+  </el-form>
 </template>
-
 <script>
-    export default {
-        name: "Login",
-        data() {
-            return {
-                user:{}
-            }
+  export default{
+    data(){
+      return {
+        checked: true,
+        user: {
+          username: '',
+          password: ''
         },
-        methods:{
-            submit(){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/login",this.user).then(res=>{
-                    if (this.user.passwd==3){//if (res.data.success){
-                        alert(res.data.msg);
-                        this.$router.push("/");
-                        sessionStorage.setItem("username", this.user.username);//存入session
-                        console.log(sessionStorage.getItem("username"));
-                    }
-                    else{
-                        alert("登录失败");
-                        this.$router.push("/login");
-                    }
-                })
+        loading: false,
+
+      }
+    },
+    methods: {
+      submit(){
+        this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/login",this.user).then(res=>{
+            if (this.user.password==3){//if (res.data.success){
+                alert(res.data.msg);
+                this.$router.push("/homepage");
             }
-        }
-    }
-
+            else{
+                alert("登录失败");
+                this.$router.push("/login");
+            }
+        })
+      }
+  }
+}
 </script>
+<style>
+  .login-container {
+    border-radius: 15px;
+    background-clip: padding-box;
+    margin: 180px auto;
+    width: 350px;
+    padding: 35px 35px 15px 35px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #cac6c6;
+  }
 
-<style scoped>
+  .login_title {
+    margin: 0px auto 40px auto;
+    text-align: center;
+    color: #505458;
+  }
 
+  .login_remember {
+    margin: 0px 0px 35px 0px;
+    text-align: left;
+  }
 </style>
