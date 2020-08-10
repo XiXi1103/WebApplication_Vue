@@ -16,9 +16,9 @@
   <el-menu-item index='/Login' >团队空间</el-menu-item>
   <el-menu-item index="3"> 回收站</el-menu-item>
   <el-submenu index="4" style="float:right">
-    <template slot="title">Xxx</template>
+    <template slot="title" >{{username}}</template>
     <el-menu-item index="4-1">个人信息</el-menu-item>
-    <el-menu-item index="4-2">退出登录</el-menu-item>
+    <el-menu-item index="4-2" @click="logout">退出登录</el-menu-item>
   </el-submenu> 
   <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
 </el-menu>
@@ -31,7 +31,8 @@
   export default {
     data() {
       return {
-        navList:[]
+        navList:[],
+        username:"游客",
       };
     },
     methods: {
@@ -40,7 +41,15 @@
       },
       GotoMarkDown:function(){
         this.$router.push({path:'/markdown'});
+      },
+      logout(){
+        this.username = "游客";
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("userId");
       }
+    },
+    created() {
+      this.username = sessionStorage.getItem("username");
     }
   }
 </script>
