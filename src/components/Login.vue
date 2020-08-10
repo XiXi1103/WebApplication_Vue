@@ -21,6 +21,8 @@
                     if (this.user.passwd==3){//if (res.data.success){
                         alert(res.data.msg);
                         this.$router.push("/");
+                        sessionStorage.setItem("username", this.user.username);//存入session
+                        console.log(sessionStorage.getItem("username"));
                     }
                     else{
                         alert("登录失败");
