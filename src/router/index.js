@@ -36,7 +36,7 @@ Vue.use(VueRouter)
   {
     path: '/markdown',
     name: '/MarkDown',
-    component: () => import('../components/MarkDown.vue')
+    component: () => import('../components/Markdown.vue')
   }
 
 ]
