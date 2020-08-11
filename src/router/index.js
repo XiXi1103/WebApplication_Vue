@@ -43,6 +43,16 @@ Vue.use(VueRouter)
     path: '/recyclebin',
     name: '/Recyclebin',
     component: () => import('../views/RecycleBin')
+  },
+  {
+    path: '/mycreate',
+    name: '/Mycreate',
+    component: () => import('../views/Mycreate')
+  },
+  {
+    path: '/mystore',
+    name: '/Mystore',
+    component: () => import('../views/Mystore')
   }
 
 ]
