@@ -39,7 +39,6 @@
             if (this.user.password==3){//if (res.data.success){
               sessionStorage.setItem("username",this.user.username);
               sessionStorage.setItem("userId",res.data.ID);
-              alert(res.data.msg);
               this.$router.push("/homepage");
             }
             else{
