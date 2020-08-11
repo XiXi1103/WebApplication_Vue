@@ -66,29 +66,45 @@
                 this.$router.push({path:'/markdown'});
             },
             viewmk(DocID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewmk",{
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID
                     }
                 }).then(res=>{
-                    document.getElementById("doc").innerHTML = res.data.html;
+                    if (res.data.success){
+                        this.$router.push({
+                            path: '/ShowDoc',
+                            query:{
+                                content: res.data.content,
+                            }
+                        })
+                    }
+                    else {
+                        alert(res.data.msg);
+                    }
                 })
             },
             editmk(DocID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editmk",{
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID
                     }
                 }).then(res=>{
-                    console.log(res);
-                    this.$router.push({
-                        path: '/markdown',
-                        query:{
-                            content: res.data.content,
-                            html: 123}
-                    })
+                    if (res.data.success){
+                        this.$router.push({
+                            path: '/markdown',
+                            query:{
+                                content: res.data.content,
+                                html: res.data.html,
+                                docID: DocID,
+                            }
+                        })
+                    }
+                    else{
+                        alert(res.data.msg);
+                    }
                 })
             },
             handleOpen(key, keyPath) {

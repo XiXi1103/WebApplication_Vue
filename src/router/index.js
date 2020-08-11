@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 Vue.use(VueRouter)
+Vue.use(mavonEditor)
 
   const routes = [
   {
@@ -53,6 +56,11 @@ Vue.use(VueRouter)
     path: '/mystore',
     name: '/Mystore',
     component: () => import('../views/Mystore')
+  },
+  {
+    path: '/ShowDoc',
+    name: '/ShowDoc',
+    component: () => import('../views/ShowDoc')
   }
 
 ]
