@@ -17,9 +17,9 @@
             <el-menu-item index="3"> 回收站</el-menu-item>
             <el-submenu index="4" style="float:right">
                 <template slot="title" >{{username}}</template>
-                <el-menu-item index="4-1" v-show="!isshow">个人信息</el-menu-item>
+                <el-menu-item index="4-1" @click="GotoPersonalInfo" v-show="!isshow">个人信息</el-menu-item>
                 <el-menu-item index="4-2" @click="logout" v-show="!isshow">退出登录</el-menu-item>
-                <el-menu-item index="4-2" @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
+                <el-menu-item index="4-3" @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
             </el-submenu>
             <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
         </el-menu>
@@ -30,11 +30,14 @@
     export default {
         data() {
             return {
-                navList: [],
-                username: "游客",
+                navList:[],
+                username:"游客",
+                passwd:"",
+                email:"",
+                phone_num:"",
+                create_time:"",
                 isshow: true,
                 status: "退出登录",
-                name: "Topbar",
             };
         },
         methods: {
@@ -49,7 +52,19 @@
             },
             GotoLogin: function () {
                 this.$router.push({path: '/login'});
-            }
+            },
+            GotoPersonalInfo:function(){
+            this.$http.get('http://rap2.taobao.org:38080/app/mock/262266/personalinfo?username='+this.username)
+            .then(function(response){
+                console.log(response);
+                sessionStorage.setItem("username",response.data.username);
+                sessionStorage.setItem("passwd",response.data.passwd);
+                sessionStorage.setItem("email",response.data.email);
+                sessionStorage.setItem("phone_num",response.data.phone_num);
+                sessionStorage.setItem("create_time",response.data.create_time);
+            }),
+            this.$router.push({path:'/PersonalInfo'});
+        }
         },
         created() {
             if (sessionStorage.getItem("username") != null) {
