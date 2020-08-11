@@ -18,6 +18,7 @@
     "vue-router": "^3.2.0"
   },
   "devDependencies": {
+    "@vue/babel-plugin-transform-vue-jsx": "^1.1.2",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",

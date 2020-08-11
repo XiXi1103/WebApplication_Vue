@@ -1,8 +1,11 @@
 <template>
-    <div class="markdown">
-        <div class="container">
-            <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="width: 1500px;height: 800px;margin: 0 auto; "/>
-            <button @click="submit">提交</button>
+    <div>
+        <Topbar></Topbar>
+        <div class="markdown">
+            <div class="container">
+                <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="width: 1500px;height: 800px;margin: 0 auto; "/>
+                <button @click="submit">提交</button>
+            </div>
         </div>
     </div>
 </template>
@@ -10,18 +13,21 @@
 <script>
     import { mavonEditor } from 'mavon-editor'
     import 'mavon-editor/dist/css/index.css'
+    import Topbar from "../components/Topbar";
 
     export default {
         name: "Markdown",
         props: [],
         components: {
             mavonEditor,
+            Topbar
         },
         data() {
             return {
                 content:'',
                 html:'',
-                configs: {}
+                configs: {},
+                result: [],
             }
         },
         methods: {
@@ -43,14 +49,24 @@
             },
             // 提交
             submit(){
+                this.result.authorID = sessionStorage.getItem("userId");
+                this.result.content = this.content;
+                this.result.html = this.html;
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newmk",this.result).then(res=>{
+                    console.log(this.result);
+                    console.log(res);
+
+                })
                 console.log(this.content);
                 console.log(this.html);
                 this.$message.success('提交成功，已打印至控制台！');
             }
         },
         mounted() {
-
-        }
+            console.log(this.$route.query.html);
+            this.content = this.$route.query.content;
+            this.html = this.$route.query.html;
+        },
     }
 </script>
 

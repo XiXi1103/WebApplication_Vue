@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -8,35 +7,32 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    redirect: '/homepage',
   },
   {
     path: '/register',
     name:'Register',
-    component: () => import('../components/Register.vue')
+    component: () => import('../views/Register.vue')
   },
   {
     path: '/login',
     name:'Login',
-    component: () => import('../components/Login.vue')
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/homepage',
     name: '/Homepage',
-    component: () => import('../components/HomePage.vue')
+    component: () => import('../views/HomePage.vue')
   },
   {
     path: '/markdown',
     name: '/MarkDown',
-    component: () => import('../components/Markdown.vue')
+    component: () => import('../views/Markdown.vue')
+  },
+  {
+    path: '/personalinfo',
+    name: '/PersonalInfo',
+    component: () => import('../views/PersonalInfo.vue')
   }
 
 ]
