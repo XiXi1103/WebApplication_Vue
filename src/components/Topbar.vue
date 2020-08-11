@@ -17,9 +17,9 @@
             <el-menu-item index="3"> 回收站</el-menu-item>
             <el-submenu index="4" style="float:right">
                 <template slot="title" >{{username}}</template>
-                <el-menu-item index="4-1" v-show="isshow">个人信息</el-menu-item>
-                <el-menu-item index="4-2" @click="logout" v-show="isshow">退出登录</el-menu-item>
-                <el-menu-item index="4-2" @click="GotoLogin" v-show="!isshow">登录/注册</el-menu-item>
+                <el-menu-item index="4-1" v-show="!isshow">个人信息</el-menu-item>
+                <el-menu-item index="4-2" @click="logout" v-show="!isshow">退出登录</el-menu-item>
+                <el-menu-item index="4-2" @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
             </el-submenu>
             <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
         </el-menu>
@@ -41,15 +41,11 @@
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
             },
-            GotoMarkDown: function () {
-                this.$router.push({path: '/markdown'});
-            },
             logout() {
                 this.username = "游客";
                 this.status = "登录";
                 this.isshow = false;
-                sessionStorage.removeItem("username");
-                sessionStorage.removeItem("userId");
+                sessionStorage.clear();
             },
             GotoLogin: function () {
                 this.$router.push({path: '/login'});
@@ -57,9 +53,11 @@
         },
         created() {
             if (sessionStorage.getItem("username") != null) {
-                this.status = "登录";
                 this.isshow = false;
                 this.username = sessionStorage.getItem("username");
+            }
+            else {
+                this.isshow = true;
             }
         }
     }
