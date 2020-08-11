@@ -49,17 +49,14 @@
             },
             // 提交
             submit(){
+                this.result.docID=this.$route.query.docID;
                 this.result.authorID = sessionStorage.getItem("userId");
                 this.result.content = this.content;
                 this.result.html = this.html;
                 this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newDoc",this.result).then(res=>{
-                    console.log(this.result);
-                    console.log(res);
-
+                    alert(res.data.msg);
+                    this.$router.push("/");
                 })
-                console.log(this.content);
-                console.log(this.html);
-                this.$message.success('提交成功，已打印至控制台！');
             }
         },
         mounted() {
