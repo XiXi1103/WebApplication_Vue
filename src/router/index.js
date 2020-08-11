@@ -33,6 +33,16 @@ Vue.use(VueRouter)
     path: '/personalinfo',
     name: '/PersonalInfo',
     component: () => import('../views/PersonalInfo.vue')
+  },
+  {
+    path: '/groupspace',
+    name: '/Groupspace',
+    component: () => import('../views/GroupSpace')
+  },
+  {
+    path: '/recyclebin',
+    name: '/Recyclebin',
+    component: () => import('../views/RecycleBin')
   }
 
 ]
