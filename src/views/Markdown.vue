@@ -63,7 +63,9 @@
             }
         },
         mounted() {
-
+            console.log(this.$route.query.html);
+            this.content = this.$route.query.content;
+            this.html = this.$route.query.html;
         },
     }
 </script>
