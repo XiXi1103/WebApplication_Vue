@@ -52,7 +52,7 @@
                 this.result.authorID = sessionStorage.getItem("userId");
                 this.result.content = this.content;
                 this.result.html = this.html;
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newmk",this.result).then(res=>{
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newDoc",this.result).then(res=>{
                     console.log(this.result);
                     console.log(res);
 
