@@ -1,9 +1,9 @@
 <template>
     <div>
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+        <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-submenu index="1">
                 <template slot="title">我的工作台</template>
-                <el-menu-item index="2-1">最近使用</el-menu-item>
+                <el-menu-item index="/homepage">最近使用</el-menu-item>
                 <el-menu-item index="2-2">我的收藏</el-menu-item>
                 <el-menu-item index="2-3">我创建的</el-menu-item>
                 <!--   <el-submenu index="2-4">
@@ -13,8 +13,8 @@
                      <el-menu-item index="2-4-3">选项3</el-menu-item>
                    </el-submenu> -->
             </el-submenu>
-            <el-menu-item index='/Login' >团队空间</el-menu-item>
-            <el-menu-item index="3"> 回收站</el-menu-item>
+            <el-menu-item index="/groupspace">团队空间</el-menu-item>
+            <el-menu-item index="/recyclebin"> 回收站</el-menu-item>
             <el-submenu index="4" style="float:right">
                 <template slot="title" >{{username}}</template>
                 <el-menu-item index="4-1" v-show="isshow">个人信息</el-menu-item>

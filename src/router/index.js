@@ -28,6 +28,16 @@ Vue.use(VueRouter)
     path: '/markdown',
     name: '/MarkDown',
     component: () => import('../views/Markdown.vue')
+  },
+  {
+    path: '/groupspace',
+    name: '/Groupspace',
+    component: () => import('../views/GroupSpace.vue')
+  },
+  {
+    path: '/recyclebin',
+    name: '/ecyclebin',
+    component: () => import('../views/RecycleBin')
   }
 
 ]
