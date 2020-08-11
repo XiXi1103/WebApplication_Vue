@@ -5,62 +5,8 @@
                 <Topbar></Topbar>
             </el-header>
             <el-container>
-                <el-aside width="15%">
-                    <el-row class="tac">
-                        <el-col>
-                            <h5>默认颜色</h5>
-                            <el-menu
-                                    router :default-active="$route.path"
-                                    class="el-menu-vertical-demo"
-                                    @open="handleOpen"
-                                    @close="handleClose">
-<!--                                <el-submenu index="1">-->
-<!--                                    <template slot="title">-->
-<!--                                        <i class="el-icon-location"></i>-->
-<!--                                        <span>导航一</span>-->
-<!--                                    </template>-->
-<!--                                    <el-menu-item-group>-->
-<!--                                        <template slot="title">分组一</template>-->
-<!--                                        <el-menu-item index="1-1">选项1</el-menu-item>-->
-<!--                                        <el-menu-item index="1-2">选项2</el-menu-item>-->
-<!--                                    </el-menu-item-group>-->
-<!--                                    <el-menu-item-group title="分组2">-->
-<!--                                        <el-menu-item index="1-3">选项3</el-menu-item>-->
-<!--                                    </el-menu-item-group>-->
-<!--                                    <el-submenu index="1-4">-->
-<!--                                        <template slot="title">选项4</template>-->
-<!--                                        <el-menu-item index="1-4-1">选项1</el-menu-item>-->
-<!--                                    </el-submenu>-->
-<!--                                </el-submenu>-->
-                                <el-menu-item index="/homepage">
-                                    <i class="el-icon-document"></i>
-                                    <span slot="title">最近使用</span>
-                                </el-menu-item>
-                                <el-menu-item index="3">
-                                    <i class="el-icon-document"></i>
-                                    <span slot="title">我的文档</span>
-                                </el-menu-item>
-                                <el-menu-item index="4">
-                                    <i class="el-icon-menu"></i>
-                                    <span slot="title">我的收藏</span>
-                                </el-menu-item>
-                                <el-menu-item index="5">
-                                    <i class="el-icon-document"></i>
-                                    <span slot="title">  回  收  站  </span>
-                                </el-menu-item>
-<!--                                <el-menu-item index="5" disabled>-->
-<!--                                    <i class="el-icon-document"></i>-->
-<!--                                    <span slot="title">导航三</span>-->
-<!--                                </el-menu-item>-->
-<!--                                <el-menu-item index="6">-->
-<!--                                    <i class="el-icon-setting"></i>-->
-<!--                                    <span slot="title">导航四</span>-->
-<!--                                </el-menu-item>-->
-                            </el-menu>
-                        </el-col>
-                    </el-row>
-                </el-aside>
-                <el-container>
+                <Asidebar></Asidebar>
+            <el-container>
                     <el-main>
                         <div id="doc">
                             <el-row :gutter="12">
@@ -104,7 +50,7 @@
 
 <script>
     import Topbar from "../components/Topbar";
-
+    import Asidebar from "../components/Asidebar";
     export default {
         data() {
             return {
@@ -126,13 +72,23 @@
                 this.$router.push({path:'/markdown'});
             },
             viewmk(DocID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewmk",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID
                     }
                 }).then(res=>{
-                    document.getElementById("doc").innerHTML = res.data.html;
+                    if (res.data.success){
+                        this.$router.push({
+                            path: '/ShowDoc',
+                            query:{
+                                content: res.data.content,
+                            }
+                        })
+                    }
+                    else {
+                        alert(res.data.msg);
+                    }
                 })
             },
             editmk(DocID){
@@ -142,13 +98,19 @@
                         docID:DocID
                     }
                 }).then(res=>{
-                    console.log(res);
-                    this.$router.push({
-                        path: '/markdown',
-                        query:{
-                            content: res.data.content,
-                            html: 123}
-                    })
+                    if (res.data.success){
+                        this.$router.push({
+                            path: '/markdown',
+                            query:{
+                                content: res.data.content,
+                                html: res.data.html,
+                                docID: DocID,
+                            }
+                        })
+                    }
+                    else{
+                        alert(res.data.msg);
+                    }
                 })
             },
             // getRecentPage(){
@@ -169,7 +131,8 @@
             }
         },
         components:{
-            Topbar
+            Topbar,
+            Asidebar
         }
     }
 </script>

@@ -21,9 +21,9 @@
 <!--            <el-menu-item index="/recyclebin">回收站</el-menu-item>-->
             <el-submenu index="4" style="float:right">
                 <template slot="title" >{{username}}</template>
-                <el-menu-item index="4-1" @click="GotoPersonalInfo" v-show="!isshow">个人信息</el-menu-item>
-                <el-menu-item index="4-2" @click="logout" v-show="!isshow">退出登录</el-menu-item>
-                <el-menu-item index="4-3" @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
+                <el-menu-item @click="GotoPersonalInfo" v-show="!isshow">个人信息</el-menu-item>
+                <el-menu-item @click="logout" v-show="!isshow">退出登录</el-menu-item>
+                <el-menu-item @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
             </el-submenu>
             <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
         </el-menu>
