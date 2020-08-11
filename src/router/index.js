@@ -28,6 +28,11 @@ Vue.use(VueRouter)
     path: '/markdown',
     name: '/MarkDown',
     component: () => import('../views/Markdown.vue')
+  },
+  {
+    path: '/personalinfo',
+    name: '/PersonalInfo',
+    component: () => import('../views/PersonalInfo.vue')
   }
 
 ]
