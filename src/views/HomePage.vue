@@ -22,7 +22,7 @@
             // this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/register",this.user).then(res=>{
         },
         viewmk(DocID){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewmk",{
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId"),
                     docID:DocID
@@ -32,7 +32,7 @@
             })
         },
         editmk(DocID){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editmk",{
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId"),
                     docID:DocID
