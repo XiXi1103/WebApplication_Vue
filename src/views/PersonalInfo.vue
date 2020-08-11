@@ -11,7 +11,7 @@
       <el-input type="password" v-model="user.passwd" auto-complete="off" :disabled="ischange"></el-input>
     </el-form-item>    
     <el-form-item label="邮箱：">
-      <el-input type="password" v-model="user.email" auto-complete="off" :disabled="ischange"></el-input>
+      <el-input type="text" v-model="user.email" auto-complete="off" :disabled="ischange"></el-input>
     </el-form-item>
     <el-form-item label="电话：">
       <el-input type="text" v-model="user.phone_num" auto-complete="off" :disabled="ischange"></el-input>
