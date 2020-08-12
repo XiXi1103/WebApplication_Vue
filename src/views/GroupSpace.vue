@@ -112,6 +112,29 @@
         name: "GroupSpace",
         components: {
             Topbar
+        },
+        methods:{
+            viewmk(DocID){
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        docID:DocID
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        this.$router.push({
+                            path: '/ShowDoc',
+                            query:{
+                                content: res.data.content,
+                                docID:DocID,
+                            }
+                        })
+                    }
+                    else {
+                        alert(res.data.msg);
+                    }
+                })
+            },
         }
     }
 
