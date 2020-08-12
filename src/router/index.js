@@ -53,9 +53,9 @@ Vue.use(mavonEditor)
     component: () => import('../views/Mycreate')
   },
   {
-    path: '/mystore',
-    name: '/Mystore',
-    component: () => import('../views/Mystore')
+    path: '/mycollection',
+    name: '/Mycollection',
+    component: () => import('../views/Collections')
   },
   {
     path: '/ShowDoc',

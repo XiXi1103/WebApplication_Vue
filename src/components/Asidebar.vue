@@ -34,7 +34,7 @@
                         <i class="el-icon-document"></i>
                         <span slot="title">我的文档</span>
                     </el-menu-item>
-                    <el-menu-item index="/Mystore">
+                    <el-menu-item index="/mycollection">
                         <i class="el-icon-menu"></i>
                         <span slot="title">我的收藏</span>
                     </el-menu-item>
@@ -55,6 +55,19 @@
         </el-row>
     </el-aside>    
 </template>
+
+<script>
+    export default {
+        methods: {
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
+    }
+</script>
 
 <style>
     .el-header, .el-footer {

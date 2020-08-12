@@ -10,12 +10,12 @@
                     <el-main>
                         <div id="doc">
                             <el-row :gutter="12">
-                                <el-col :span="6">
-                                    <el-card shadow="hover" @click.native="GotoMarkDown" style="font-size: 20px; font-weight: bold; height: 210px;">
-                                        新建<i class="el-icon-plus"></i>
-                                        <!--                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>-->
-                                    </el-card>
-                                </el-col>
+<!--                                <el-col :span="6">-->
+<!--                                    <el-card shadow="hover" @click.native="GotoMarkDown" style="font-size: 20px; font-weight: bold; height: 210px;">-->
+<!--                                        新建<i class="el-icon-plus"></i>-->
+<!--                                        &lt;!&ndash;                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>&ndash;&gt;-->
+<!--                                    </el-card>-->
+<!--                                </el-col>-->
                                 <el-col :span="6" v-for="Page in res.pageList" :key="Page.id">
                                     <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;">
                                         <!--                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>-->
@@ -23,10 +23,10 @@
                                             <i class="el-icon-more"></i>
                                             <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
                                             <el-dropdown-menu slot="dropdown" style="float: right">
-                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>
+                                                <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
-                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
-                                                <el-dropdown-item @click.native="delDoc(0)" style="color:red">移至回收站</el-dropdown-item>
+<!--                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>-->
+                                                <el-dropdown-item @click.native="cancelCollection(0)" style="color:red">取消收藏</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
 
@@ -43,15 +43,12 @@
     </div>
 </template>
 
+
 <script>
     import Topbar from "../components/Topbar";
     import Asidebar from "../components/Asidebar";
+
     export default {
-        name: "Mycreate",
-        components:{
-            Topbar,
-            Asidebar
-        },
         data() {
             return {
                 res : {
@@ -60,29 +57,32 @@
             }
         },
         created() {
-            this.getMyPage(this.res);
+            this.getCollectionPage(this.res);
+        },
+        components:{
+            Topbar,
+            Asidebar
         },
         methods : {
-            delDoc:function(DocID){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
+            cancelCollection:function(DocID){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/cancelCollection",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        alert("删除成功");
+                        alert("取消收藏成功");
                         this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
                     }
                     else {
-                        alert("删除失败");
+                        alert("取消收藏失败");
                     }
                 });
             }
         }
     }
 </script>
-
 <style>
     .el-header, .el-footer {
         background-color: white;

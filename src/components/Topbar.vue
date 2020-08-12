@@ -55,21 +55,13 @@
                 this.username = "游客";
                 this.status = "登录";
                 this.isshow = false;
+                this.$router.push({path: '/'})
                 sessionStorage.clear();
             },
             GotoLogin: function () {
                 this.$router.push({path: '/login'});
             },
             GotoPersonalInfo:function(){
-            this.$http.get('http://rap2.taobao.org:38080/app/mock/262266/personalinfo?username='+this.username)
-            .then(function(response){
-                console.log(response);
-                sessionStorage.setItem("username",response.data.username);
-                sessionStorage.setItem("passwd",response.data.passwd);
-                sessionStorage.setItem("email",response.data.email);
-                sessionStorage.setItem("phone_num",response.data.phone_num);
-                sessionStorage.setItem("create_time",response.data.create_time);
-            }),
             this.$router.push({path:'/PersonalInfo'});
         }
         },

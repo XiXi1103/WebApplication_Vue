@@ -16,16 +16,17 @@
 <!--                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>-->
                                     </el-card>
                                 </el-col>
-                                <el-col :span="6" v-for="Page in pageList" :key="Page.title">
+                                <el-col :span="6" v-for="Page in res.pageList" :key="Page.id">
                                     <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;">
 <!--                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>-->
                                         <el-dropdown trigger="hover" style="float: right;">
                                             <i class="el-icon-more"></i>
 <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
                                             <el-dropdown-menu slot="dropdown" style="float: right">
-                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>
+<!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
-                                                <el-dropdown-item @click.native="editmk(0)" style="color:red">删除</el-dropdown-item>
+                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
+                                                <el-dropdown-item @click.native="removeRecentBrowsing(0)" style="color:red">移除最近浏览</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
 
@@ -39,11 +40,6 @@
                 </el-container>
             </el-container>
         </el-container>
-
-
-
-
-
     </div>
 </template>
 
@@ -51,88 +47,39 @@
 <script>
     import Topbar from "../components/Topbar";
     import Asidebar from "../components/Asidebar";
+
     export default {
         data() {
             return {
-                pageList : []
+                res : {
+                    pageList : []
+                }
             }
         },
         created() {
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getRecentDoc",{
-                params:{
-                    userID:sessionStorage.getItem("userId"),
-                }
-            }).then(res=>{
-                this.pageList = res.data.PageList;
-                console.log(this.pageList)
-            });
-        },
-        methods: {
-            GotoMarkDown:function(){
-                this.$router.push({path:'/markdown'});
-            },
-            viewmk(DocID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
-                    params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
-                    }
-                }).then(res=>{
-                    if (res.data.success){
-                        this.$router.push({
-                            path: '/ShowDoc',
-                            query:{
-                                content: res.data.content,
-                            }
-                        })
-                    }
-                    else {
-                        alert(res.data.msg);
-                    }
-                })
-            },
-            editmk(DocID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
-                    params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
-                    }
-                }).then(res=>{
-                    if (res.data.success){
-                        this.$router.push({
-                            path: '/markdown',
-                            query:{
-                                content: res.data.content,
-                                html: res.data.html,
-                                docID: DocID,
-                            }
-                        })
-                    }
-                    else{
-                        alert(res.data.msg);
-                    }
-                })
-            },
-            // getRecentPage(){
-            //     this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
-            //         params:{
-            //             userID:sessionStorage.getItem("userId"),
-            //             pageCategory:0
-            //         }
-            //     }).then(res=>{
-            //
-            //     })
-            // },
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
+            this.getRecentPage(this.res);
         },
         components:{
             Topbar,
             Asidebar
+        },
+        methods : {
+            removeRecentBrowsing:function(DocID){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/removeRecentBrowsing",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        docID:DocID
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        alert("移出最近浏览成功");
+                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                    }
+                    else {
+                        alert("移出最近浏览失败");
+                    }
+                });
+            }
         }
     }
 </script>
