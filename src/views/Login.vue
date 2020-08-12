@@ -12,7 +12,8 @@
     <el-form-item style="width: 100%">
       <el-button type="primary" @click="submit" style="width: 50%">登录</el-button>
     </el-form-item>
-    <router-link :to="{path:'/register'}" >还没有账号?快去注册</router-link>
+    <el-button type="text" @click="gotoRegister">还没有账号?快来注册吧</el-button>
+<!--    <router-link :to="{path:'/register'}" >还没有账号?快去注册</router-link>-->
   </el-form>
 </template>
 <script>
@@ -51,6 +52,9 @@
             }
           })
         }
+      },
+      gotoRegister(){
+        this.$router.push("/register");
       }
     }
 }
