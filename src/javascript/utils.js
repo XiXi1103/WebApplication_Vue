@@ -10,24 +10,44 @@ export default {
                 return res;
             });
         };
-        Vue.prototype.getRecentPage = function (){
+        Vue.prototype.getRecentPage = function (PageList){
             this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getRecentDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
-                console.log(res.data.PageList);
-                return res.data.PageList;
+                console.log(res.data);
+                PageList.pageList = res.data.PageList;
             });
         };
-        Vue.prototype.getMyPage = function (){
+        Vue.prototype.getMyPage = function (PageList){
             this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getMyDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
                 console.log(res.data);
-                return res.data.PageList;
+                PageList.pageList = res.data.PageList;
+            });
+        };
+        Vue.prototype.getCollectionPage = function (PageList){
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getCollectionDoc",{
+                params:{
+                    userID:sessionStorage.getItem("userId")
+                }
+            }).then(res=>{
+                console.log(res.data);
+                PageList.pageList = res.data.PageList;
+            });
+        };
+        Vue.prototype.getDelPage = function (PageList){
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getDelDoc",{
+                params:{
+                    userID:sessionStorage.getItem("userId")
+                }
+            }).then(res=>{
+                console.log(res.data);
+                PageList.pageList = res.data.PageList;
             });
         };
         Vue.prototype.editmk = function editmk(DocID){
