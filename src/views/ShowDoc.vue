@@ -87,6 +87,7 @@
                         replyID:replyID,
                     }
                 }).then(res=>{
+                    console.log(res);
                     alert(res.data.msg);
                     this.findAllReply();
                 })

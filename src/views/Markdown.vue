@@ -53,6 +53,11 @@
                 this.result.authorID = sessionStorage.getItem("userId");
                 this.result.content = this.content;
                 this.result.html = this.html;
+                var re1 = new RegExp("<.+?>","g");//匹配html标签的正则表达式，"g"是搜索匹配多个符合的内容
+                this.result.abstract = this.result.html.replace(re1,'').substring(0,30);
+                alert(this.result.abstract);
+                alert(msg);
+                // this.result.abstract =
                 this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newDoc",this.result).then(res=>{
                     alert(res.data.msg);
                     this.$router.push("/");
