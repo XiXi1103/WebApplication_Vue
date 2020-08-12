@@ -95,6 +95,12 @@ export default {
         Vue.prototype.GotoMarkDown = function (){
             this.$router.push({path:'/markdown'});
         };
+        Vue.prototype.ArrayIndexOfByDocID = function (array, DocID) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i].id == DocID) return i;
+            }
+            return -1;
+        };
     }
 
 }

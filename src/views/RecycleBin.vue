@@ -23,9 +23,9 @@
                                             <i class="el-icon-more"></i>
                                             <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
                                             <el-dropdown-menu slot="dropdown" style="float: right">
-                                                <el-dropdown-item @click.native="editmk(0)">还原</el-dropdown-item>
-<!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
-<!--                                                <el-dropdown-item @click.native="editmk(0)" style="color:red">移除最近浏览</el-dropdown-item>-->
+                                                <el-dropdown-item @click.native="recover(0)">还原</el-dropdown-item>
+                                                <el-dropdown-item @click.native="del(0)" style="color:red">彻底删除</el-dropdown-item>
+                                                <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
                                             </el-dropdown-menu>
                                         </el-dropdown>
 
@@ -60,6 +60,43 @@
         components:{
             Topbar,
             Asidebar
+        },
+        methods:{
+            load(){
+                this.count +=2
+            },
+            recover:function(DocID){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/recoverDoc",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        docID:DocID
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        alert("恢复成功");
+                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                    }
+                    else {
+                        alert("恢复失败");
+                    }
+                });
+            },
+            del:function(DocID){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        docID:DocID
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        alert("删除成功");
+                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                    }
+                    else {
+                        alert("删除失败");
+                    }
+                });
+            }
         }
     }
 </script>
@@ -84,7 +121,7 @@
         text-align: center;
         line-height: 160px;
     }
-<style>
+
     .el-header, .el-footer {
         background-color: white;
         color: #333;
