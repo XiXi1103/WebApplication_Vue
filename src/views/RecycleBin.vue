@@ -10,12 +10,12 @@
                     <el-main>
                         <div id="doc">
                             <el-row :gutter="12">
-                                <el-col :span="6">
-                                    <el-card shadow="hover" @click.native="GotoMarkDown" style="font-size: 20px; font-weight: bold; height: 210px;">
-                                        新建<i class="el-icon-plus"></i>
-                                        <!--                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>-->
-                                    </el-card>
-                                </el-col>
+<!--                                <el-col :span="6">-->
+<!--                                    <el-card shadow="hover" @click.native="GotoMarkDown" style="font-size: 20px; font-weight: bold; height: 210px;">-->
+<!--                                        新建<i class="el-icon-plus"></i>-->
+<!--                                        &lt;!&ndash;                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>&ndash;&gt;-->
+<!--                                    </el-card>-->
+<!--                                </el-col>-->
                                 <el-col :span="6" v-for="Page in res.pageList" :key="Page.id">
                                     <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;">
                                         <!--                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>-->
