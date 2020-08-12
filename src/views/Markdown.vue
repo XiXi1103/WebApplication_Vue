@@ -53,7 +53,7 @@
                 this.result.authorID = sessionStorage.getItem("userId");
                 this.result.content = this.content;
                 this.result.html = this.html;
-                var re1 = new RegExp("<.+?>","g");//匹配html标签的正则表达式，"g"是搜索匹配多个符合的内容
+                var re1 = new RegExp("<.+?>","g");
                 this.result.abstract = this.result.html.replace(re1,'').substring(0,30);
                 alert(this.result.abstract);
                 alert(msg);
