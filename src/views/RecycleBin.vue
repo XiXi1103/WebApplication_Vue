@@ -24,7 +24,7 @@
                                             <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
                                             <el-dropdown-menu slot="dropdown" style="float: right">
                                                 <el-dropdown-item @click.native="recover(0)">还原</el-dropdown-item>
-                                                <el-dropdown-item @click.native="del(0)" style="color:red">彻底删除</el-dropdown-item>
+                                                <el-dropdown-item @click.native="deleteCompletely(0)" style="color:red">彻底删除</el-dropdown-item>
                                                 <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
                                             </el-dropdown-menu>
                                         </el-dropdown>
@@ -81,8 +81,8 @@
                     }
                 });
             },
-            del:function(DocID){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
+            deleteCompletely:function(DocID){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDocCompletely",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID

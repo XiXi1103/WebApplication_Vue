@@ -26,7 +26,7 @@
                                                 <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
                                                 <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
-                                                <el-dropdown-item @click.native="editmk(0)" style="color:red">删除</el-dropdown-item>
+                                                <el-dropdown-item @click.native="delDoc(0)" style="color:red">移至回收站</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
 
@@ -61,6 +61,24 @@
         },
         created() {
             this.getMyPage(this.res);
+        },
+        methods : {
+            delDoc:function(DocID){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        docID:DocID
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        alert("删除成功");
+                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                    }
+                    else {
+                        alert("删除失败");
+                    }
+                });
+            }
         }
     }
 </script>

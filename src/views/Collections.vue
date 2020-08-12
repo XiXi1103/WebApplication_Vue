@@ -26,7 +26,7 @@
                                                 <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
 <!--                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>-->
-                                                <el-dropdown-item @click.native="editmk(0)" style="color:red">取消收藏</el-dropdown-item>
+                                                <el-dropdown-item @click.native="cancelCollection(0)" style="color:red">取消收藏</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
 
@@ -62,6 +62,24 @@
         components:{
             Topbar,
             Asidebar
+        },
+        methods : {
+            cancelCollection:function(DocID){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/cancelCollection",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        docID:DocID
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        alert("取消收藏成功");
+                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                    }
+                    else {
+                        alert("取消收藏失败");
+                    }
+                });
+            }
         }
     }
 </script>

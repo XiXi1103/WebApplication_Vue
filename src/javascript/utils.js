@@ -101,6 +101,22 @@ export default {
             }
             return -1;
         };
+        // Vue.prototype.delDoc = function (DocID, PageList){
+        //     this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
+        //         params:{
+        //             userID:sessionStorage.getItem("userId"),
+        //             docID:DocID
+        //         }
+        //     }).then(res=>{
+        //         if (res.data.success){
+        //             alert("删除成功");
+        //             PageList.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+        //         }
+        //         else {
+        //             alert("删除失败");
+        //         }
+        //     });
+        // }
     }
 
 }

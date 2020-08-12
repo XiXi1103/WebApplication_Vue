@@ -26,7 +26,7 @@
 <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
                                                 <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
-                                                <el-dropdown-item @click.native="editmk(0)" style="color:red">移除最近浏览</el-dropdown-item>
+                                                <el-dropdown-item @click.native="removeRecentBrowsing(0)" style="color:red">移除最近浏览</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
 
@@ -62,6 +62,24 @@
         components:{
             Topbar,
             Asidebar
+        },
+        methods : {
+            removeRecentBrowsing:function(DocID){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/removeRecentBrowsing",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        docID:DocID
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        alert("移出最近浏览成功");
+                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                    }
+                    else {
+                        alert("移出最近浏览失败");
+                    }
+                });
+            }
         }
     }
 </script>
