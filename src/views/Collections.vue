@@ -25,6 +25,7 @@
                                             <el-dropdown-menu slot="dropdown" style="float: right">
                                                 <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
+                                                <el-dropdown-item @click.native="addwriter(0)">协作</el-dropdown-item>
 <!--                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="cancelCollection(0)" style="color:red">取消收藏</el-dropdown-item>
                                             </el-dropdown-menu>

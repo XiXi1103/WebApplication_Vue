@@ -102,6 +102,33 @@ export default {
             }
             return -1;
         };
+
+        Vue.prototype.addwriter = function(DocID){
+            this.$prompt('请输入协作者用户名','添加写作者',{
+                confirmButtonText: '添加',
+            }).then(({value}) => {
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/addWriter",{
+                    params:{
+                        userID: sessionStorage.getItem("userId"),
+                        username: value,
+                        docID: DocID
+                    }
+                }).then(res =>{
+                    if(res.data.success){
+                        this.$message({
+                            type:'success',
+                            message: "添加成功"
+                        });
+                    }
+                    else{
+                        this.$message({
+                            type:'info',
+                            message: res.data.msg
+                        });
+                    }
+                });
+            })
+         }
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
         //         params:{
@@ -119,5 +146,5 @@ export default {
         //     });
         // }
     }
-
+    
 }
