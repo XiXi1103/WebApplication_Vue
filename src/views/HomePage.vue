@@ -58,7 +58,7 @@
             }
         },
         created() {
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getRecentPage",{
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getRecentDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId"),
                 }
@@ -72,7 +72,7 @@
                 this.$router.push({path:'/markdown'});
             },
             viewmk(DocID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewmk",{
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID
