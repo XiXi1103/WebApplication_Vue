@@ -16,7 +16,7 @@
 <!--                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>-->
                                     </el-card>
                                 </el-col>
-                                <el-col :span="6" v-for="Page in pageList" :key="Page.title">
+                                <el-col :span="6" v-for="Page in pageList" :key="Page.id">
                                     <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;">
 <!--                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>-->
                                         <el-dropdown trigger="hover" style="float: right;">
@@ -39,11 +39,6 @@
                 </el-container>
             </el-container>
         </el-container>
-
-
-
-
-
     </div>
 </template>
 
@@ -51,6 +46,7 @@
 <script>
     import Topbar from "../components/Topbar";
     import Asidebar from "../components/Asidebar";
+
     export default {
         data() {
             return {
@@ -58,14 +54,7 @@
             }
         },
         created() {
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getRecentPage",{
-                params:{
-                    userID:sessionStorage.getItem("userId"),
-                }
-            }).then(res=>{
-                this.pageList = res.data.PageList;
-                console.log(this.pageList)
-            });
+            this.pageList = this.getRecentPage();
         },
         methods: {
             GotoMarkDown:function(){
@@ -113,16 +102,6 @@
                     }
                 })
             },
-            // getRecentPage(){
-            //     this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
-            //         params:{
-            //             userID:sessionStorage.getItem("userId"),
-            //             pageCategory:0
-            //         }
-            //     }).then(res=>{
-            //
-            //     })
-            // },
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
             },
