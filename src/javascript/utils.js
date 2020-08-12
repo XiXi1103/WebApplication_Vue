@@ -83,6 +83,7 @@ export default {
                     this.$router.push({
                         path: '/ShowDoc',
                         query:{
+                            isCollect: res.data.isCollect,
                             content: res.data.content,
                         }
                     })
