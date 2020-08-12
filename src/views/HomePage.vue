@@ -57,57 +57,7 @@
             this.pageList = this.getRecentPage();
         },
         methods: {
-            GotoMarkDown:function(){
-                this.$router.push({path:'/markdown'});
-            },
-            viewmk(DocID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
-                    params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
-                    }
-                }).then(res=>{
-                    if (res.data.success){
-                        this.$router.push({
-                            path: '/ShowDoc',
-                            query:{
-                                content: res.data.content,
-                            }
-                        })
-                    }
-                    else {
-                        alert(res.data.msg);
-                    }
-                })
-            },
-            editmk(DocID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
-                    params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
-                    }
-                }).then(res=>{
-                    if (res.data.success){
-                        this.$router.push({
-                            path: '/markdown',
-                            query:{
-                                content: res.data.content,
-                                html: res.data.html,
-                                docID: DocID,
-                            }
-                        })
-                    }
-                    else{
-                        alert(res.data.msg);
-                    }
-                })
-            },
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
+
         },
         components:{
             Topbar,
