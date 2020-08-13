@@ -1,6 +1,16 @@
 <template>
     <div>
         <Topbar></Topbar>
+        <br>
+        <el-button type="danger" icon="el-icon-s-promotion" round  style="float: right;font-size:20px;width: 160px" @click="addTem(this.docID)" v-if=isTemplate>添加模板</el-button>
+        <div v-if=!isTemplate>
+            <el-button type="primary" icon="el-icon-edit" round style="float: right;font-size:20px;width: 140px" @click="editmk(0)">编辑</el-button>
+            <br>
+            <br>
+            <br>
+            <el-button type="danger" icon="el-icon-star-off" round  style="float: right;font-size:20px;width: 140px" @click="collection()" v-show=!isCollect>收藏</el-button>
+            <el-button type="danger" icon="el-icon-star-on" round  style="float: right;font-size:20px;width: 140px" @click="collection()" v-show=isCollect>已收藏</el-button>
+        </div>
         <Asidebar></Asidebar>
         <div id="doc">
             <mavon-editor  v-model="value" :toolbars="markdownOption" :editable = "false" :toolbarsFlag = "false" defaultOpen="preview" :subfield="false"  />
@@ -56,7 +66,9 @@
                     isReply:'',
                     content:'',
                 },
-                replyList:[]
+                replyList:[],
+                isCollect:'',
+                isTemplate:'',
             };
         },
         methods:{
@@ -91,12 +103,32 @@
                     alert(res.data.msg);
                     this.findAllReply();
                 })
+            },
+            collection(){
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/collection",{
+                    params:{
+                        documentationId:this.docId,
+                        userID:sessionStorage.getItem("userId"),
+                    }
+                }).then(res=>{
+                    if (res.data.success==1){
+                        this.isCollect=!this.isCollect;
+                    }
+                    else{
+                        alert("收藏失败");
+                    }
+                })
             }
         },
-        mounted() {
+        created() {
+            if (this.$route.query.isCollect==1) this.isCollect=true;
+            else this.isCollect=false;
+            if (this.$route.query.isTemplate==1) this.isTemplate=true;
+            else this.isTemplate=false;
             this.value = this.$route.query.content;
             this.docID = this.$route.query.docID;
             this.findAllReply();
+            this.$forceUpdate();
         }
     }
 </script>
