@@ -5,8 +5,6 @@
             <el-menu-item index="/homepage">我的工作台</el-menu-item>
             <el-menu-item index="/groupspace">团队空间</el-menu-item>
 <!--                <el-menu-item index="2-2"><el-button type="info" style="float:left" @click="CreateTeam">创建团队</el-button></el-menu-item>-->
-                <el-menu-item index="2-2">创建团队</el-menu-item>
-                <el-menu-item index="/groupspace">团队1</el-menu-item>
 <!--                <el-menu-item index="2-3">我创建的</el-menu-item>-->
                 <!--   <el-submenu index="2-4">
                      <template slot="title">选项4</template>
@@ -14,7 +12,6 @@
                      <el-menu-item index="2-4-2">选项2</el-menu-item>
                      <el-menu-item index="2-4-3">选项3</el-menu-item>
                    </el-submenu> -->
-<!--            </el-submenu>-->
             <el-menu-item index="/Template">模板</el-menu-item>
             <!--            <el-menu-item index="/groupspace">团队空间</el-menu-item>-->
 <!--            <el-menu-item index="/recyclebin">回收站</el-menu-item>-->
@@ -25,6 +22,9 @@
                 <el-menu-item @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
             </el-submenu>
             <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
+            <el-menu-item style="float:right">
+                <el-input v-model="text" placeholder="请输入内容" @keyup.enter="search"></el-input>
+            </el-menu-item>
         </el-menu>
     </div>
 </template>
@@ -41,6 +41,8 @@
                 create_time:"",
                 isshow: true,
                 status: "退出登录",
+                text:"",
+                type:sessionStorage.getItem("type")
             };
         },
         methods: {
@@ -61,8 +63,8 @@
                 this.$router.push({path: '/login'});
             },
             GotoPersonalInfo:function(){
-            this.$router.push({path:'/PersonalInfo'});
-        }
+                this.$router.push({path:'/PersonalInfo'});
+            },
         },
         created() {
             if (sessionStorage.getItem("username") != null) {

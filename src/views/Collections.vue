@@ -58,6 +58,7 @@
             }
         },
         created() {
+            sessionStorage.setItem("type",2);
             this.getCollectionPage(this.res);
         },
         components:{
@@ -80,7 +81,7 @@
                         alert("取消收藏失败");
                     }
                 });
-            }
+            },
         }
     }
 </script>

@@ -29,7 +29,17 @@
                     <el-submenu index="">
                         <span slot="title"> <i class="el-icon-document"></i>团队空间</span>
                         <el-menu-item v-for="Group in res.groupList" :key="Group.id">
-                            <span style="text-align: center; display: block" @click="GotoGroupDoc(key)">{{Group.name}}</span>
+                            <el-dropdown trigger="hover" style="float: right;">
+                                <i class="el-icon-more"></i>
+    <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
+                                <el-dropdown-menu slot="dropdown" style="float: right">
+    <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
+                                    <el-dropdown-item @click.native="addMember(Group.id)">添加成员</el-dropdown-item>
+                                    <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red">删除团队</el-dropdown-item>
+
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                            <span style="text-align: center; display: block" @click="GotoGroupDoc(Group.id)">{{Group.name}}</span>
                         </el-menu-item>                     
                     </el-submenu>
                 </el-menu>
@@ -60,6 +70,22 @@
             },
             GotoGroupSpace:function(){
                 this.$router.push({path: '/groupspace'});
+            },
+            delGroup:function(id){
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266//delGroup",{
+                    params:{
+                        groupID:id,
+                        userID:sessionStorage.getItem("userId"),
+                    }
+                }).then(res =>{
+                    console.log(res.data);
+                    if(res.data.success){
+                        alert("删除成功");
+                    }
+                    else{
+                        alert(res.data.msg);
+                    }
+                })
             }
         },
         created() {

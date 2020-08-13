@@ -55,9 +55,10 @@
             GroupAside
         },
         methods:{
-
+            
         },
         created() {
+            sessionStorage.setItem("type",4);
             this.getGroupPage(this.res);
         }
     }

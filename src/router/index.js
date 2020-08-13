@@ -63,14 +63,14 @@ Vue.use(mavonEditor)
     component: () => import('../views/ShowDoc')
   },
   {
-    path: '/Template',
-    name: '/Template',
-    component: () => import('../views/Template'),
-  },
-  {
     path: '/groupdoc',
     name: '/GroupDoc',
     component: () => import('../views/GroupDoc')
+  },
+  {
+    path:'/template',
+    name:'/Template',
+    component: () => import('../views/Template')
   }
 
 ]

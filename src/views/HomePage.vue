@@ -58,6 +58,7 @@
             }
         },
         created() {
+            sessionStorage.setItem("type",0);
             this.getRecentPage(this.res);
         },
         components:{
@@ -80,7 +81,7 @@
                         alert("移出最近浏览失败");
                     }
                 });
-            }
+            },
         }
     }
 </script>

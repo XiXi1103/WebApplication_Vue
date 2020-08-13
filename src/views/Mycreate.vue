@@ -61,6 +61,7 @@
             }
         },
         created() {
+            sessionStorage.setItem("type",1);
             this.getMyPage(this.res);
         },
         methods : {
@@ -79,7 +80,7 @@
                         alert("删除失败");
                     }
                 });
-            }
+            },
         }
     }
 </script>
