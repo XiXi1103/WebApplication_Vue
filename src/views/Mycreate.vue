@@ -66,7 +66,7 @@
         },
         methods : {
             delDoc:function(DocID){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
+                this.$http.post(this.requestUrl+"/delDoc",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID

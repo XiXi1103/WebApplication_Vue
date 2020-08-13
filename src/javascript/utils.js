@@ -1,7 +1,7 @@
 export default {
     install(Vue) {
         Vue.prototype.example = function (){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/example/1595992046862",{
+            this.$http.get(this.requestUrl+"/example/1595992046862",{
                 params:{
                     foo:"@ctitle"
                 }
@@ -11,7 +11,7 @@ export default {
             });
         };
         Vue.prototype.getRecentPage = function (PageList){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getRecentDoc",{
+            this.$http.get(this.requestUrl+"/getRecentDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId")
                 }
@@ -21,7 +21,7 @@ export default {
             });
         };
         Vue.prototype.getMyPage = function (PageList){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getMyDoc",{
+            this.$http.get(this.requestUrl+"/getMyDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId")
                 }
@@ -31,7 +31,7 @@ export default {
             });
         };
         Vue.prototype.getCollectionPage = function (PageList){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getCollectionDoc",{
+            this.$http.get(this.requestUrl+"/getCollectionDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId")
                 }
@@ -41,7 +41,7 @@ export default {
             });
         };
         Vue.prototype.getDelPage = function (PageList){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getDelDoc",{
+            this.$http.get(this.requestUrl+"/getDelDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId")
                 }
@@ -51,7 +51,7 @@ export default {
             });
         };
         Vue.prototype.getGroupPage = function (PageList){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getGroupDoc",{
+            this.$http.get(this.requestUrl+"/getGroupDoc",{
                 params:{
                     groupid:sessionStorage.getItem("groupid")
                 }
@@ -61,7 +61,7 @@ export default {
             });
         };
         Vue.prototype.getGroup = function (GroupList){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getJoinGroup",{
+            this.$http.get(this.requestUrl+"/getJoinGroup",{
                 params:{
                    userID:sessionStorage.getItem("userId")
                 }
@@ -71,7 +71,7 @@ export default {
             })
         };
         Vue.prototype.editmk = function editmk(DocID){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
+            this.$http.get(this.requestUrl+"/editDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId"),
                     docID:DocID
@@ -94,7 +94,7 @@ export default {
             })
         };
         Vue.prototype.viewmk = function (DocID){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
+            this.$http.get(this.requestUrl+"/viewDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId"),
                     docID:DocID
@@ -130,7 +130,7 @@ export default {
             this.$prompt('请输入协作者用户名','添加写作者',{
                 confirmButtonText: '添加',
             }).then(({value}) => {
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/addWriter",{
+                this.$http.post(this.requestUrl+"/addWriter",{
                     params:{
                         userID: sessionStorage.getItem("userId"),
                         username: value,
@@ -156,7 +156,7 @@ export default {
             this.$prompt('请输入用户名','添加团队成员',{
                 confirmButtonText: '添加',
             }).then(({value}) => {
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/addMember",{
+                this.$http.post(this.requestUrl+"/addMember",{
                     params:{
                         groupID:Groupid,
                         userID: sessionStorage.getItem("userId"),
@@ -182,7 +182,7 @@ export default {
             this.$prompt('请输入团队名称','创建团队',{
                 confirmButtonText: '创建',
             }).then(({value}) => {
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/createGroup",{
+                this.$http.post(this.requestUrl+"/createGroup",{
                     params:{
                         userID: sessionStorage.getItem("userId"),
                         groupName: value
@@ -204,7 +204,7 @@ export default {
             })
          };
          Vue.prototype.addTem = function (DocID) {//添加为我的模板
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/addMyTemplate",{
+            this.$http.get(this.requestUrl+"/addMyTemplate",{
                 params:{
                     userID:sessionStorage.getItem("userId"),
                     ID:DocID
@@ -218,7 +218,7 @@ export default {
             })
         };
         // Vue.prototype.delDoc = function (DocID, PageList){
-        //     this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
+        //     this.$http.post(this.requestUrl+"/delDoc",{
         //         params:{
         //             userID:sessionStorage.getItem("userId"),
         //             docID:DocID

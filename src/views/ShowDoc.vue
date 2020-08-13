@@ -126,7 +126,7 @@
                 this.comment.docID = this.docID;
                 this.comment.replyId= 0;
                 this.comment.isReply = false;
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/reply",this.comment).then(res=>{
+                this.$http.post(this.requestUrl+"/reply",this.comment).then(res=>{
                     if (!res.data.success) alert(res.data.msg);
                     else{
                         this.findAllReply();
@@ -134,7 +134,7 @@
                 })
             },
             findAllReply(){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/findAllReply",{
+                this.$http.get(this.requestUrl+"/findAllReply",{
                     params:{
                         docId:this.docId
                     }
@@ -143,7 +143,7 @@
                 })
             },
             delReply(replyID){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/deleteReply",{
+                this.$http.get(this.requestUrl+"/deleteReply",{
                     params:{
                         replyID:replyID,
                     }
@@ -154,7 +154,7 @@
                 })
             },
             collection(){
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/collection",{
+                this.$http.get(this.requestUrl+"/collection",{
                     params:{
                         documentationId:this.docId,
                         userID:sessionStorage.getItem("userId"),

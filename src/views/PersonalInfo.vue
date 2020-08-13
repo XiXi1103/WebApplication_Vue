@@ -96,7 +96,7 @@
             }
             else{
               this.ischange=1;
-              this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/changePerInfo",{
+              this.$http.post(this.requestUrl+"/changePerInfo",{
                 param:{
                   userID: sessionStorage.getItem("userId"),
                   passwd: this.passwd,
@@ -116,7 +116,7 @@
         },
   },
   created() {
-      this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/personalInfo",{
+      this.$http.get(this.requestUrl+"/personalInfo",{
         param:{
           userid:sessionStorage.getItem("userId"),
         }
