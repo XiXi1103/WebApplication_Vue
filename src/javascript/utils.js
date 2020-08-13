@@ -84,6 +84,7 @@ export default {
                             content: res.data.content,
                             html: res.data.html,
                             docID: DocID,
+                            permission:res.data.userPermission,
                         }
                     })
                 }
@@ -105,6 +106,9 @@ export default {
                         query:{
                             isCollect: res.data.isCollect,
                             content: res.data.content,
+                            permission:res.data.userPermission,
+                            isTemplate:res.data.isTemplate,
+                            docId:DocID,
                         }
                     })
                 }
