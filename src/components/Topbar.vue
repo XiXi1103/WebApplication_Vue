@@ -22,8 +22,9 @@
                 <el-menu-item @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
             </el-submenu>
             <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
-            <el-menu-item style="float:right">
+            <el-menu-item style="float:right;margin-right: 50px">
                 <el-input v-model="text" placeholder="请输入内容"></el-input>
+                <el-button type="primary">搜索</el-button>
             </el-menu-item>
         </el-menu>
     </div>
