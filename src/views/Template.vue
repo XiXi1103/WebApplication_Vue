@@ -70,7 +70,7 @@
         methods:{
             showMyTem(){
                 this.flag=false;
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getMyTemplate1",{
+                this.$http.get(this.requestUrl+"/getMyTemplate1",{
                     params:{
                         // userId:sessionStorage.getItem("userId")
                         userId:0//测试用
@@ -82,7 +82,7 @@
             },
             showAllTem(){
                 this.flag=true;
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getAllTemplate",).then(res=>{
+                this.$http.get(this.requestUrl+"/getAllTemplate",).then(res=>{
                     this.templateList = res.data.TemplateList;
                 })
             },

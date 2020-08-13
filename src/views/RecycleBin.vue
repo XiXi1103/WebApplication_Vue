@@ -67,7 +67,7 @@
                 this.count +=2
             },
             recover:function(DocID){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/recoverDoc",{
+                this.$http.post(this.requestUrl+"/recoverDoc",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID
@@ -83,7 +83,7 @@
                 });
             },
             deleteCompletely:function(DocID){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDocCompletely",{
+                this.$http.post(this.requestUrl+"/delDocCompletely",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID

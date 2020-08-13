@@ -36,12 +36,8 @@
           this.$router.push("/homepage");
         }
         else {
-          // this.$http.post("http://localhost:8081/login",//
-          //           this.user
-          // ).then(res=>{ //严：springboot开启8081端口测试
-          this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/login",this.user).then(res=>{
-            if (this.user.password==3){
-          //     if (res.data.success){
+          this.$http.post(this.requestUrl+"/login",this.user).then(res=>{
+            if (this.user.password==3){//if (res.data.success){
               sessionStorage.setItem("username",this.user.username);
               sessionStorage.setItem("userId",res.data.ID);
               this.$router.push("/homepage");

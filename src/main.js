@@ -13,6 +13,7 @@ Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
+Vue.prototype.requestUrl = "http://rap2.taobao.org:38080/app/mock/262266";
 
 new Vue({
   router,

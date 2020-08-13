@@ -50,7 +50,7 @@
                 console.log(key, keyPath);
             },
             CreateTeam(){
-                // this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/register",this.user).then(res=>{
+                // this.$http.post(this.requestUrl+"/register",this.user).then(res=>{
             },
             logout() {
                 this.username = "游客";

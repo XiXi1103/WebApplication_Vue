@@ -57,8 +57,8 @@
                     this.result.content = this.content;
                     this.result.html = this.html;
                     var re1 = new RegExp("<.+?>","g");
-                    this.result.abstract = this.result.html.replace(re1,'').substring(0,30);
-                    this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newDoc",this.result).then(res=>{
+                    this.result.summary = this.result.html.replace(re1,'').substring(0,30);
+                    this.$http.post(this.requestUrl+"/newDoc",this.result).then(res=>{
                         alert(res.data.msg);
                         this.$router.push("/");
                     })
