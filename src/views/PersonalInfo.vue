@@ -37,7 +37,7 @@
           <el-input type="text" v-model="user.email" auto-complete="off" :disabled="ischange"></el-input>
         </el-form-item>
         <el-form-item label="电话：">
-          <el-input type="text" v-model="user.phone_num" auto-complete="off" :disabled="ischange"></el-input>
+          <el-input type="text" v-model="user.phoneNum" auto-complete="off" :disabled="ischange"></el-input>
         </el-form-item>
         <el-form-item label="创建日期：">
           <el-input type="text" v-model="user.create_time" auto-complete="off" disabled></el-input>
@@ -71,7 +71,7 @@
             username: "",
             passwd: "",
             email:"",
-            phone_num:"", 
+            phoneNum:"", 
             create_time:"",
           },
           loading: false,
@@ -89,7 +89,7 @@
                 userID: sessionStorage.getItem("userId"),
                 passwd: this.passwd,
                 email: this.email,
-                phone_num: this.phone_num
+                phoneNum: this.phoneNum
               }
             })
             .then(res=>{
@@ -124,7 +124,9 @@
           userid:sessionStorage.getItem("userId"),
         }
       }).then(res=>{
-        this.user = res.data;
+        if(!res.data.success){
+          alert(res.data.msg);
+        }
       })
   }
 }
