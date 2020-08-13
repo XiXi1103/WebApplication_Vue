@@ -4,7 +4,8 @@
         <div class="markdown">
             <div class="container">
                 <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="width: 1500px;height: 800px;margin: 0 auto; "/>
-                <button @click="submit">提交</button>
+                <br>
+                <el-button type="success" icon="el-icon-check" round @click="submit">提交</el-button>
             </div>
         </div>
     </div>
@@ -49,23 +50,23 @@
             },
             // 提交
             submit(){
-                this.result.docID=this.$route.query.docID;
-                this.result.authorID = sessionStorage.getItem("userId");
-                this.result.content = this.content;
-                this.result.html = this.html;
-                var re1 = new RegExp("<.+?>","g");
-                this.result.abstract = this.result.html.replace(re1,'').substring(0,30);
-                alert(this.result.abstract);
-                // alert(msg);
-                // this.result.abstract =
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newDoc",this.result).then(res=>{
-                    alert(res.data.msg);
-                    this.$router.push("/");
-                })
+                if (this.html==null) alert("内容不能为空哦");
+                else{
+                    this.result.docID=this.$route.query.docID;
+                    this.result.authorID = sessionStorage.getItem("userId");
+                    this.result.content = this.content;
+                    this.result.html = this.html;
+                    var re1 = new RegExp("<.+?>","g");
+                    this.result.abstract = this.result.html.replace(re1,'').substring(0,30);
+                    this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newDoc",this.result).then(res=>{
+                        alert(res.data.msg);
+                        this.$router.push("/");
+                    })
+                }
+
             }
         },
         mounted() {
-            console.log(this.$route.query.html);
             this.content = this.$route.query.content;
             this.html = this.$route.query.html;
         },

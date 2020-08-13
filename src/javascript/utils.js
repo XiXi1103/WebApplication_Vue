@@ -50,6 +50,26 @@ export default {
                 PageList.pageList = res.data.PageList;
             });
         };
+        Vue.prototype.getGroupPage = function (PageList){
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getGroupDoc",{
+                params:{
+                    groupid:sessionStorage.getItem("groupid")
+                }
+            }).then(res=>{
+                console.log(res.data);
+                PageList.groupPage = res.data.PageList;
+            });
+        };
+        Vue.prototype.getGroup = function (GroupList){
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getJoinGroup",{
+                params:{
+                   userID:sessionStorage.getItem("userId")
+                }
+            }).then(res=>{
+                console.log(res.data);
+                GroupList.groupList = res.data.GroupList;
+            })
+        };
         Vue.prototype.editmk = function editmk(DocID){
             this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
                 params:{
@@ -64,6 +84,7 @@ export default {
                             content: res.data.content,
                             html: res.data.html,
                             docID: DocID,
+                            permission:res.data.userPermission,
                         }
                     })
                 }
@@ -73,7 +94,7 @@ export default {
             })
         };
         Vue.prototype.viewmk = function (DocID){
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewmk",{
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/viewDoc",{
                 params:{
                     userID:sessionStorage.getItem("userId"),
                     docID:DocID
@@ -83,7 +104,11 @@ export default {
                     this.$router.push({
                         path: '/ShowDoc',
                         query:{
+                            isCollect: res.data.isCollect,
                             content: res.data.content,
+                            permission:res.data.userPermission,
+                            isTemplate:res.data.isTemplate,
+                            docId:DocID,
                         }
                     })
                 }
@@ -100,6 +125,97 @@ export default {
                 if (array[i].id == DocID) return i;
             }
             return -1;
+        };
+        Vue.prototype.addwriter = function(DocID){
+            this.$prompt('请输入协作者用户名','添加写作者',{
+                confirmButtonText: '添加',
+            }).then(({value}) => {
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/addWriter",{
+                    params:{
+                        userID: sessionStorage.getItem("userId"),
+                        username: value,
+                        docID: DocID
+                    }
+                }).then(res =>{
+                    if(res.data.success){
+                        this.$message({
+                            type:'success',
+                            message: "添加成功"
+                        });
+                    }
+                    else{
+                        this.$message({
+                            type:'info',
+                            message: res.data.msg
+                        });
+                    }
+                });
+            })
+         };
+         Vue.prototype.addMember = function(Groupid){
+            this.$prompt('请输入用户名','添加团队成员',{
+                confirmButtonText: '添加',
+            }).then(({value}) => {
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/addMember",{
+                    params:{
+                        groupID:Groupid,
+                        userID: sessionStorage.getItem("userId"),
+                        username: value,
+                    }
+                }).then(res =>{
+                    if(res.data.success){
+                        this.$message({
+                            type:'success',
+                            message: "添加成功"
+                        });
+                    }
+                    else{
+                        this.$message({
+                            type:'info',
+                            message: res.data.msg
+                        });
+                    }
+                });
+            })
+         };
+         Vue.prototype.creategroup = function(){
+            this.$prompt('请输入团队名称','创建团队',{
+                confirmButtonText: '创建',
+            }).then(({value}) => {
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/createGroup",{
+                    params:{
+                        userID: sessionStorage.getItem("userId"),
+                        groupName: value
+                    }
+                }).then(res =>{
+                    if(res.data.success){
+                        this.$message({
+                            type:'success',
+                            message: "创建成功"
+                        });
+                    }
+                    else{
+                        this.$message({
+                            type:'info',
+                            message: res.data.msg
+                        });
+                    }
+                });
+            })
+         };
+         Vue.prototype.addTem = function (DocID) {//添加为我的模板
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/addMyTemplate",{
+                params:{
+                    userID:sessionStorage.getItem("userId"),
+                    ID:DocID
+                }
+            }).then(res=>{
+                if (res.data.success==1){
+                    alert("已添加为我的模板，快去编辑吧");
+                }
+                else alert(res.data.msg);
+
+            })
         };
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
@@ -118,5 +234,5 @@ export default {
         //     });
         // }
     }
-
+    
 }

@@ -55,6 +55,7 @@
             }
         },
         created() {
+            sessionStorage.setItem("type",3);
             this.getDelPage(this.res);
         },
         components:{
@@ -96,7 +97,7 @@
                         alert("删除失败");
                     }
                 });
-            }
+            },
         }
     }
 </script>
