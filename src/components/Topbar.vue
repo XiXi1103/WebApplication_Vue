@@ -14,9 +14,8 @@
                      <el-menu-item index="2-4-2">选项2</el-menu-item>
                      <el-menu-item index="2-4-3">选项3</el-menu-item>
                    </el-submenu> -->
-            </el-submenu>
+<!--            </el-submenu>-->
             <el-menu-item index="/Template">模板</el-menu-item>
-            <el-menu-item index="">模板</el-menu-item>
             <!--            <el-menu-item index="/groupspace">团队空间</el-menu-item>-->
 <!--            <el-menu-item index="/recyclebin">回收站</el-menu-item>-->
             <el-submenu index="4" style="float:right">
