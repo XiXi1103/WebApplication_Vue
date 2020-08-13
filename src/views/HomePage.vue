@@ -26,6 +26,7 @@
 <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
                                                 <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
+                                                <el-dropdown-item @click.native="addwriter(0)">协作</el-dropdown-item>
                                                 <el-dropdown-item @click.native="removeRecentBrowsing(0)" style="color:red">移除最近浏览</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>

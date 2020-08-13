@@ -26,6 +26,7 @@
                                                 <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
                                                 <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
+                                                <el-dropdown-item @click.native="addwriter(0)">协作</el-dropdown-item>
                                                 <el-dropdown-item @click.native="delDoc(0)" style="color:red">移至回收站</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>

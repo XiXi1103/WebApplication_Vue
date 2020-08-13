@@ -3,8 +3,7 @@
         <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-menu-item style="font-weight: bold">金刚石文档</el-menu-item>
             <el-menu-item index="/homepage">我的工作台</el-menu-item>
-            <el-submenu index="2">
-                <template slot="title">团队空间</template>
+            <el-menu-item index="/groupspace">团队空间</el-menu-item>
 <!--                <el-menu-item index="2-2"><el-button type="info" style="float:left" @click="CreateTeam">创建团队</el-button></el-menu-item>-->
                 <el-menu-item index="2-2">创建团队</el-menu-item>
                 <el-menu-item index="/groupspace">团队1</el-menu-item>
@@ -17,6 +16,7 @@
                    </el-submenu> -->
             </el-submenu>
             <el-menu-item index="/Template">模板</el-menu-item>
+            <el-menu-item index="">模板</el-menu-item>
             <!--            <el-menu-item index="/groupspace">团队空间</el-menu-item>-->
 <!--            <el-menu-item index="/recyclebin">回收站</el-menu-item>-->
             <el-submenu index="4" style="float:right">
