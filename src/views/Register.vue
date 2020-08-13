@@ -50,7 +50,7 @@
           //           password:this.RegisterForm.password1,
           //           email:this.RegisterForm.email
           // }).then(res=>{ //严：springboot开启8081端口测试
-          this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/register",this.user).then(res=>{
+          this.$http.post(this.requestUrl+"/register",this.user).then(res=>{
             if (this.RegisterForm.password1==3){//if (res.data.success){
               sessionStorage.setItem("username",this.RegisterForm.username);
               sessionStorage.setItem("userId",res.data.ID);

@@ -72,7 +72,7 @@
                 this.$router.push({path: '/groupspace'});
             },
             delGroup:function(id){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266//delGroup",{
+                this.$http.post(this.requestUrl+"//delGroup",{
                     params:{
                         groupID:id,
                         userID:sessionStorage.getItem("userId"),

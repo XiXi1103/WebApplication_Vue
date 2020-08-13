@@ -50,16 +50,20 @@
             },
             // 提交
             submit(){
-                this.result.docID=this.$route.query.docID;
-                this.result.authorID = sessionStorage.getItem("userId");
-                this.result.content = this.content;
-                this.result.html = this.html;
-                var re1 = new RegExp("<.+?>","g");
-                this.result.abstract = this.result.html.replace(re1,'').substring(0,30);
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/newDoc",this.result).then(res=>{
-                    alert(res.data.msg);
-                    this.$router.push("/");
-                })
+                if (this.html==null) alert("内容不能为空哦");
+                else{
+                    this.result.docID=this.$route.query.docID;
+                    this.result.authorID = sessionStorage.getItem("userId");
+                    this.result.content = this.content;
+                    this.result.html = this.html;
+                    var re1 = new RegExp("<.+?>","g");
+                    this.result.summary = this.result.html.replace(re1,'').substring(0,30);
+                    this.$http.post(this.requestUrl+"/newDoc",this.result).then(res=>{
+                        alert(res.data.msg);
+                        this.$router.push("/");
+                    })
+                }
+
             }
         },
         mounted() {

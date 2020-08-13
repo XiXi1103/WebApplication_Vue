@@ -67,7 +67,7 @@
         },
         methods : {
             cancelCollection:function(DocID){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/cancelCollection",{
+                this.$http.post(this.requestUrl+"/cancelCollection",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID

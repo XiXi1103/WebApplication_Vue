@@ -67,7 +67,7 @@
         },
         methods : {
             removeRecentBrowsing:function(DocID){
-                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/removeRecentBrowsing",{
+                this.$http.post(this.requestUrl+"/removeRecentBrowsing",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
                         docID:DocID

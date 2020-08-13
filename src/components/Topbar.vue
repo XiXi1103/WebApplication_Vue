@@ -23,7 +23,7 @@
             </el-submenu>
             <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
             <el-menu-item style="float:right">
-                <el-input v-model="text" placeholder="请输入内容" @keyup.enter="search"></el-input>
+                <el-input v-model="text" placeholder="请输入内容"></el-input>
             </el-menu-item>
         </el-menu>
     </div>
@@ -50,7 +50,7 @@
                 console.log(key, keyPath);
             },
             CreateTeam(){
-                // this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/register",this.user).then(res=>{
+                // this.$http.post(this.requestUrl+"/register",this.user).then(res=>{
             },
             logout() {
                 this.username = "游客";
@@ -67,6 +67,15 @@
             },
         },
         created() {
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/search",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        text:this.text,
+                    }
+                }).then(res => {
+                    console.log(res.data);
+            })
+
             if (sessionStorage.getItem("username") != null) {
                 this.isshow = false;
                 this.username = sessionStorage.getItem("username");

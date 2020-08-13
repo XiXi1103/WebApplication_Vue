@@ -36,7 +36,7 @@
           this.$router.push("/homepage");
         }
         else {
-          this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/login",this.user).then(res=>{
+          this.$http.post(this.requestUrl+"/login",this.user).then(res=>{
             if (this.user.password==3){//if (res.data.success){
               sessionStorage.setItem("username",this.user.username);
               sessionStorage.setItem("userId",res.data.ID);
