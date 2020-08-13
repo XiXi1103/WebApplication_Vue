@@ -85,6 +85,7 @@ export default {
                         query:{
                             isCollect: res.data.isCollect,
                             content: res.data.content,
+                            isTemplate: res.data.isTemplate,
                         }
                     })
                 }
@@ -101,6 +102,20 @@ export default {
                 if (array[i].id == DocID) return i;
             }
             return -1;
+        };
+        Vue.prototype.addTem = function (DocID) {//添加为我的模板
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/addMyTemplate",{
+                params:{
+                    userID:sessionStorage.getItem("userId"),
+                    ID:DocID
+                }
+            }).then(res=>{
+                if (res.data.success==1){
+                    alert("已添加为我的模板，快去编辑吧");
+                }
+                else alert(res.data.msg);
+
+            })
         };
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{

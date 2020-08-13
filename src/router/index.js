@@ -61,7 +61,12 @@ Vue.use(mavonEditor)
     path: '/ShowDoc',
     name: '/ShowDoc',
     component: () => import('../views/ShowDoc')
-  }
+  },
+  {
+    path: '/Template',
+    name: '/Template',
+    component: () => import('../views/Template'),
+  },
 
 ]
 
