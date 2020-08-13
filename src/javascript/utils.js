@@ -50,6 +50,26 @@ export default {
                 PageList.pageList = res.data.PageList;
             });
         };
+        Vue.prototype.getGroupPage = function (PageList){
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getGroupDoc",{
+                params:{
+                    groupid:sessionStorage.getItem("groupid")
+                }
+            }).then(res=>{
+                console.log(res.data);
+                PageList.groupPage = res.data.PageList;
+            });
+        };
+        Vue.prototype.getGroup = function (GroupList){
+            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getJoinGroup",{
+                params:{
+                   userID:sessionStorage.getItem("userId")
+                }
+            }).then(res=>{
+                console.log(res.data);
+                GroupList.groupList = res.data.GroupList;
+            })
+        };
         Vue.prototype.editmk = function editmk(DocID){
             this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/editDoc",{
                 params:{
@@ -128,7 +148,32 @@ export default {
                     }
                 });
             })
-         }
+         };
+         Vue.prototype.creategroup = function(){
+            this.$prompt('请输入团队名称','创建团队',{
+                confirmButtonText: '创建',
+            }).then(({value}) => {
+                this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/createGroup",{
+                    params:{
+                        userID: sessionStorage.getItem("userId"),
+                        groupName: value
+                    }
+                }).then(res =>{
+                    if(res.data.success){
+                        this.$message({
+                            type:'success',
+                            message: "创建成功"
+                        });
+                    }
+                    else{
+                        this.$message({
+                            type:'info',
+                            message: res.data.msg
+                        });
+                    }
+                });
+            })
+         };
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/delDoc",{
         //         params:{
