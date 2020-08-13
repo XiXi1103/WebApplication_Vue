@@ -153,7 +153,7 @@ export default {
             })
          };
          Vue.prototype.addMember = function(Groupid){
-            this.$prompt('请输入用户名','添加写团队成员',{
+            this.$prompt('请输入用户名','添加团队成员',{
                 confirmButtonText: '添加',
             }).then(({value}) => {
                 this.$http.post("http://rap2.taobao.org:38080/app/mock/262266/addMember",{
