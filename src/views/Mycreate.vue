@@ -26,7 +26,8 @@
                                                 <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
                                                 <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
-                                                <el-dropdown-item @click.native="addwriter(0)">协作</el-dropdown-item>
+                                                <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>
+                                                <el-dropdown-item @click.native="addwriter(0)">邀请协作</el-dropdown-item>
                                                 <el-dropdown-item @click.native="delDoc(0)" style="color:red">移至回收站</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
@@ -41,6 +42,17 @@
                 </el-container>
             </el-container>
         </el-container>
+         <el-drawer
+            title="协作成员"
+            :visible.sync="drawer"
+            :direction="direction">
+                <ul>
+                    <li v-for="writer in res.writerList" :key="writer.id">
+                        <span>{{writer.name}}</span>
+                        <i class="el-icon-error" style="float:right;color:red;margin-right:30px;cursor:pointer" @click="delWriter(writer.id)"></i>
+                    </li>
+                </ul>
+        </el-drawer>       
     </div>
 </template>
 
@@ -56,8 +68,11 @@
         data() {
             return {
                 res : {
-                    pageList : []
-                }
+                    pageList : [],
+                    writerList : []
+                },
+                drawer:false,
+                direction:"rtl"
             }
         },
         created() {
@@ -81,6 +96,10 @@
                     }
                 });
             },
+            catwriter:function(id){
+                sessionStorage.setItem("docId",id);
+                this.getWriter(id,this.res);
+            }
         }
     }
 </script>
