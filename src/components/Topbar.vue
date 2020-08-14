@@ -77,7 +77,7 @@
 <!--            </el-menu-item>-->
             <el-menu-item style="float:right;margin-right: 50px">
                 <el-input v-model="text" placeholder="请输入内容"></el-input>
-                <el-button type="primary">搜索</el-button>
+                <el-button type="primary" @click="search">搜索</el-button>
             </el-menu-item>
         </el-menu>
     </div>
@@ -97,6 +97,8 @@
                 status: "退出登录",
                 text:"",
                 type:sessionStorage.getItem("type"),
+                pageList:[],
+                groupList:[],
                 notificationList:[],
                 drawer: false,
                 direction: 'rtl',
@@ -124,10 +126,6 @@
             GotoPersonalInfo:function(){
                 this.$router.push({path:'/PersonalInfo'});
             },
-            search: function () {
-
-                this.res.pageList
-            },
             getNotification: function () {
                 this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getNotification",{
                     params:{
@@ -152,6 +150,14 @@
             //         })
             //         .catch(_ => {});
             // }
+            GotoGroupDoc:function(id){
+                sessionStorage.setItem("groupid",id);
+                this.$router.push({path: '/groupdoc'});
+            },
+            search(){
+                sessionStorage.setItem("text",this.text);
+                this.$router.push({path:'/searchres'});
+            }
         },
         created() {
             this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/search",{
@@ -193,5 +199,14 @@
     //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         border-radius: 10px;
         background-color: #F5F5F5;
+    }
+    .searchlist1{
+        background-color:white;
+        margin-top:-8px;
+    }
+    .searchlist1{
+        border-style: solid;
+        border-color: black;
+        border-width: 1px;
     }
 </style>
