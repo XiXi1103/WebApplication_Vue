@@ -21,7 +21,24 @@
                 <el-menu-item @click="logout" v-show="!isshow">退出登录</el-menu-item>
                 <el-menu-item @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
             </el-submenu>
-            <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
+            <el-menu-item index="" style="float:right">
+                <el-dropdown>
+                    <el-badge :value="12" class="item">
+                        <el-button type="primary" style="background-color: white; border-color: white;  padding-right: 0; padding-top: 0">
+                            <i class="el-icon-bell"></i>
+                        </el-button>
+                    </el-badge>
+
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>黄金糕</el-dropdown-item>
+                        <el-dropdown-item>狮子头</el-dropdown-item>
+                        <el-dropdown-item>螺蛳粉</el-dropdown-item>
+                        <el-dropdown-item>双皮奶</el-dropdown-item>
+                        <el-dropdown-item>蚵仔煎</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+<!--                <i class="el-icon-bell"></i>-->
+            </el-menu-item>
             <el-menu-item style="float:right;margin-right: 50px">
                 <el-input v-model="text" placeholder="请输入内容"></el-input>
                 <el-button type="primary">搜索</el-button>
@@ -66,6 +83,10 @@
             GotoPersonalInfo:function(){
                 this.$router.push({path:'/PersonalInfo'});
             },
+            search: function () {
+
+                this.res.pageList
+            }
         },
         created() {
             this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/search",{
@@ -75,7 +96,7 @@
                     }
                 }).then(res => {
                     console.log(res.data);
-            })
+            });
 
             if (sessionStorage.getItem("username") != null) {
                 this.isshow = false;
