@@ -79,7 +79,7 @@ export default {
                 }
             }).then(res=>{
                 if (res.data.success){
-                    if (res.data.msg==isTemplate){//模板编辑不传ID
+                    if (res.data.msg=="isTemplate"){//模板编辑不传ID
                         this.$router.push({
                             path: '/markdown',
                             query:{
