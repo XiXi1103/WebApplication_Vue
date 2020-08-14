@@ -79,16 +79,30 @@ export default {
                 }
             }).then(res=>{
                 if (res.data.success){
-                    this.$router.push({
-                        path: '/markdown',
-                        query:{
-                            content: res.data.content,
-                            html: res.data.html,
-                            docID: DocID,
-                            permission:res.data.userPermission,
-                            currentPermission:res.data.currentPermission,
-                        }
-                    })
+                    if (res.data.msg==isTemplate){//模板编辑不传ID
+                        this.$router.push({
+                            path: '/markdown',
+                            query:{
+                                content: res.data.content,
+                                html: res.data.html,
+                                permission:res.data.userPermission,
+                                currentPermission:res.data.currentPermission,
+                            }
+                        })
+                    }
+                    else{
+                        this.$router.push({
+                            path: '/markdown',
+                            query:{
+                                content: res.data.content,
+                                html: res.data.html,
+                                docID: DocID,
+                                permission:res.data.userPermission,
+                                currentPermission:res.data.currentPermission,
+                            }
+                        })
+                    }
+
                 }
                 else{
                     alert(res.data.msg);
