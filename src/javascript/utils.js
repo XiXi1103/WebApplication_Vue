@@ -47,7 +47,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList;
+                PageList.pageList = res.data.PageList; 
             });
         };
         Vue.prototype.getGroupPage = function (PageList){
