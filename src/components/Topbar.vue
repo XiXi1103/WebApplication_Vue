@@ -24,7 +24,7 @@
             <el-menu-item index="5" style="float:right"> <i class="el-icon-bell"></i> </el-menu-item>
             <el-menu-item style="float:right;margin-right: 50px">
                 <el-input v-model="text" placeholder="请输入内容"></el-input>
-                <el-button type="primary">搜索</el-button>
+                <el-button type="primary" @click="search">搜索</el-button>
             </el-menu-item>
         </el-menu>
     </div>
@@ -43,7 +43,9 @@
                 isshow: true,
                 status: "退出登录",
                 text:"",
-                type:sessionStorage.getItem("type")
+                type:sessionStorage.getItem("type"),
+                pageList:[],
+                groupList:[]
             };
         },
         methods: {
@@ -66,17 +68,16 @@
             GotoPersonalInfo:function(){
                 this.$router.push({path:'/PersonalInfo'});
             },
+            GotoGroupDoc:function(id){
+                sessionStorage.setItem("groupid",id);
+                this.$router.push({path: '/groupdoc'});
+            },
+            search(){
+                sessionStorage.setItem("text",this.text);
+                this.$router.push({path:'/searchres'});
+            }
         },
-        created() {
-            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/search",{
-                    params:{
-                        userID:sessionStorage.getItem("userId"),
-                        text:this.text,
-                    }
-                }).then(res => {
-                    console.log(res.data);
-            })
-
+        created() {             
             if (sessionStorage.getItem("username") != null) {
                 this.isshow = false;
                 this.username = sessionStorage.getItem("username");
@@ -89,5 +90,13 @@
 </script>
 
 <style scoped>
-
+    .searchlist1{
+        background-color:white;
+        margin-top:-8px;
+    }
+    .searchlist1{
+        border-style: solid;
+        border-color: black;
+        border-width: 1px;
+    }
 </style>
