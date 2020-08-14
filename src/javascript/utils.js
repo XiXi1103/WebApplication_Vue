@@ -86,6 +86,7 @@ export default {
                             html: res.data.html,
                             docID: DocID,
                             permission:res.data.userPermission,
+                            currentPermission:res.data.currentPermission,
                         }
                     })
                 }
