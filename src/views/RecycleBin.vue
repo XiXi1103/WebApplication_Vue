@@ -75,7 +75,6 @@
                 }).then(res=>{
                     if (res.data.success){
                         alert("恢复成功");
-                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
                     }
                     else {
                         alert("恢复失败");
@@ -91,7 +90,6 @@
                 }).then(res=>{
                     if (res.data.success){
                         alert("删除成功");
-                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
                     }
                     else {
                         alert("删除失败");

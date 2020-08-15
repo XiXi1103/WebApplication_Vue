@@ -1,4 +1,5 @@
 <template>
+
     <el-aside width="15%">
         <el-row class="tac">
             <el-col>
@@ -35,8 +36,9 @@
                                 <el-dropdown-menu slot="dropdown" style="float: right">
     <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="addMember(Group.id)">添加成员</el-dropdown-item>
-                                    <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red">删除团队</el-dropdown-item>
-
+                                    <el-dropdown-item @click.native="catMember(Group.id);drawer = true">查看成员</el-dropdown-item>
+                                    <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red" v-show="Group.isCreater">删除团队</el-dropdown-item>
+                                    <el-dropdown-item @click.native="dropGroup(Group.id)" style="color:red" v-show="!Group.isCreater">退出团队</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                             <span style="text-align: center; display: block" @click="GotoGroupDoc(Group.id)">{{Group.name}}</span>
@@ -45,6 +47,17 @@
                 </el-menu>
             </el-col>
         </el-row>
+        <el-drawer
+            title="团队成员"
+            :visible.sync="drawer"
+            :direction="direction">
+            <ul>
+                <li v-for="member in res.memberList" :key="member.id">
+                    <span>{{member.name}}</span>
+                    <i class="el-icon-error" style="float:right;color:red;margin-right:30px;cursor:pointer" @click="delMember(member.id)"></i>
+                </li>
+            </ul>
+        </el-drawer>
     </el-aside>
 </template>
 
@@ -53,8 +66,11 @@
         data(){
             return{
                 res : {
-                    groupList: [],  
-                }
+                    groupList: [], 
+                    memberList: []
+                },
+                drawer:false,
+                direction:"rtl"
             }
         },
         methods:{
@@ -72,7 +88,7 @@
                 this.$router.push({path: '/groupspace'});
             },
             delGroup:function(id){
-                this.$http.post(this.requestUrl+"//delGroup",{
+                this.$http.post(this.requestUrl+"/delGroup",{
                     params:{
                         groupID:id,
                         userID:sessionStorage.getItem("userId"),
@@ -86,6 +102,43 @@
                         alert(res.data.msg);
                     }
                 })
+            },
+            dropGroup:function(id){
+                this.$http.post(this.requestUrl+"/delGroup",{
+                    params:{
+                        groupID:id,
+                        userID:sessionStorage.getItem("userId"),
+                    }
+                }).then(res =>{
+                    console.log(res.data);
+                    if(res.data.success){
+                        alert("退出成功");
+                    }
+                    else{
+                        alert("退出失败");
+                    }
+                })
+            },
+            catMember:function(id){
+                sessionStorage.setItem("groupId",id);
+                this.getMember(id,this.res);
+            },
+            delMember:function(id){
+                this.$http.post(this.requestUrl+"/kickMember",{
+                    params:{
+                        userId1:sessionStorage.getItem("userId"),
+                        userId2:id,
+                        groupId:sessionStorage.getItem("groupId")
+                    }
+                }).then(res =>{
+                    if(res.data.success){
+                        alert("成功踢出");
+                    }
+                    else{
+                        alert("权限不足");
+                    }
+                })
+
             }
         },
         created() {

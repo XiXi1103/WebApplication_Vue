@@ -166,20 +166,45 @@
             shareDoc(){
                 if (this.permission<3) alert("权限不足，无法分享哦");
                 else {
-                    this.link='文档链接';
+                    this.link=this.baseUrl+"showDoc?docId="+this.docID;
                 }
             }
         },
         created() {
-            if (this.$route.query.isCollect==1) this.isCollect=true;
-            else this.isCollect=false;
-            if (this.$route.query.isTemplate==1) this.isTemplate=true;
-            else this.isTemplate=false;
-            this.value = this.$route.query.content;
-            this.docID = this.$route.query.docId;
-            this.permission = this.$route.query.permission;
-            this.findAllReply();
-            this.$forceUpdate();
+            if (this.$route.query.content==null&&this.$route.query.docId!=null){
+                this.$http.get(this.requestUrl+"/viewDoc",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        docID:this.$route.query.docId
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        if (res.data.isCollect==1) this.isCollect=true;
+                        else this.isCollect=false;
+                        if (res.data.isTemplate==1) this.isTemplate=true;
+                        else this.isTemplate=false;
+                        this.value = res.data.content;
+                        this.docID = this.$route.query.docId;
+                        this.permission = res.data.userPermission;
+                        this.findAllReply();
+                    }
+                    else {
+                        alert(res.data.msg);
+                    }
+                })
+            }
+            else{
+                if (this.$route.query.isCollect==1) this.isCollect=true;
+                else this.isCollect=false;
+                if (this.$route.query.isTemplate==1) this.isTemplate=true;
+                else this.isTemplate=false;
+                this.value = this.$route.query.content;
+                this.docID = this.$route.query.docId;
+                this.permission = this.$route.query.permission;
+                this.findAllReply();
+                this.$forceUpdate();
+            }
+
         }
     }
 </script>

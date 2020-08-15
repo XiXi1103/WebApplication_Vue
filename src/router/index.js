@@ -71,8 +71,12 @@ Vue.use(mavonEditor)
     path:'/template',
     name:'/Template',
     component: () => import('../views/Template')
+  },
+  {
+    path:'/searchres',
+    name:'/Searchres',
+    component: () => import('../views/SearchRes')
   }
-
 ]
 
 const router = new VueRouter({

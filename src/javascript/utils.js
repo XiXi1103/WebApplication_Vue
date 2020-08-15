@@ -53,7 +53,8 @@ export default {
         Vue.prototype.getGroupPage = function (PageList){
             this.$http.get(this.requestUrl+"/getGroupDoc",{
                 params:{
-                    groupid:sessionStorage.getItem("groupid")
+                    groupID:sessionStorage.getItem("groupid"),
+                    userId:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
                 console.log(res.data);
@@ -78,15 +79,30 @@ export default {
                 }
             }).then(res=>{
                 if (res.data.success){
-                    this.$router.push({
-                        path: '/markdown',
-                        query:{
-                            content: res.data.content,
-                            html: res.data.html,
-                            docID: DocID,
-                            permission:res.data.userPermission,
-                        }
-                    })
+                    if (res.data.msg=="isTemplate"){//模板编辑不传ID
+                        this.$router.push({
+                            path: '/markdown',
+                            query:{
+                                content: res.data.content,
+                                html: res.data.html,
+                                permission:res.data.userPermission,
+                                currentPermission:res.data.currentPermission,
+                            }
+                        })
+                    }
+                    else{
+                        this.$router.push({
+                            path: '/markdown',
+                            query:{
+                                content: res.data.content,
+                                html: res.data.html,
+                                docID: DocID,
+                                permission:res.data.userPermission,
+                                currentPermission:res.data.currentPermission,
+                            }
+                        })
+                    }
+
                 }
                 else{
                     alert(res.data.msg);
@@ -176,6 +192,58 @@ export default {
                         });
                     }
                 });
+            })
+         };
+         Vue.prototype.dropwrite = function(docID){
+            this.$http.post(this.requestUrl+"/exitCollaborator",{
+                params:{
+                    userId:sessionStorage.getItem("userId"),
+                    docId:docID
+                }
+            }).then(res =>{
+                if(res.data.success){
+                    alert("退出成功");
+                }
+                else{
+                    alert("退出失败");
+                }
+            })
+         };
+         Vue.prototype.delWriter = function(id){
+            this.$http.post(this.requestUrl+"/kickCollaborator",{
+                params:{
+                    userId1:sessionStorage.getItem("userId"),
+                    userId2:id,
+                    docId:sessionStorage.getItem("docId"),
+                }
+            }).then(res =>{
+                if(res.data.success){
+                    alert("成功踢出");
+                }
+                else{
+                    alert("权限不足");
+
+                }
+            })
+        }
+         Vue.prototype.getMember = function(Groupid,MemberList){
+            this.$http.get(this.requestUrl+"/catMember",{
+                params:{
+                    groupID:Groupid,
+                }
+            }).then(res =>{
+                console.log(res.data);
+                MemberList.memberList = res.data.MemberList;
+            })
+         };
+         Vue.prototype.getWriter = function(docid,WriterList){
+            this.$http.get(this.requestUrl+"/catWriter",{
+                params:{
+                    docID:docid,
+                }
+            }).then(res =>{
+                console.log(res.data);
+                WriterList.writerList = res.data.WriterList;
             })
          };
          Vue.prototype.creategroup = function(){
