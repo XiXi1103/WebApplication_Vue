@@ -35,7 +35,7 @@
     <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
                                 <el-dropdown-menu slot="dropdown" style="float: right">
     <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
-                                    <el-dropdown-item @click.native="addMember(Group.id)">添加成员</el-dropdown-item>
+                                    <el-dropdown-item @click.native="reserveId(Group.id);dialogFormVisible = true">添加成员</el-dropdown-item>
                                     <el-dropdown-item @click.native="catMember(Group.id);drawer = true">查看成员</el-dropdown-item>
                                     <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red" v-show="Group.isCreater">删除团队</el-dropdown-item>
                                     <el-dropdown-item @click.native="dropGroup(Group.id)" style="color:red" v-show="!Group.isCreater">退出团队</el-dropdown-item>
@@ -58,6 +58,24 @@
                 </li>
             </ul>
         </el-drawer>
+        <el-dialog title="添加团队成员" :visible.sync="dialogFormVisible">
+            <el-select
+             v-model="value"
+             placeholder="输入用户名"
+             filterable
+             remote
+             :remote-method="remoteMethod">
+             <el-option
+                v-for="user in searchList"
+                 :key="user.id"
+                 :label="user.name">
+             </el-option>
+            </el-select>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click.native="addMember(groupId,value);dialogFormVisible = false">添 加</el-button>
+            </div>
+        </el-dialog>       
     </el-aside>
 </template>
 
@@ -67,10 +85,14 @@
             return{
                 res : {
                     groupList: [], 
-                    memberList: []
+                    memberList: [],
                 },
                 drawer:false,
-                direction:"rtl"
+                direction:"rtl",
+                value:"",
+                searchList: [],         
+                dialogFormVisible: false,
+                groupId:sessionStorage.getItem("groupId")
             }
         },
         methods:{
@@ -138,8 +160,28 @@
                         alert("权限不足");
                     }
                 })
-
-            }
+            },
+            remoteMethod(query){
+                if(query !== ''){
+                    this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchUser",{
+                            params:{
+                                text:query,
+                            }
+                        }).then(res => {
+                            console.log(res.data);
+                            this.searchList = res.data.UserList.filter(user =>{
+                                return user.name.toLowerCase()
+                                .indexOf(query.toLowerCase()) > -1;
+                            });
+                    })                                   
+                }
+                else{
+                    this.searchList = [];
+                }
+            },
+            reserveId:function(id){
+                sessionStorage.setItem("groupId",id);
+            }  
         },
         created() {
             this.getGroup(this.res);
