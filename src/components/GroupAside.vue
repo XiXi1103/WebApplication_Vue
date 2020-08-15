@@ -37,8 +37,8 @@
     <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
                                     <el-dropdown-item @click.native="reserveId(Group.id);dialogFormVisible = true">添加成员</el-dropdown-item>
                                     <el-dropdown-item @click.native="catMember(Group.id);drawer = true">查看成员</el-dropdown-item>
-                                    <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red" v-show="Group.isCreater">删除团队</el-dropdown-item>
-                                    <el-dropdown-item @click.native="dropGroup(Group.id)" style="color:red" v-show="!Group.isCreater">退出团队</el-dropdown-item>
+                                    <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red" v-show="Group.isCreator">删除团队</el-dropdown-item>
+                                    <el-dropdown-item @click.native="dropGroup(Group.id)" style="color:red" v-show="!Group.isCreator">退出团队</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                             <span style="text-align: center; display: block" @click="GotoGroupDoc(Group.id)">{{Group.name}}</span>
