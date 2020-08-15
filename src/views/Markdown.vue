@@ -48,14 +48,11 @@
         },
         methods: {
             // 将图片上传到服务器，返回地址替换到md中
-            $imgAdd(pos){
+            $imgAdd(pos,$img){
                 let formdata = new FormData();
-
-                this.$upload.post('/上传接口地址', formdata).then(res => {
-                    console.log(res.data);
-                    this.$refs.md.$img2Url(pos, res.data);
-                }).catch(err => {
-                    console.log(err)
+                formdata.append('file', $img)
+                this.$http.post('http://localhost:8081/imgAdd', formdata).then(res => {
+                    this.$refs.md.$img2Url(pos, res.data.url);
                 })
             },
             // 所有操作都会被解析重新渲染
