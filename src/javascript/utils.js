@@ -146,7 +146,7 @@ export default {
             this.$prompt('请输入协作者用户名','添加写作者',{
                 confirmButtonText: '添加',
             }).then(({value}) => {
-                this.$http.post(this.requestUrl+"/addWriter",{
+                this.$http.get(this.requestUrl+"/addWriter",{
                     params:{
                         userID: sessionStorage.getItem("userId"),
                         username: value,
@@ -168,31 +168,27 @@ export default {
                 });
             })
          };
-         Vue.prototype.addMember = function(Groupid){
-            this.$prompt('请输入用户名','添加团队成员',{
-                confirmButtonText: '添加',
-            }).then(({value}) => {
-                this.$http.post(this.requestUrl+"/addMember",{
-                    params:{
-                        groupID:Groupid,
-                        userID: sessionStorage.getItem("userId"),
-                        username: value,
-                    }
-                }).then(res =>{
-                    if(res.data.success){
-                        this.$message({
-                            type:'success',
-                            message: "添加成功"
-                        });
-                    }
-                    else{
-                        this.$message({
-                            type:'info',
-                            message: res.data.msg
-                        });
-                    }
-                });
-            })
+         Vue.prototype.addMember = function(Groupid,userName){
+            this.$http.get(this.requestUrl+"/addMember",{
+                params:{
+                    groupID:Groupid,
+                    userID: sessionStorage.getItem("userId"),
+                    username: userName,
+                }
+            }).then(res =>{
+                if(res.data.success){
+                    this.$message({
+                        type:'success',
+                        message: "添加成功"
+                    });
+                }
+                else{
+                    this.$message({
+                        type:'info',
+                        message: res.data.msg
+                    });
+                }
+            });
          };
          Vue.prototype.dropwrite = function(docID){
             this.$http.post(this.requestUrl+"/exitCollaborator",{
