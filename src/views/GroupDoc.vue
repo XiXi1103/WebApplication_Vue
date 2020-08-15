@@ -22,7 +22,7 @@
                                                 <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
                                                 <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>
                                                 <el-dropdown-item @click.native="addwriter(0)">邀请协作</el-dropdown-item>
-                                                <el-dropdown-item @click.native="delDoc(0)" style="color:red" v-show="Page.isCreater">移至回收站</el-dropdown-item>
+                                                <el-dropdown-item @click.native="delDoc(0)" style="color:red" v-show="Page.isCreator">移至回收站</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
 

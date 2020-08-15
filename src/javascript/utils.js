@@ -17,7 +17,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList;
+                PageList.pageList = res.data.pageLists;
             });
         };
         Vue.prototype.getMyPage = function (PageList){
@@ -27,7 +27,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList;
+                PageList.pageList = res.data.pageLists;
             });
         };
         Vue.prototype.getCollectionPage = function (PageList){
@@ -37,7 +37,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList;
+                PageList.pageList = res.data.pageLists;
             });
         };
         Vue.prototype.getDelPage = function (PageList){
@@ -47,7 +47,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList; 
+                PageList.pageList = res.data.pageLists; 
             });
         };
         Vue.prototype.getGroupPage = function (PageList){
@@ -58,7 +58,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.groupPage = res.data.PageList;
+                PageList.groupPage = res.data.pageLists;
             });
         };
         Vue.prototype.getGroup = function (GroupList){
@@ -68,7 +68,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                GroupList.groupList = res.data.GroupList;
+                GroupList.groupList = res.data.groupLists;
             })
         };
         Vue.prototype.editmk = function editmk(DocID){
@@ -229,7 +229,7 @@ export default {
                 }
             }).then(res =>{
                 console.log(res.data);
-                MemberList.memberList = res.data.MemberList;
+                MemberList.memberList = res.data.memberLists;
             })
          };
          Vue.prototype.getWriter = function(docid,WriterList){
@@ -239,7 +239,7 @@ export default {
                 }
             }).then(res =>{
                 console.log(res.data);
-                WriterList.writerList = res.data.WriterList;
+                WriterList.writerList = res.data.writerLists;
             })
          };
          Vue.prototype.creategroup = function(){

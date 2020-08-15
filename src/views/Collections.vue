@@ -27,8 +27,8 @@
                                                 <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
                                                 <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>
                                                 <el-dropdown-item @click.native="addwriter(0)">邀请协作</el-dropdown-item>
-                                                <el-dropdown-item @click.native="dropwrite(0)" v-show="!Page.isCreater">退出协作</el-dropdown-item>
-                                                <el-dropdown-item @click.native="delDoc(0)" v-show="Page.isCreater" style="color:red">移至回收站</el-dropdown-item>
+                                                <el-dropdown-item @click.native="dropwrite(0)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
+                                                <el-dropdown-item @click.native="delDoc(0)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
 <!--                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="cancelCollection(0)" style="color:red">取消收藏</el-dropdown-item>
                                             </el-dropdown-menu>

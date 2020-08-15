@@ -58,16 +58,24 @@
             }
         },
         created() {
-           this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/search",{
+           this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchDoc",{
                     params:{
+                        text:this.text,                        
                         userID:sessionStorage.getItem("userId"),
-                        text:this.text,
                     }
                 }).then(res => {
                     console.log(res.data);
-                    this.pageList = res.data.PageList;
-                    this.groupList = res.data.GroupList;
-            })              
+                    this.pageList = res.data.pageLists;
+            });
+           this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchGroup",{
+                    params:{
+                        text:this.text,   
+                        userID:sessionStorage.getItem("userId"),                     
+                    }
+                }).then(res => {
+                    console.log(res.data);
+                    this.groupList = res.data.groupLists;    
+            })             
             sessionStorage.setItem("type",4);
             this.getGroupPage(this.res);
         }
