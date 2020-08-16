@@ -3,62 +3,94 @@
     <el-aside width="15%">
         <el-row class="tac">
             <el-col>
-                <h3><i class="el-icon-circle-plus-outline" @click="GotoGroupSpace"></i></h3>
+                <br>
+                <el-button type="warning" @click.native="creategroup" icon="el-icon-circle-plus-outline">创建团队</el-button>
+
+                <!--                <h3><i class="el-icon-circle-plus-outline" @click="GotoGroupSpace"></i></h3>-->
+<!--                router :default-active="$route.path" 原来是el-menu的属性-->
                 <el-menu
-                        router :default-active="$route.path"
+                        default-active="-1"
                         class="el-menu-vertical-demo"
                         @open="handleOpen"
-                        @close="handleClose">
-                    <!--                                <el-submenu index="1">-->
-                    <!--                                    <template slot="title">-->
-                    <!--                                        <i class="el-icon-location"></i>-->
-                    <!--                                        <span>导航一</span>-->
-                    <!--                                    </template>-->
-                    <!--                                    <el-menu-item-group>-->
-                    <!--                                        <template slot="title">分组一</template>-->
-                    <!--                                        <el-menu-item index="1-1">选项1</el-menu-item>-->
-                    <!--                                        <el-menu-item index="1-2">选项2</el-menu-item>-->
-                    <!--                                    </el-menu-item-group>-->
-                    <!--                                    <el-menu-item-group title="分组2">-->
-                    <!--                                        <el-menu-item index="1-3">选项3</el-menu-item>-->
-                    <!--                                    </el-menu-item-group>-->
-                    <!--                                    <el-submenu index="1-4">-->
-                    <!--                                        <template slot="title">选项4</template>-->
-                    <!--                                        <el-menu-item index="1-4-1">选项1</el-menu-item>-->
-                    <!--                                    </el-submenu>-->
-                    <!--                                </el-submenu>-->
-                    <el-submenu index="">
-                        <span slot="title"> <i class="el-icon-document"></i>团队空间</span>
+                        @close="handleClose"
+                >
+<!--                        <span slot="title"> <i class="el-icon-document"></i>团队空间</span>-->
                         <el-menu-item v-for="Group in res.groupList" :key="Group.id">
-                            <el-dropdown trigger="hover" style="float: right;">
-                                <i class="el-icon-more"></i>
-    <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
-                                <el-dropdown-menu slot="dropdown" style="float: right">
-    <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
-                                    <el-dropdown-item @click.native="addMember(Group.id)">添加成员</el-dropdown-item>
-                                    <el-dropdown-item @click.native="catMember(Group.id);drawer = true">查看成员</el-dropdown-item>
-                                    <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red" v-show="Group.isCreater">删除团队</el-dropdown-item>
-                                    <el-dropdown-item @click.native="dropGroup(Group.id)" style="color:red" v-show="!Group.isCreater">退出团队</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                            <span style="text-align: center; display: block" @click="GotoGroupDoc(Group.id)">{{Group.name}}</span>
-                        </el-menu-item>                     
-                    </el-submenu>
+                            <el-menu-item :index=Group.id>
+                                <i class="el-icon-s-custom"></i>
+                                <span slot="title" @click="GotoGroupDoc(Group.id)">{{Group.name}}</span>
+                                <el-dropdown trigger="hover" style="float: right;">
+                                    <i class="el-icon-more"></i>
+                                    <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
+                                    <el-dropdown-menu slot="dropdown" style="float: right">
+                                        <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
+                                        <el-dropdown-item @click.native="reserveId(Group.id);dialogFormVisible = true">添加成员</el-dropdown-item>
+                                        <el-dropdown-item @click.native="catMember(Group.id);drawer = true">查看成员</el-dropdown-item>
+                                        <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red" v-show="Group.isCreator">删除团队</el-dropdown-item>
+                                        <el-dropdown-item @click.native="dropGroup(Group.id)" style="color:red" v-show="!Group.isCreator">退出团队</el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </el-dropdown>
+                            </el-menu-item>
+<!--                            <el-dropdown trigger="hover" style="float: right;">-->
+<!--                                <i class="el-icon-more"></i>-->
+<!--    &lt;!&ndash;                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>&ndash;&gt;-->
+<!--                                <el-dropdown-menu slot="dropdown" style="float: right">-->
+<!--    &lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>&ndash;&gt;-->
+<!--                                    <el-dropdown-item @click.native="reserveId(Group.id);dialogFormVisible = true">添加成员</el-dropdown-item>-->
+<!--                                    <el-dropdown-item @click.native="catMember(Group.id);drawer = true">查看成员</el-dropdown-item>-->
+<!--                                    <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red" v-show="Group.isCreator">删除团队</el-dropdown-item>-->
+<!--                                    <el-dropdown-item @click.native="dropGroup(Group.id)" style="color:red" v-show="!Group.isCreator">退出团队</el-dropdown-item>-->
+<!--                                </el-dropdown-menu>-->
+<!--                            </el-dropdown>-->
+<!--                            <span style="text-align: center; display: block" @click="GotoGroupDoc(Group.id)">{{Group.name}}</span>-->
+                        </el-menu-item>
+<!--                    </el-submenu>-->
                 </el-menu>
-            </el-col>
+                </el-col>
         </el-row>
+
         <el-drawer
             title="团队成员"
             :visible.sync="drawer"
             :direction="direction">
             <ul>
-                <li v-for="member in res.memberList" :key="member.id">
+                <li v-for="member in res.memberList" :key="member.id" style="padding:20px 0 20px 0;border:0.5px solid black">
                     <span>{{member.name}}</span>
-                    <i class="el-icon-error" style="float:right;color:red;margin-right:30px;cursor:pointer" @click="delMember(member.id)"></i>
+                    <el-button type="danger" style="float:right;margin-top:-10px" @click="delMember(member.id)">移除</el-button> 
+                    <el-dropdown style="float:right;margin-top:-10px" >
+                        <el-button type="primary">{{permission[member.permission-1]}}</el-button>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item @click.native="changePermission(member.id,1)">查看</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,2)">评论</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,3)">分享</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,4)">修改</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,5)">管理</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
                 </li>
             </ul>
         </el-drawer>
+        <el-dialog title="添加团队成员" :visible.sync="dialogFormVisible">
+            <el-select
+             v-model="value"
+             placeholder="输入用户名"
+             filterable
+             remote
+             :remote-method="remoteMethod">
+             <el-option
+                v-for="user in searchList"
+                 :key="user.id"
+                 :label="user.name">
+             </el-option>
+            </el-select>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click.native="addMember(groupId,value);dialogFormVisible = false">添 加</el-button>
+            </div>
+        </el-dialog>
+
     </el-aside>
+
 </template>
 
 <script>
@@ -67,10 +99,15 @@
             return{
                 res : {
                     groupList: [], 
-                    memberList: []
+                    memberList: [],
                 },
+                permission:["查看","评论","分享","修改","管理"],
                 drawer:false,
-                direction:"rtl"
+                direction:"rtl",
+                value:"",
+                searchList: [],         
+                dialogFormVisible: false,
+                groupId:sessionStorage.getItem("groupId")
             }
         },
         methods:{
@@ -138,8 +175,28 @@
                         alert("权限不足");
                     }
                 })
-
-            }
+            },
+            remoteMethod(query){
+                if(query !== ''){
+                    this.$http.get(this.requestUrl+"/searchUser",{
+                            params:{
+                                text:query,
+                            }
+                        }).then(res => {
+                            console.log(res.data);
+                            this.searchList = res.data.userLists.filter(user =>{
+                                return user.name.toLowerCase()
+                                .indexOf(query.toLowerCase()) > -1;
+                            });
+                    })                                   
+                }
+                else{
+                    this.searchList = [];
+                }
+            },
+            reserveId:function(id){
+                sessionStorage.setItem("groupId",id);
+            }  
         },
         created() {
             this.getGroup(this.res);

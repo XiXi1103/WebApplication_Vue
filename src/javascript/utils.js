@@ -17,7 +17,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList;
+                PageList.pageList = res.data.pageLists;
             });
         };
         Vue.prototype.getMyPage = function (PageList){
@@ -27,7 +27,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList;
+                PageList.pageList = res.data.pageLists;
             });
         };
         Vue.prototype.getCollectionPage = function (PageList){
@@ -37,7 +37,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList;
+                PageList.pageList = res.data.pageLists;
             });
         };
         Vue.prototype.getDelPage = function (PageList){
@@ -47,7 +47,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.PageList; 
+                PageList.pageList = res.data.pageLists; 
             });
         };
         Vue.prototype.getGroupPage = function (PageList){
@@ -58,7 +58,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.groupPage = res.data.PageList;
+                PageList.groupPage = res.data.pageLists;
             });
         };
         Vue.prototype.getGroup = function (GroupList){
@@ -67,8 +67,8 @@ export default {
                    userID:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
-                console.log(res.data);
-                GroupList.groupList = res.data.GroupList;
+                console.log(res.data.groupLists);
+                GroupList.groupList = res.data.groupLists;
             })
         };
         Vue.prototype.editmk = function editmk(DocID){
@@ -87,6 +87,7 @@ export default {
                                 html: res.data.html,
                                 permission:res.data.userPermission,
                                 currentPermission:res.data.currentPermission,
+                                title:res.data.title,
                             }
                         })
                     }
@@ -99,6 +100,7 @@ export default {
                                 docID: DocID,
                                 permission:res.data.userPermission,
                                 currentPermission:res.data.currentPermission,
+                                title:res.data.title,
                             }
                         })
                     }
@@ -142,57 +144,49 @@ export default {
             }
             return -1;
         };
-        Vue.prototype.addwriter = function(DocID){
-            this.$prompt('请输入协作者用户名','添加写作者',{
-                confirmButtonText: '添加',
-            }).then(({value}) => {
-                this.$http.post(this.requestUrl+"/addWriter",{
-                    params:{
-                        userID: sessionStorage.getItem("userId"),
-                        username: value,
-                        docID: DocID
-                    }
-                }).then(res =>{
-                    if(res.data.success){
-                        this.$message({
-                            type:'success',
-                            message: "添加成功"
-                        });
-                    }
-                    else{
-                        this.$message({
-                            type:'info',
-                            message: res.data.msg
-                        });
-                    }
-                });
-            })
-         };
-         Vue.prototype.addMember = function(Groupid){
-            this.$prompt('请输入用户名','添加团队成员',{
-                confirmButtonText: '添加',
-            }).then(({value}) => {
-                this.$http.post(this.requestUrl+"/addMember",{
-                    params:{
-                        groupID:Groupid,
-                        userID: sessionStorage.getItem("userId"),
-                        username: value,
-                    }
-                }).then(res =>{
-                    if(res.data.success){
-                        this.$message({
-                            type:'success',
-                            message: "添加成功"
-                        });
-                    }
-                    else{
-                        this.$message({
-                            type:'info',
-                            message: res.data.msg
-                        });
-                    }
-                });
-            })
+        Vue.prototype.addWriter = function(Docid,username){
+            this.$http.get(this.requestUrl+"/addWriter",{
+                params:{
+                    docID:Docid,
+                    userID: sessionStorage.getItem("userId"),
+                    username: username,
+                }
+            }).then(res =>{
+                if(res.data.success){
+                    this.$message({
+                        type:'success',
+                        message: "添加成功"
+                    });
+                }
+                else{
+                    this.$message({
+                        type:'info',
+                        message: res.data.msg
+                    });
+                }
+            });
+        };
+         Vue.prototype.addMember = function(Groupid,userName){
+            this.$http.get(this.requestUrl+"/addMember",{
+                params:{
+                    groupID:Groupid,
+                    userID: sessionStorage.getItem("userId"),
+                    username: userName,
+                }
+            }).then(res =>{
+                if(res.data.success){
+                    this.$message({
+                        type:'success',
+                        message: "添加成功"
+                    });
+                }
+                else{
+                    this.$message({
+                        type:'info',
+                        message: res.data.msg
+                    });
+                }
+            });
          };
          Vue.prototype.dropwrite = function(docID){
             this.$http.post(this.requestUrl+"/exitCollaborator",{
@@ -233,7 +227,7 @@ export default {
                 }
             }).then(res =>{
                 console.log(res.data);
-                MemberList.memberList = res.data.MemberList;
+                MemberList.memberList = res.data.memberLists;
             })
          };
          Vue.prototype.getWriter = function(docid,WriterList){
@@ -243,14 +237,14 @@ export default {
                 }
             }).then(res =>{
                 console.log(res.data);
-                WriterList.writerList = res.data.WriterList;
+                WriterList.writerList = res.data.writerLists;
             })
          };
          Vue.prototype.creategroup = function(){
             this.$prompt('请输入团队名称','创建团队',{
                 confirmButtonText: '创建',
             }).then(({value}) => {
-                this.$http.post(this.requestUrl+"/createGroup",{
+                this.$http.get(this.requestUrl+"/createGroup",{
                     params:{
                         userID: sessionStorage.getItem("userId"),
                         groupName: value
@@ -285,6 +279,38 @@ export default {
 
             })
         };
+        Vue.prototype.changePermission = function(id,permission){
+            this.$http.get(this.requestUrl+"/changePermission",{
+                params:{
+                    userID1:sessionStorage.getItem("userId"),
+                    groupID:sessionStorage.getItem("groupId"),
+                    permission:permission,
+                    userID2:id,
+                }
+            }).then(res=>{
+                console.log(res.data);
+                if(res.data.success){
+                    alert(res.data.msg);
+                }
+                else alert("权限不足");
+            })
+        }
+        Vue.prototype.writerPermission = function(id,permission){
+            this.$http.get(this.requestUrl+"/writerPermission",{
+                params:{
+                    userID1:sessionStorage.getItem("userId"),
+                    groupID:sessionStorage.getItem("docId"),
+                    permission:permission,
+                    userID2:id,
+                }
+            }).then(res=>{
+                console.log(res.data);
+                if(res.data.success){
+                    alert(res.data.msg);
+                }
+                else alert("权限不足");
+            })
+        }       
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post(this.requestUrl+"/delDoc",{
         //         params:{

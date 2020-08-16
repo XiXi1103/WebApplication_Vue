@@ -28,8 +28,8 @@
 <!--                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>-->
 <!--                                                <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>-->
 <!--                                                <el-dropdown-item @click.native="addwriter(0)">邀请协作</el-dropdown-item>-->
-<!--                                                <el-dropdown-item @click.native="dropwrite(0)" v-show="!Page.isCreater">退出协作</el-dropdown-item>-->
-<!--                                                <el-dropdown-item @click.native="delDoc(0)" v-show="Page.isCreater" style="color:red">移至回收站</el-dropdown-item>-->
+<!--                                                <el-dropdown-item @click.native="dropwrite(0)" v-show="!Page.isCreator">退出协作</el-dropdown-item>-->
+<!--                                                <el-dropdown-item @click.native="delDoc(0)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>-->
 <!--                                                <el-dropdown-item @click.native="removeRecentBrowsing(0)" style="color:red">移除最近浏览</el-dropdown-item>-->
 <!--                                            </el-dropdown-menu>-->
 <!--                                        </el-dropdown>-->
@@ -41,7 +41,7 @@
                                     <el-timeline style="margin-left: 20px">
                                         <el-timeline-item v-for="Page in res.pageList" :key="Page.id" timestamp="2018/4/12" placement="top" style="width: 50%;" >
                                             <el-card @click.native="viewmk(Page.id)">
-                                                <h4 style="height: 20px;margin-top: 0px">{{Page.title}}</h4>
+                                                <p style="height: 20px;margin-top: 0px">{{Page.title}}</p>
                                                 <p style="height: 20px">(可以写点文档属性)</p>
                                             </el-card>
                                         </el-timeline-item>
@@ -116,7 +116,7 @@
                 sessionStorage.setItem("docId",id);
                 this.getWriter(id,this.res);
             }
-        }
+        },
     }
 </script>
 <style>
