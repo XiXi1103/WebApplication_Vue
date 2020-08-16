@@ -67,7 +67,7 @@ export default {
                    userID:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
-                console.log(res.data);
+                console.log(res.data.groupLists);
                 GroupList.groupList = res.data.groupLists;
             })
         };
@@ -248,7 +248,7 @@ export default {
             this.$prompt('请输入团队名称','创建团队',{
                 confirmButtonText: '创建',
             }).then(({value}) => {
-                this.$http.post(this.requestUrl+"/createGroup",{
+                this.$http.get(this.requestUrl+"/createGroup",{
                     params:{
                         userID: sessionStorage.getItem("userId"),
                         groupName: value

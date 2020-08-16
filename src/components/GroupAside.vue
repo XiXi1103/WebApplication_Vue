@@ -178,7 +178,7 @@
             },
             remoteMethod(query){
                 if(query !== ''){
-                    this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchUser",{
+                    this.$http.get(this.requestUrl+"/searchUser",{
                             params:{
                                 text:query,
                             }
