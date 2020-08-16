@@ -39,7 +39,7 @@
                 content:'',
                 html:'',
                 configs: {},
-                result: [],
+                result: {},
                 permission:'私密',
                 permissionLevel:0,
                 userPermission:4,
