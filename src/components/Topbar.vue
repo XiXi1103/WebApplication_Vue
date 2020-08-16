@@ -24,22 +24,26 @@
             <el-menu-item style="float:right">
                 <el-dropdown class="project-container">
                     <el-button type="primary" style="background-color: white; border-color: white;  padding-right: 0;">
-                            <el-badge :value="this.notificationList.length" class="item">
                         <i class="el-icon-bell"></i>
-                            </el-badge>
+                        <el-badge :value="this.notificationList.length" class="item" v-if="this.notificationList.length!==0" style="top: -10px"></el-badge>
                     </el-button>
                     <el-dropdown-menu slot="dropdown" style="overflow-y: auto" class="project-dropdown">
                         <el-dropdown-item v-for="Notification in notificationList" :key="Notification.id">
 <!--                            <span v-if="Notification.statusboolean" @click.native="viewmk(0)">{{Notification.msg}}</span>-->
 <!--                            <span v-if="!Notification.statusboolean">{{Notification.msg}}(未读)</span>-->
-                            <el-button v-if="Notification.category === 1" @click="viewmk(Notification.id)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 2" @click="viewmk(Notification.id)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 3" @click="viewmk(Notification.id)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 4" @click="viewmk(Notification.id)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 5" @click="confirmGroupInvitation()" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 6" @click="viewmk(Notification.id)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 7" @click="viewmk(Notification.id)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 8" @click="viewmk(Notification.id)" style="border: white">{{Notification.msg}}</el-button>
+                            <i class="el-icon-message-solid" v-if="!Notification.status"></i>
+                            <el-button v-if="Notification.category === 1" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 2" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 3" @click="confirmDocInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 4" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 5" @click="collaborationDocumentModifiedOrDeleted(Notification.objectID)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 6" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 7" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 8" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 9" @click="confirmGroupInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 10" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 11" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 12" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -120,13 +124,13 @@
                 this.$router.push({path: '/'});
                 sessionStorage.clear();
             },
-            GotoLogin: function () {
+            GotoLogin: function() {
                 this.$router.push({path: '/login'});
             },
             GotoPersonalInfo:function(){
                 this.$router.push({path:'/PersonalInfo'});
             },
-            getNotification: function () {
+            getNotification: function() {
                 this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getNotification",{
                     params:{
                         userID:sessionStorage.getItem("userId"),
@@ -137,11 +141,9 @@
                 });
 
             },
-            goToNotification: function () {
-
-            },
-            load () {
-                this.count += 2
+            goToNotification(notification) {
+                this.viewmk(notification.objectID);
+                this.read(notification);
             },
             // handleClose(done) {
             //     this.$confirm('确认关闭？')
@@ -150,13 +152,139 @@
             //         })
             //         .catch(_ => {});
             // }
-            GotoGroupDoc:function(id){
+            GotoGroupDoc:function(id) {
                 sessionStorage.setItem("groupid",id);
                 this.$router.push({path: '/groupdoc'});
             },
             search(){
                 sessionStorage.setItem("text",this.text);
                 this.$router.push({path:'/searchres'});
+            },
+            confirmGroupInvitationPopout(notification) {
+                // var msg = {};
+                // msg.groupID = groupID;
+                // msg.success = false;
+                // Vue.set(msg, "groupID", groupID);
+                this.$confirm(notification.msg, '邀请', {
+                    confirmButtonText: '同意',
+                    cancelButtonText: '拒绝',
+                    type: 'info'
+                }).then(() => {
+                    if (this.confirmGroupInvitation(notification, true)) {
+                        this.$message({
+                            type: 'success',
+                            message: '加入团队成功!'
+                        });
+                    }
+                    else {
+                        this.$message({
+                            type: 'warning',
+                            message: '加入团队失败!'
+                        });
+                    }
+                    notification.status = true;
+                }).catch(() => {
+                    if (this.confirmGroupInvitation(notification, false)) {
+                        this.$message({
+                            type: 'warning',
+                            message: '已拒绝加入团队!'
+                        });
+                    }
+                    else {
+                        this.$message({
+                            type: 'warning',
+                            message: '拒绝加入团队失败!请重试'
+                        });
+                    }
+                    notification.status = true;
+                });
+            },
+            confirmGroupInvitation(notification, userResponse) {
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/confirmGroupInvitation",{
+                    params:{
+                        userID:sessionStorage.getItem("userID"),
+                        groupID:notification.objectID,
+                        userResponse:userResponse,
+                        noticeID:notification.id
+                    }
+                }).then(res => {
+                    console.log(res.data);
+                    return res.data.success;
+                    // msg.success = res.data.success;
+                });
+            },
+            collaborationDocumentModifiedOrDeleted(docID) {
+                this.viewmk(docID);
+            },
+            confirmDocInvitationPopout(notification) {
+                // var msg = {};
+                // msg.groupID = docID;
+                // msg.success = false;
+                this.$confirm(notification.msg, '邀请', {
+                    confirmButtonText: '同意',
+                    cancelButtonText: '拒绝',
+                    type: 'info'
+                }).then(() => {
+                    if (this.confirmDocInvitation(notification, true)) {
+                        this.$message({
+                            type: 'success',
+                            message: '加入协作文档成功!'
+                        });
+                    }
+                    else {
+                        this.$message({
+                            type: 'warning',
+                            message: '加入协作文档失败!请重试'
+                        });
+                    }
+                    notification.status = true;
+                }).catch(() => {
+                    if (this.confirmDocInvitation(notification, false)) {
+                        this.$message({
+                            type: 'warning',
+                            message: '已拒绝加入协作文档!'
+                        });
+                    }
+                    else {
+                        this.$message({
+                            type: 'warning',
+                            message: '拒绝加入协作文档失败!请重试'
+                        });
+                    }
+                    notification.status = true;
+                });
+            },
+            confirmDocInvitation(notification, userResponse) {
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/confirmDocInvitation",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        groupID:notification.objectID,
+                        userResponse:userResponse,
+                        noticeID:notification.id
+                    }
+                }).then(res => {
+                    console.log(res.data);
+                    return res.data.success;
+                    // msg.success = res.data.success;
+                });
+            },
+            read(notification) {
+                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/readNotifications",{
+                    params:{
+                        userID:sessionStorage.getItem("userId"),
+                        notificationID:notification.id
+                    }
+                }).then(res => {
+                    console.log(res.data);
+                    notification.status = true;
+                    // this.findNotificationById(notificationID).status=true;
+                });
+            },
+            findNotificationById(id) {
+                for (var i = 0; i < this.notificationList.length; i++) {
+                    if (this.notificationList[i].id == id) return this.notificationList[i];
+                }
+                return -1;
             }
         },
         created() {
