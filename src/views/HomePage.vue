@@ -41,7 +41,7 @@
                                     <el-timeline style="margin-left: 20px">
                                         <el-timeline-item v-for="Page in res.pageList" :key="Page.id" timestamp="2018/4/12" placement="top" style="width: 50%;" >
                                             <el-card @click.native="viewmk(Page.id)">
-                                                <h4 style="height: 20px;margin-top: 0px">{{Page.title}}</h4>
+                                                <p style="height: 20px;margin-top: 0px">{{Page.title}}</p>
                                                 <p style="height: 20px">(可以写点文档属性)</p>
                                             </el-card>
                                         </el-timeline-item>
@@ -116,7 +116,7 @@
                 sessionStorage.setItem("docId",id);
                 this.getWriter(id,this.res);
             }
-        }
+        },
     }
 </script>
 <style>

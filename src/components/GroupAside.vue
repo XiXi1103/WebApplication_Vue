@@ -169,7 +169,7 @@
                             }
                         }).then(res => {
                             console.log(res.data);
-                            this.searchList = res.data.UserList.filter(user =>{
+                            this.searchList = res.data.userLists.filter(user =>{
                                 return user.name.toLowerCase()
                                 .indexOf(query.toLowerCase()) > -1;
                             });

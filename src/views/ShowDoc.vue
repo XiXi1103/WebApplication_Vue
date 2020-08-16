@@ -61,12 +61,14 @@
                         <el-divider style=""></el-divider>
                         <el-card class="box-card" v-for="reply in replyList" :key="reply.replyId" style="width: 100%; margin-top: 10px">
                             <div slot="header" class="clearfix" style="height: 15px">
-                                <span style="position: relative;top: -70px; float: left; font-weight: bold">{{reply.username}}</span>
-                                <el-button style="float: right; padding: 3px 0;" type="text" class="textbutton">删除</el-button>
+                                <span style="position: relative;top: -70px; float: left; font-size: 20px;font-weight: bold;height: 10px">{{reply.username}}</span>
+                                <el-button style="float: right; padding: 3px 0;" type="text" class="textbutton" v-if="permission==5">删除</el-button>
                             </div>
-                            <div style="height: auto">
+                            <div style="height: auto;font-size: 25px">
                                 {{reply.content}}
                             </div>
+
+                            <span style="position: relative;top: -70px; float: right;font-size: 15px;height: 10px;margin-bottom: 20px">评论于{{reply.time}}</span>
                         </el-card>
 <!--                        <div class="replyBox" v-for="reply in replyList" :key="reply.replyId">-->
 <!--                            <button class="el-icon-close" @click="delReply(reply.replyID)" style=""></button>-->
