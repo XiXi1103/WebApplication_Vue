@@ -37,11 +37,19 @@
     methods: {
       submit(){
         if(sessionStorage.getItem("username")!=null||sessionStorage.getItem("userId")!=null){
-          alert("您已登录");
+          // alert("您已登录");
+          this.$message({
+            message: '您已登录',
+            type: 'warning'
+          });
           this.$router.push("/homepage");
         }
         else if (this.RegisterForm.password1!==this.RegisterForm.password2){
-          alert("两次密码不一致，请重新输入");
+          // alert("两次密码不一致，请重新输入");
+          this.$message({
+            message: '两次密码不一致，请重新输入',
+            type: 'warning'
+          });
         }
         else{
           // this.$http.post("http://localhost:8081/register",//
@@ -54,11 +62,16 @@
             if (this.RegisterForm.password1==3){//if (res.data.success){
               sessionStorage.setItem("username",this.RegisterForm.username);
               sessionStorage.setItem("userId",res.data.ID);
-              alert(res.data.msg);
+              // alert(res.data.msg);
+              this.$message({
+                message: res.data.msg,
+                type: 'success'
+              });
               this.$router.push("/homepage");
             }
             else{
-              alert("注册失败");
+              // alert("注册失败");
+              this.$message.error('注册失败！请重试');
               this.$router.push("/register");
             }
           })

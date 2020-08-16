@@ -74,10 +74,15 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        alert("恢复成功");
+                        // alert("恢复成功");
+                        this.$message({
+                            message: '恢复成功',
+                            type: 'success'
+                        });
                     }
                     else {
-                        alert("恢复失败");
+                        // alert("恢复失败");
+                        this.$message.error('恢复失败！请重试');
                     }
                 });
             },
@@ -89,10 +94,15 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        alert("删除成功");
+                        // alert("删除成功");
+                        this.$message({
+                            message: '删除成功',
+                            type: 'success'
+                        });
                     }
                     else {
-                        alert("删除失败");
+                        // alert("删除失败");
+                        this.$message.error('删除失败！请重试');
                     }
                 });
             },

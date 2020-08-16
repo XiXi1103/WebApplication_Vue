@@ -124,11 +124,16 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        alert("取消收藏成功");
+                        // alert("取消收藏成功");
+                        this.$message({
+                            type: 'success',
+                            message: '取消收藏成功'
+                        });
                         this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
                     }
                     else {
-                        alert("取消收藏失败");
+                        // alert("取消收藏失败");
+                        this.$message.error('取消收藏失败！请重试');
                     }
                 });
             },

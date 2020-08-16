@@ -267,13 +267,13 @@
                             //     type: 'warning',
                             //     message: '加入团队失败!'
                             // });
-                            this.$message.error('加入团队失败!请重试');
+                            this.$message.error('加入团队失败！请重试');
                         }
                     }).catch(() => {
                         if (this.confirmGroupInvitation(notification, false)) {
                             this.$message({
                                 type: 'warning',
-                                message: '已拒绝加入团队!'
+                                message: '已拒绝加入团队！'
                             });
                             notification.status = true;
                             this.numberOfUnreadMessages--;
@@ -281,9 +281,9 @@
                         else {
                             // this.$message({
                             //     type: 'warning',
-                            //     message: '拒绝加入团队失败!请重试'
+                            //     message: '拒绝加入团队失败！请重试'
                             // });
-                            this.$message.error('拒绝加入团队失败!请重试');
+                            this.$message.error('拒绝加入团队失败！请重试');
                         }
                     });
                 }
@@ -327,7 +327,7 @@
                         if (this.confirmDocInvitation(notification, true)) {
                             this.$message({
                                 type: 'success',
-                                message: '加入协作文档成功!'
+                                message: '加入协作文档成功！'
                             });
                             notification.status = true;
                             this.numberOfUnreadMessages--;
@@ -335,15 +335,15 @@
                         else {
                             // this.$message({
                             //     type: 'warning',
-                            //     message: '加入协作文档失败!请重试'
+                            //     message: '加入协作文档失败！请重试'
                             // });
-                            this.$message.error('加入协作文档失败!请重试');
+                            this.$message.error('加入协作文档失败！请重试');
                         }
                     }).catch(() => {
                         if (this.confirmDocInvitation(notification, false)) {
                             this.$message({
                                 type: 'warning',
-                                message: '已拒绝加入协作文档!'
+                                message: '已拒绝加入协作文档！'
                             });
                             notification.status = true;
                             this.numberOfUnreadMessages--;
@@ -351,9 +351,9 @@
                         else {
                             // this.$message({
                             //     type: 'warning',
-                            //     message: '拒绝加入协作文档失败!请重试'
+                            //     message: '拒绝加入协作文档失败！请重试'
                             // });
-                            this.$message.error('拒绝加入协作文档失败!请重试');
+                            this.$message.error('拒绝加入协作文档失败！请重试');
                         }
                     });
                 }

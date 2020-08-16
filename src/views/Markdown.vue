@@ -66,7 +66,13 @@
             },
             // 提交
             submit(){
-                if (this.html==null) alert("内容不能为空哦");
+                if (this.html==null) {
+                    // alert("内容不能为空哦");
+                    this.$message({
+                        message: '内容不能为空哦',
+                        type: 'warning'
+                    });
+                }
                 else{
                     this.result.docID=this.$route.query.docID;
                     this.result.authorID = sessionStorage.getItem("userId");
@@ -77,7 +83,11 @@
                     var re1 = new RegExp("<.+?>","g");
                     this.result.summary = this.result.html.replace(re1,'').substring(0,30);
                     this.$http.post(this.requestUrl+"/newDoc",this.result).then(res=>{
-                        alert(res.data.msg);
+                        // alert(res.data.msg);
+                        this.$message({
+                            message: res.data.msg,
+                            type: 'success'
+                        });
                         this.$router.push("/");
                     })
                 }

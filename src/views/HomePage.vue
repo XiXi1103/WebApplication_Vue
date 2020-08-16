@@ -104,11 +104,16 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        alert("移出最近浏览成功");
+                        // alert("移出最近浏览成功");
+                        this.$message({
+                            type: 'success',
+                            message: '移出最近浏览成功'
+                        });
                         this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
                     }
                     else {
-                        alert("移出最近浏览失败");
+                        // alert("移出最近浏览失败");
+                        this.$message.error('移出最近浏览失败！请重试');
                     }
                 });
             },

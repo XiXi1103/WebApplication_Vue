@@ -124,7 +124,10 @@
                 this.comment.replyId= 0;
                 this.comment.isReply = false;
                 this.$http.post(this.requestUrl+"/reply",this.comment).then(res=>{
-                    if (!res.data.success) alert(res.data.msg);
+                    if (!res.data.success) {
+                        // alert(res.data.msg);
+                        this.$message.error('res.data.msg');
+                    }
                     else{
                         this.findAllReply();
                     }
@@ -146,7 +149,8 @@
                     }
                 }).then(res=>{
                     console.log(res);
-                    alert(res.data.msg);
+                    // alert(res.data.msg);
+                    this.$message(res.data.msg);
                     this.findAllReply();
                 })
             },
@@ -161,12 +165,16 @@
                         this.isCollect=!this.isCollect;
                     }
                     else{
-                        alert("收藏失败");
+                        // alert("收藏失败");
+                        this.$message.error('收藏失败！请重试');
                     }
                 })
             },
             shareDoc(){
-                if (this.permission<3) alert("权限不足，无法分享哦");
+                if (this.permission<3) {
+                    // alert("权限不足，无法分享哦");
+                    this.$message.error('权限不足，无法分享哦');
+                }
                 else {
                     this.link=this.baseUrl+"showDoc?docId="+this.docID;
                 }
@@ -191,7 +199,8 @@
                         this.findAllReply();
                     }
                     else {
-                        alert(res.data.msg);
+                        // alert(res.data.msg);
+                        this.$message.error(res.data.msg);
                     }
                 })
             }

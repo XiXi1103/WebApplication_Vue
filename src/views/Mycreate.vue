@@ -121,11 +121,16 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        alert("删除成功");
+                        // alert("删除成功");
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
                         this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
                     }
                     else {
-                        alert("删除失败");
+                        // alert("删除失败");
+                        this.$message.error('删除失败！请重试');
                     }
                 });
             },

@@ -32,7 +32,11 @@
     methods: {
       submit(){
         if(sessionStorage.getItem("username")!=null||sessionStorage.getItem("userId")!=null){
-          alert("您已登录");
+          // alert("您已登录");
+          this.$message({
+            message: '您已登录',
+            type: 'warning'
+          });
           this.$router.push("/homepage");
         }
         else {
@@ -44,7 +48,8 @@
               this.$router.push("/homepage");
             }
             else{
-              alert("登录失败");
+              // alert("登录失败");
+              this.$message.error('登录失败！请重试');
               this.$router.push("/login");
             }
           })

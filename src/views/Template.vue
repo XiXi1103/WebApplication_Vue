@@ -76,8 +76,13 @@
                         userId:0//测试用
                     }
                 }).then(res=>{
-                    if (res.data.success!=1) alert(res.data.msg);
-                    else  this.templateList = res.data.TemplateList;
+                    if (res.data.success!=1) {
+                        // alert(res.data.msg);
+                        this.$message.error(res.data.msg);
+                    }
+                    else {
+                        this.templateList = res.data.TemplateList;
+                    }
                 })
             },
             showAllTem(){

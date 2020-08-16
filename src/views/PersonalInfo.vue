@@ -86,13 +86,25 @@
             const emailPattern =  /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
             const phoneNumPattern = /^1[3|4|5|7|8][0-9]{9}$/;
             if(this.user.passwd == ''){
-              alert("密码不能为空");
+              // alert("密码不能为空");
+                this.$message({
+                    message: '密码不能为空',
+                    type: 'warning'
+                });
             }
             else if(!emailPattern.test(this.user.email)){
-              alert("请输入正确的邮箱");
+              // alert("请输入正确的邮箱");
+                this.$message({
+                    message: '请输入正确的邮箱',
+                    type: 'warning'
+                });
             }
             else if(!phoneNumPattern.test(this.user.phoneNum)){
-              alert("请输入正确的电话号码");
+              // alert("请输入正确的电话号码");
+                this.$message({
+                    message: '请输入正确的电话号码',
+                    type: 'warning'
+                });
             }
             else{
               this.ischange=1;
@@ -106,10 +118,15 @@
               })
               .then(res=>{
                 if(res.data.success){
-                  alert("保存成功");
+                  // alert("保存成功");
+                    this.$message({
+                        message: '保存成功',
+                        type: 'success'
+                    });
                 }
                 else{
-                  alert("修改失败");
+                  // alert("修改失败");
+                    this.$message.error('修改失败！请重试');
                 }
               })              
             }
@@ -129,7 +146,8 @@
           this.user.create_time= res.data.create_time;
         }
         else{
-          alert(res.data.msg);
+          // alert(res.data.msg);
+          this.$message.error(res.data.msg);
         }
       })
   }
