@@ -87,6 +87,7 @@ export default {
                                 html: res.data.html,
                                 permission:res.data.userPermission,
                                 currentPermission:res.data.currentPermission,
+                                title:res.data.title,
                             }
                         })
                     }
@@ -99,6 +100,7 @@ export default {
                                 docID: DocID,
                                 permission:res.data.userPermission,
                                 currentPermission:res.data.currentPermission,
+                                title:res.data.title,
                             }
                         })
                     }

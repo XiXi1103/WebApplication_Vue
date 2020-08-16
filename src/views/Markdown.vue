@@ -3,6 +3,9 @@
         <Topbar></Topbar>
         <div class="markdown">
             <div class="container">
+                <el-input v-model="this.title" placeholder="请输入标题" style="width: 20%"></el-input>
+                <br>
+                <br>
                 <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="width: 1500px;height: 800px;margin: 0 auto; "/>
                 <br>
                 <el-button type="success" icon="el-icon-check" round @click="submit" style="margin-left: 0px">提交</el-button>
@@ -37,6 +40,7 @@
         data() {
             return {
                 content:'',
+                title:'',
                 html:'',
                 configs: {},
                 result: {},
@@ -69,6 +73,7 @@
                     this.result.content = this.content;
                     this.result.html = this.html;
                     this.result.permission = this.permissionLevel;
+                    this.result.title = this.title;
                     var re1 = new RegExp("<.+?>","g");
                     this.result.summary = this.result.html.replace(re1,'').substring(0,30);
                     this.$http.post(this.requestUrl+"/newDoc",this.result).then(res=>{
@@ -91,6 +96,7 @@
             this.html = this.$route.query.html;
             this.changePermission(this.$route.query.currentPermission);
             this.userPermission=this.$route.query.permission;
+            this.title=this.$route.query.title;
         },
     }
 </script>

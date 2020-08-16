@@ -24,7 +24,7 @@
                                             <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
                                             <el-dropdown-menu slot="dropdown" style="float: right">
                                                 <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>
-                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>
+<!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
                                                 <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>
                                                 <el-dropdown-item @click.native="addwriter(0)">邀请协作</el-dropdown-item>
