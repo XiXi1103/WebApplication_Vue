@@ -54,9 +54,19 @@
             :visible.sync="drawer"
             :direction="direction">
             <ul>
-                <li v-for="member in res.memberList" :key="member.id">
+                <li v-for="member in res.memberList" :key="member.id" style="padding:20px 0 20px 0;border:0.5px solid black">
                     <span>{{member.name}}</span>
-                    <i class="el-icon-error" style="float:right;color:red;margin-right:30px;cursor:pointer" @click="delMember(member.id)"></i>
+                    <el-button type="danger" style="float:right;margin-top:-10px" @click="delMember(member.id)">移除</el-button> 
+                    <el-dropdown style="float:right;margin-top:-10px" >
+                        <el-button type="primary">{{permission[member.permission-1]}}</el-button>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item @click.native="changePermission(member.id,1)">查看</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,2)">评论</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,3)">分享</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,4)">修改</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,5)">管理</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
                 </li>
             </ul>
         </el-drawer>
@@ -91,6 +101,7 @@
                     groupList: [], 
                     memberList: [],
                 },
+                permission:["查看","评论","分享","修改","管理"],
                 drawer:false,
                 direction:"rtl",
                 value:"",
