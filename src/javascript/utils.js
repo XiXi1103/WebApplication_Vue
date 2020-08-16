@@ -274,7 +274,7 @@ export default {
                     ID:DocID
                 }
             }).then(res=>{
-                if (res.data.success==1){
+                if (res.data.success){
                     alert("已添加为我的模板，快去编辑吧");
                 }
                 else alert(res.data.msg);

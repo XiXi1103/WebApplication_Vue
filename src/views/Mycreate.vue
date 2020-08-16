@@ -17,7 +17,7 @@
 <!--                                    </el-card>-->
 <!--                                </el-col>-->
                                 <el-col :span="6" v-for="Page in res.pageList" :key="Page.id">
-                                    <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;">
+                                    <el-card shadow="hover" @click.native="viewmk(Page.id)" style="font-size: 20px; font-weight: bold; height: 210px;">
                                         <!--                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>-->
                                         <el-dropdown trigger="hover" style="float: right;">
                                             <i class="el-icon-more"></i>
