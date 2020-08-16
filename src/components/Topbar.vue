@@ -25,9 +25,9 @@
                 <el-dropdown class="project-container">
                     <el-button type="primary" style="background-color: white; border-color: white;  padding-right: 0;">
                         <i class="el-icon-bell"></i>
-                        <el-badge :value="this.notificationList.length" class="item" v-if="this.notificationList.length!==0" style="top: -10px"></el-badge>
+                        <el-badge :value="numberOfUnreadMessages" class="item" v-if="numberOfUnreadMessages!==0" style="top: -10px"></el-badge>
                     </el-button>
-                    <el-dropdown-menu slot="dropdown" style="overflow-y: auto" class="project-dropdown">
+                    <el-dropdown-menu slot="dropdown" style="overflow-y: auto;height: auto" class="project-dropdown">
                         <el-dropdown-item v-for="Notification in notificationList" :key="Notification.id">
 <!--                            <span v-if="Notification.statusboolean" @click.native="viewmk(0)">{{Notification.msg}}</span>-->
 <!--                            <span v-if="!Notification.statusboolean">{{Notification.msg}}(未读)</span>-->
@@ -36,14 +36,26 @@
                             <el-button v-if="Notification.category === 2" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
                             <el-button v-if="Notification.category === 3" @click="confirmDocInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>
                             <el-button v-if="Notification.category === 4" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 5" @click="collaborationDocumentModifiedOrDeleted(Notification.objectID)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 5" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
                             <el-button v-if="Notification.category === 6" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 7" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 8" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 9" @click="confirmGroupInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 10" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 7" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+<!--                            <el-button v-if="Notification.category === 8" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>-->
+<!--                            <el-button v-if="Notification.category === 9" @click="confirmGroupInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>-->
+<!--                            <el-button v-if="Notification.category === 10" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>-->
+
                             <el-button v-if="Notification.category === 11" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 12" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 12" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+
+                            <el-button v-if="Notification.category === 21" @click="confirmGroupInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 22" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 23" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 24" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+
+                            <el-button v-if="Notification.category === 31" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 32" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+
+                            <el-button v-if="Notification.category === 41" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="Notification.category === 42" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -107,7 +119,8 @@
                 drawer: false,
                 direction: 'rtl',
                 count: 0,
-                visible: false
+                visible: false,
+                numberOfUnreadMessages: 0
             };
         },
         methods: {
@@ -131,15 +144,79 @@
                 this.$router.push({path:'/PersonalInfo'});
             },
             getNotification: function() {
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getNotification",{
-                    params:{
-                        userID:sessionStorage.getItem("userId"),
-                    }
-                }).then(res => {
-                    console.log(res.data);
-                    this.notificationList = res.data.List;
-                });
+                // this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getNotification",{
+                //     params:{
+                //         userID:sessionStorage.getItem("userId"),
+                //     }
+                // }).then(res => {
+                //     console.log(res.data);
+                //     this.notificationList = res.data.List;
+                //     for (var i = 0; i < this.notificationList.length; i++) {
+                //         if (this.notificationList[i].status) {
+                //             break;
+                //         }
+                //         else {
+                //             this.numberOfUnreadMessages++;
+                //         }
+                //     }
+                //
+                // });
 
+                this.notificationList = [
+                    {
+                        "msg": "XXX评论了你的文章",
+                        "category": 1,
+                        "objectID": 0,
+                        "status": false,
+                        "date": "2020-8-14",
+                        "id": 1,
+                        "name": ""
+                    },
+                    {
+                        "msg": "邀请协作文档",
+                        "category": 3,
+                        "objectID": 0,
+                        "status": false,
+                        "date": "2020-8-14",
+                        "id": 2,
+                        "name": ""
+                    },
+                    {
+                        "msg": "邀请加入团队",
+                        "category": 21,
+                        "objectID": 0,
+                        "status": false,
+                        "date": "2020-8-14",
+                        "id": 2,
+                        "name": ""
+                    },
+                    {
+                        "msg": "被踢出团队",
+                        "category": 22,
+                        "objectID": 0,
+                        "status": false,
+                        "date": "2020-8-14",
+                        "id": 2,
+                        "name": ""
+                    },
+                    {
+                        "msg": "被踢出团队",
+                        "category": 22,
+                        "objectID": 0,
+                        "status": true,
+                        "date": "2020-8-14",
+                        "id": 2,
+                        "name": ""
+                    }
+                ];
+                for (var i = 0; i < this.notificationList.length; i++) {
+                    if (this.notificationList[i].status) {
+                        break;
+                    }
+                    else {
+                        this.numberOfUnreadMessages++;
+                    }
+                }
             },
             goToNotification(notification) {
                 this.viewmk(notification.objectID);
@@ -165,39 +242,51 @@
                 // msg.groupID = groupID;
                 // msg.success = false;
                 // Vue.set(msg, "groupID", groupID);
-                this.$confirm(notification.msg, '邀请', {
-                    confirmButtonText: '同意',
-                    cancelButtonText: '拒绝',
-                    type: 'info'
-                }).then(() => {
-                    if (this.confirmGroupInvitation(notification, true)) {
-                        this.$message({
-                            type: 'success',
-                            message: '加入团队成功!'
-                        });
-                    }
-                    else {
-                        this.$message({
-                            type: 'warning',
-                            message: '加入团队失败!'
-                        });
-                    }
-                    notification.status = true;
-                }).catch(() => {
-                    if (this.confirmGroupInvitation(notification, false)) {
-                        this.$message({
-                            type: 'warning',
-                            message: '已拒绝加入团队!'
-                        });
-                    }
-                    else {
-                        this.$message({
-                            type: 'warning',
-                            message: '拒绝加入团队失败!请重试'
-                        });
-                    }
-                    notification.status = true;
-                });
+                if (notification.status) {
+                    this.$message({
+                        message: '已读：' + notification.msg,
+                        type: 'success'
+                    });
+                }
+                else {
+                    this.$confirm(notification.msg, '邀请', {
+                        confirmButtonText: '同意',
+                        cancelButtonText: '拒绝',
+                        type: 'info'
+                    }).then(() => {
+                        if (this.confirmGroupInvitation(notification, true)) {
+                            this.$message({
+                                type: 'success',
+                                message: '加入团队成功!'
+                            });
+                            notification.status = true;
+                            this.numberOfUnreadMessages--;
+                        }
+                        else {
+                            // this.$message({
+                            //     type: 'warning',
+                            //     message: '加入团队失败!'
+                            // });
+                            this.$message.error('加入团队失败!请重试');
+                        }
+                    }).catch(() => {
+                        if (this.confirmGroupInvitation(notification, false)) {
+                            this.$message({
+                                type: 'warning',
+                                message: '已拒绝加入团队!'
+                            });
+                            notification.status = true;
+                            this.numberOfUnreadMessages--;
+                        }
+                        else {
+                            // this.$message({
+                            //     type: 'warning',
+                            //     message: '拒绝加入团队失败!请重试'
+                            // });
+                            this.$message.error('拒绝加入团队失败!请重试');
+                        }
+                    });
+                }
             },
             confirmGroupInvitation(notification, userResponse) {
                 this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/confirmGroupInvitation",{
@@ -213,46 +302,61 @@
                     // msg.success = res.data.success;
                 });
             },
-            collaborationDocumentModifiedOrDeleted(docID) {
-                this.viewmk(docID);
-            },
+            // collaborationDocumentModified(docID) {
+            //     this.viewmk(docID);
+            // },
+            // collaborationDocumentDeleted(docID) {
+            //     this.viewmk(docID);
+            // },
             confirmDocInvitationPopout(notification) {
                 // var msg = {};
                 // msg.groupID = docID;
                 // msg.success = false;
-                this.$confirm(notification.msg, '邀请', {
-                    confirmButtonText: '同意',
-                    cancelButtonText: '拒绝',
-                    type: 'info'
-                }).then(() => {
-                    if (this.confirmDocInvitation(notification, true)) {
-                        this.$message({
-                            type: 'success',
-                            message: '加入协作文档成功!'
-                        });
-                    }
-                    else {
-                        this.$message({
-                            type: 'warning',
-                            message: '加入协作文档失败!请重试'
-                        });
-                    }
-                    notification.status = true;
-                }).catch(() => {
-                    if (this.confirmDocInvitation(notification, false)) {
-                        this.$message({
-                            type: 'warning',
-                            message: '已拒绝加入协作文档!'
-                        });
-                    }
-                    else {
-                        this.$message({
-                            type: 'warning',
-                            message: '拒绝加入协作文档失败!请重试'
-                        });
-                    }
-                    notification.status = true;
-                });
+                if (notification.status) {
+                    this.$message({
+                        message: '已读：' + notification.msg,
+                        type: 'success'
+                    });
+                }
+                else {
+                    this.$confirm(notification.msg, '邀请', {
+                        confirmButtonText: '同意',
+                        cancelButtonText: '拒绝',
+                        type: 'info'
+                    }).then(() => {
+                        if (this.confirmDocInvitation(notification, true)) {
+                            this.$message({
+                                type: 'success',
+                                message: '加入协作文档成功!'
+                            });
+                            notification.status = true;
+                            this.numberOfUnreadMessages--;
+                        }
+                        else {
+                            // this.$message({
+                            //     type: 'warning',
+                            //     message: '加入协作文档失败!请重试'
+                            // });
+                            this.$message.error('加入协作文档失败!请重试');
+                        }
+                    }).catch(() => {
+                        if (this.confirmDocInvitation(notification, false)) {
+                            this.$message({
+                                type: 'warning',
+                                message: '已拒绝加入协作文档!'
+                            });
+                            notification.status = true;
+                            this.numberOfUnreadMessages--;
+                        }
+                        else {
+                            // this.$message({
+                            //     type: 'warning',
+                            //     message: '拒绝加入协作文档失败!请重试'
+                            // });
+                            this.$message.error('拒绝加入协作文档失败!请重试');
+                        }
+                    });
+                }
             },
             confirmDocInvitation(notification, userResponse) {
                 this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/confirmDocInvitation",{
@@ -275,8 +379,13 @@
                         notificationID:notification.id
                     }
                 }).then(res => {
+                    this.$message({
+                        message: '已读：' + notification.msg,
+                        type: 'success'
+                    });
                     console.log(res.data);
                     notification.status = true;
+                    this.numberOfUnreadMessages--;
                     // this.findNotificationById(notificationID).status=true;
                 });
             },
