@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <el-container>
+    <div style="height: 100%">
+        <el-container style="height: 100%" direction="vertical">
             <el-header>
                 <Topbar></Topbar>
             </el-header>
@@ -22,8 +22,9 @@
                                         <el-dropdown trigger="hover" style="float: right;">
                                             <i class="el-icon-more"></i>
                                             <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
-                                            <el-dropdown-menu slot="dropdown">
-                                                <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
+                                            <el-dropdown-menu slot="dropdown" style="margin-top: -55px">
+
+                                            <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
 <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
                                                 <el-dropdown-item @click.native="catwriter(Page.id);drawer = true">查看协作者</el-dropdown-item>
                                                 <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>
@@ -40,7 +41,7 @@
                             </el-row>
                         </div>
                     </el-main>
-                    <el-footer>Footer</el-footer>
+<!--                    <el-footer>Footer</el-footer>-->
                 </el-container>
             </el-container>
         </el-container>
@@ -210,5 +211,13 @@
         color: #8492a6;
         font-size: 14px;
         margin-bottom: 20px;
+    }
+    html,body,#app,.el-container{
+        /*设置内部填充为0，几个布局元素之间没有间距*/
+        padding: 0px;
+        /*外部间距也是如此设置*/
+        margin: 0px;
+        /*统一设置高度为100%*/
+        height: 100%;
     }
 </style>

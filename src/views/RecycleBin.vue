@@ -22,8 +22,8 @@
                                         <el-dropdown trigger="hover" style="float: right;">
                                             <i class="el-icon-more"></i>
                                             <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
-                                            <el-dropdown-menu slot="dropdown" style="float: right">
-                                                <el-dropdown-item @click.native="recover(0)">还原</el-dropdown-item>
+                                            <el-dropdown-menu slot="dropdown" style="margin-top: -55px">
+                                            <el-dropdown-item @click.native="recover(0)">还原</el-dropdown-item>
                                                 <el-dropdown-item @click.native="deleteCompletely(0)" style="color:red">彻底删除</el-dropdown-item>
                                                 <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
                                             </el-dropdown-menu>
@@ -35,7 +35,7 @@
                             </el-row>
                         </div>
                     </el-main>
-                    <el-footer>Footer</el-footer>
+<!--                    <el-footer>Footer</el-footer>-->
                 </el-container>
             </el-container>
         </el-container>

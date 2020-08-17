@@ -12,7 +12,7 @@
 
                         </div>
                     </el-main>
-                    <el-footer>Footer</el-footer>
+<!--                    <el-footer>Footer</el-footer>-->
                 </el-container>
             </el-container>
         </el-container>
