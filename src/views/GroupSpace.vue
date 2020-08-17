@@ -12,7 +12,7 @@
                             <el-row :gutter="12" style="margin-bottom: 50px">
                                 <el-col :span="8">
                                     <el-card shadow="hover">
-                                        <el-button type="info" @click.native="creategroup">新建团队</el-button>
+
                                     </el-card>
                                 </el-col>
                             </el-row>

@@ -32,7 +32,7 @@
                                     width="200"
                                     trigger="click"
                                     :content=link>
-                                <el-button slot="reference" icon="el-icon-link" type="warning" round style="margin-left: 10px" @click="shareDoc">分享</el-button>
+                                <el-button slot="reference" icon="el-icon-link" type="warning" round style="margin-left: 10px" @click="shareDoc()">分享</el-button>
                             </el-popover>
                         </div>
                         <div id="doc">
@@ -44,7 +44,7 @@
 <!--                                          placeholder="快来评论吧"-->
 <!--                                          v-model="comment.content">-->
 <!--                                </el-input>-->
-                                <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment" style="margin-left: 15px">发射！</el-button>
+                                <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" style="margin-left: 15px">发射！</el-button>
                             </div>
                             <div v-else>
                                 <el-input v-model="comment.content" placeholder="该文档不支持评论哦" style="width: 85%"></el-input>
@@ -55,7 +55,7 @@
 <!--                                          :disabled="true"-->
 <!--                                >-->
 <!--                                </el-input>-->
-                                <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment" :disabled="true">发射！</el-button>
+                                <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" :disabled="true">发射！</el-button>
                             </div>
                         </div>
                         <el-divider style=""></el-divider>
@@ -68,7 +68,7 @@
                                 {{reply.content}}
                             </div>
 
-                            <span style="position: relative;top: -70px; float: right;font-size: 15px;height: 10px;margin-bottom: 20px">评论于{{reply.time}}</span>
+                            <el-tag style="position: relative; float: right;font-size: 15px; margin-bottom: 20px; margin-right: 2px">评论于{{reply.time}}</el-tag>
                         </el-card>
 <!--                        <div class="replyBox" v-for="reply in replyList" :key="reply.replyId">-->
 <!--                            <button class="el-icon-close" @click="delReply(reply.replyID)" style=""></button>-->
@@ -161,7 +161,7 @@
                         userID:sessionStorage.getItem("userId"),
                     }
                 }).then(res=>{
-                    if (res.data.success==1){
+                    if (res.data.success){
                         this.isCollect=!this.isCollect;
                     }
                     else{

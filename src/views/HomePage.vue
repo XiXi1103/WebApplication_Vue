@@ -40,9 +40,9 @@
                                 <div class="block">
                                     <el-timeline style="margin-left: 20px">
                                         <el-timeline-item v-for="Page in res.pageList" :key="Page.id" timestamp="2018/4/12" placement="top" style="width: 50%;" >
-                                            <el-card @click.native="viewmk(Page.id)">
-                                                <p style="height: 20px;margin-top: 0px">{{Page.title}}</p>
-                                                <p style="height: 20px">(可以写点文档属性)</p>
+                                            <el-card shadow="hover" @click.native="viewmk(Page.id)" style="line-height:55px">
+                                                <span style="height: 20px;font-weight: bold;font-size: 16px">{{Page.title}}</span><br>
+                                                <span style="height: 20px">(可以写点文档属性)</span>
                                             </el-card>
                                         </el-timeline-item>
 
@@ -53,7 +53,7 @@
                             </el-row>
                         </div>
                     </el-main>
-                    <el-footer>Footer</el-footer>
+<!--                    <el-footer>Footer</el-footer>-->
                 </el-container>
             </el-container>
         </el-container>
@@ -80,7 +80,18 @@
         data() {
             return {
                 res : {
-                    pageList : [],
+                    pageList : [
+                        {
+                            "title": "最近浏览",
+                            "id": 1,
+                            "isCreator": false
+                        },
+                        {
+                            "title": "最近浏览",
+                            "id": 2,
+                            "isCreator": false
+                        }
+                    ],
                     writerList:[]
                 },
                 drawer:false,
@@ -89,7 +100,7 @@
         },
         created() {
             sessionStorage.setItem("type",0);
-            this.getRecentPage(this.res);
+            // this.getRecentPage(this.res);
         },
         components:{
             Topbar,
@@ -125,7 +136,7 @@
         },
     }
 </script>
-<style>
+<style scoped>
     .el-header, .el-footer {
         background-color: white;
         color: #333;
@@ -171,9 +182,5 @@
         color: #8492a6;
         font-size: 14px;
         margin-bottom: 20px;
-    }
-    .el-card__body{
-        height: 200px;
-        padding: 0px;
     }
 </style>

@@ -222,7 +222,7 @@ export default {
 
                 }
             })
-        }
+        };
          Vue.prototype.getMember = function(Groupid,MemberList){
             this.$http.get(this.requestUrl+"/catMember",{
                 params:{
@@ -299,7 +299,7 @@ export default {
                 }
                 else alert("权限不足");
             })
-        }
+        };
         Vue.prototype.writerPermission = function(id,permission){
             this.$http.get(this.requestUrl+"/writerPermission",{
                 params:{

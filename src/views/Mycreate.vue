@@ -20,15 +20,19 @@
                                     <el-card shadow="hover" @click.native="viewmk(Page.id)" style="font-size: 20px; font-weight: bold; height: 210px;">
                                         <!--                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>-->
                                         <el-dropdown trigger="hover" style="float: right;">
+<!--                                            <el-button type="primary" style="border-color: white;background-color: white">-->
+<!--                                            </el-button>-->
                                             <i class="el-icon-more"></i>
                                             <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
-                                            <el-dropdown-menu slot="dropdown" style="float: right">
-                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>
-<!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
-                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
-                                                <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>
+                                            <el-dropdown-menu slot="dropdown" style="margin-top: -55px">
+                                                <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
+                                                <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
+                                                <el-dropdown-item @click.native="catwriter(Page.id);drawer = true">查看协作者</el-dropdown-item>
                                                 <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>
-                                                <el-dropdown-item @click.native="delDoc(0)" style="color:red">移至回收站</el-dropdown-item>
+                                                <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
+                                                <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
+                                                <!--                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>-->
+                                                <el-dropdown-item @click.native="cancelCollection(Page.id)" style="color:red">取消收藏</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
 
