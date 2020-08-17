@@ -9,13 +9,7 @@
                 <el-container>
                     <el-main>
                         <div id="doc">
-                            <el-row :gutter="12" style="margin-bottom: 50px">
-                                <el-col :span="8">
-                                    <el-card shadow="hover">
 
-                                    </el-card>
-                                </el-col>
-                            </el-row>
                         </div>
                     </el-main>
                     <el-footer>Footer</el-footer>

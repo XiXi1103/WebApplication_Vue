@@ -23,7 +23,7 @@
 
 
 
-                <el-input v-model="this.title" placeholder="请输入标题" style="width: 20%;margin-left: 90px"></el-input>
+                <el-input v-model="title" placeholder="请输入标题" style="width: 20%;margin-left: 90px"></el-input>
                 <br>
                 <br>
                 <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="width: 1500px;height: 800px;margin: 0 auto; "/>
@@ -102,6 +102,7 @@
                     this.result.html = this.html;
                     this.result.permission = this.permissionLevel;
                     this.result.title = this.title;
+                    this.result.groupId = this.$route.query.groupId;
                     var re1 = new RegExp("<.+?>","g");
                     this.result.summary = this.result.html.replace(re1,'').substring(0,30);
                     this.$http.post(this.requestUrl+"/newDoc",this.result).then(res=>{
@@ -112,6 +113,7 @@
                         });
                         this.$router.push("/");
                     })
+                    alert(this.result.content)
                 }
 
             },
