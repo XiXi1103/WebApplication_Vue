@@ -65,7 +65,7 @@
                     }
                 }).then(res => {
                     console.log(res.data);
-                    this.pageList = res.data.pageLists;
+                    this.pageList = res.data;
             });
            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchGroup",{
                     params:{
@@ -74,7 +74,7 @@
                     }
                 }).then(res => {
                     console.log(res.data);
-                    this.groupList = res.data.groupLists;    
+                    this.groupList = res.data;    
             })             
             sessionStorage.setItem("type",4);
             this.getGroupPage(this.res);

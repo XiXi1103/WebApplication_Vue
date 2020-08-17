@@ -17,7 +17,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.pageLists;
+                PageList.pageList = res.data;
             });
         };
         Vue.prototype.getMyPage = function (PageList){
@@ -27,7 +27,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.pageLists;
+                PageList.pageList = res.data;
             });
         };
         Vue.prototype.getCollectionPage = function (PageList){
@@ -37,7 +37,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.pageLists;
+                PageList.pageList = res.data;
             });
         };
         Vue.prototype.getDelPage = function (PageList){
@@ -47,7 +47,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.pageLists; 
+                PageList.pageList = res.data; 
             });
         };
         Vue.prototype.getGroupPage = function (PageList){
@@ -58,7 +58,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.groupPage = res.data.pageLists;
+                PageList.groupPage = res.data;
             });
         };
         Vue.prototype.getGroup = function (GroupList){
@@ -198,6 +198,7 @@ export default {
             }).then(res =>{
                 if(res.data.success){
                     alert("退出成功");
+                    location.reload();
                 }
                 else{
                     alert("退出失败");
@@ -214,6 +215,7 @@ export default {
             }).then(res =>{
                 if(res.data.success){
                     alert("成功踢出");
+                    location.reload();
                 }
                 else{
                     alert("权限不足");
@@ -238,7 +240,7 @@ export default {
                 }
             }).then(res =>{
                 console.log(res.data);
-                WriterList.writerList = res.data.writerLists;
+                WriterList.writerList = res.data;
             })
          };
          Vue.prototype.creategroup = function(){
@@ -256,6 +258,7 @@ export default {
                             type:'success',
                             message: "创建成功"
                         });
+                        location.reload();
                     }
                     else{
                         this.$message({
@@ -266,6 +269,20 @@ export default {
                 });
             })
          };
+         Vue.prototype.addTem = function (DocID) {//添加为我的模板
+            this.$http.get(this.requestUrl+"/addMyTemplate",{
+                params:{
+                    userID:sessionStorage.getItem("userId"),
+                    ID:DocID
+                }
+            }).then(res=>{
+                if (res.data.success==1){
+                    alert("已添加为我的模板，快去编辑吧");
+                }
+                else alert(res.data.msg);
+
+            })
+        };
         Vue.prototype.changePermission = function(id,permission){
             this.$http.get(this.requestUrl+"/changePermission",{
                 params:{
@@ -278,6 +295,7 @@ export default {
                 console.log(res.data);
                 if(res.data.success){
                     alert(res.data.msg);
+                    location.reload();
                 }
                 else alert("权限不足");
             })
@@ -294,10 +312,11 @@ export default {
                 console.log(res.data);
                 if(res.data.success){
                     alert(res.data.msg);
+                    location.reload();
                 }
                 else alert("权限不足");
             })
-        }
+        };
         Vue.prototype.addCollection=function(docId){
             this.$http.get(this.requestUrl+"/collection",{
                 params:{
@@ -309,7 +328,7 @@ export default {
                     alert(res.data.msg)
                 }
             })
-        }
+        }       
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post(this.requestUrl+"/delDoc",{
         //         params:{

@@ -81,14 +81,14 @@
                         this.$message.error(res.data.msg);
                     }
                     else {
-                        this.templateList = res.data.TemplateList;
+                        this.templateList = res.data;
                     }
                 })
             },
             showAllTem(){
                 this.flag=true;
                 this.$http.get(this.requestUrl+"/getAllTemplate",).then(res=>{
-                    this.templateList = res.data.TemplateList;
+                    this.templateList = res.data;
                 })
             },
 

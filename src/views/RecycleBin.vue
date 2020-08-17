@@ -79,6 +79,7 @@
                             message: '恢复成功',
                             type: 'success'
                         });
+                        location.reload();
                     }
                     else {
                         // alert("恢复失败");
@@ -99,6 +100,7 @@
                             message: '删除成功',
                             type: 'success'
                         });
+                        location.reload();
                     }
                     else {
                         // alert("删除失败");

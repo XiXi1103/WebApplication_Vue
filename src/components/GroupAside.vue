@@ -56,8 +56,8 @@
             <ul>
                 <li v-for="member in res.memberList" :key="member.id" style="padding:20px 0 20px 0;border:0.5px solid black">
                     <span>{{member.name}}</span>
-                    <el-button type="danger" style="float:right;margin-top:-10px" @click="delMember(member.id)">移除</el-button> 
-                    <el-dropdown style="float:right;margin-top:-10px" >
+                    <el-button type="danger" style="float:right;margin-top:-10px" @click="delMember(member.id)" v-show="member.permission!=5">移除</el-button> 
+                    <el-dropdown style="float:right;margin-top:-10px"  v-show="member.permission!=5">
                         <el-button type="primary">{{permission[member.permission-1]}}</el-button>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item @click.native="changePermission(member.id,1)">查看</el-dropdown-item>
@@ -134,6 +134,7 @@
                     console.log(res.data);
                     if(res.data.success){
                         alert("删除成功");
+                        location.reload();
                     }
                     else{
                         alert(res.data.msg);
@@ -150,6 +151,7 @@
                     console.log(res.data);
                     if(res.data.success){
                         alert("退出成功");
+                        location.reload();
                     }
                     else{
                         alert("退出失败");
@@ -170,6 +172,7 @@
                 }).then(res =>{
                     if(res.data.success){
                         alert("成功踢出");
+                        location.reload();
                     }
                     else{
                         alert("权限不足");
@@ -184,10 +187,11 @@
                             }
                         }).then(res => {
                             console.log(res.data);
-                            this.searchList = res.data.userLists.filter(user =>{
+                            this.searchList = res.data;
+                            /*this.searchList = res.data.filter(user =>{
                                 return user.name.toLowerCase()
                                 .indexOf(query.toLowerCase()) > -1;
-                            });
+                            });*/
                     })                                   
                 }
                 else{

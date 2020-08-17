@@ -139,7 +139,7 @@
                         docId:this.docId
                     }
                 }).then(res=>{
-                    this.replyList = res.data.replyList;
+                    this.replyList = res.data;
                 })
             },
             delReply(replyID){

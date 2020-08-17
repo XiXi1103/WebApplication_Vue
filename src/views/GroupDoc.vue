@@ -43,8 +43,8 @@
             <ul>
                 <li v-for="writer in res.writerList" :key="writer.id" style="padding:20px 0 20px 0;border:0.5px solid black">
                     <span>{{writer.name}}</span>
-                    <el-button type="danger" style="float:right;margin-top:-10px" @click="delWriter(writer.id)">移除</el-button> 
-                    <el-dropdown style="float:right;margin-top:-10px" >
+                    <el-button type="danger" style="float:right;margin-top:-10px" @click="delWriter(writer.id)" v-show="writer.permission!=5">移除</el-button> 
+                    <el-dropdown style="float:right;margin-top:-10px"  v-show="writer.permission!=5">
                         <el-button type="primary">{{permission[writer.permission-1]}}</el-button>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item @click.native="writerPermission(writer.id,1)">查看</el-dropdown-item>
@@ -115,10 +115,11 @@
                             }
                         }).then(res => {
                             console.log(res.data);
-                            this.searchList = res.data.userLists.filter(user =>{
+                            this.searchList = res.data;
+                            /*this.searchList = res.data.filter(user =>{
                                 return user.name.toLowerCase()
                                 .indexOf(query.toLowerCase()) > -1;
-                            });
+                            });*/
                     })                                   
                 }
                 else{

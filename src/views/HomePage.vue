@@ -110,6 +110,7 @@
                             message: '移出最近浏览成功'
                         });
                         this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                        location.reload();
                     }
                     else {
                         // alert("移出最近浏览失败");
