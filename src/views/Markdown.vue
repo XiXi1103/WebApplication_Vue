@@ -3,7 +3,27 @@
         <Topbar></Topbar>
         <div class="markdown">
             <div class="container">
-                <el-input v-model="this.title" placeholder="请输入标题" style="width: 20%"></el-input>
+                <br>
+                <el-button type="warning" icon="el-icon-time" circle @click="getHistory" style="float: right"></el-button>
+                <el-drawer
+                        :visible.sync="drawer"
+                        :with-header="false">
+                    <span style="float: left;font-size: 25px;padding: 20px">修改历史</span>
+                    <br>
+                    <br>
+                    <el-divider></el-divider>
+                    <el-card class="box-card"  v-for="history in historyList" :key="history.id" style="width: 100%; margin-top: 10px;height:130px">
+                        <p style="float: left;margin-top: 0px;padding:2px;">{{history.time}}2020-1-1</p>
+                        <br>
+                        <br>
+                        修改内容
+                        {{history.msg}}
+                    </el-card>
+                </el-drawer>
+
+
+
+                <el-input v-model="this.title" placeholder="请输入标题" style="width: 20%;margin-left: 90px"></el-input>
                 <br>
                 <br>
                 <mavon-editor v-model="content" ref="md" @imgAdd="$imgAdd" @change="change" style="width: 1500px;height: 800px;margin: 0 auto; "/>
@@ -48,6 +68,8 @@
                 permissionLevel:0,
                 userPermission:4,
                 docID:'',
+                drawer: false,
+                historyList: [],
             }
         },
         methods: {
@@ -99,6 +121,16 @@
                 if (this.permissionLevel==1) this.permission="公开";
                 if (this.permissionLevel==2) this.permission="可评论";
                 if (this.permissionLevel==3) this.permission="可评论分享";
+            },
+            getHistory(){
+                this.drawer=true;
+                this.$http.get(this.requestUrl+"/modifyRecord",{
+                    params:{
+                        documentationId:this.docID,
+                    }
+                }).then(res=>{
+                    this.historyList=res.data;
+                })
             }
         },
         mounted() {

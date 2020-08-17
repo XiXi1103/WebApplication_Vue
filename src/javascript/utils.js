@@ -266,20 +266,6 @@ export default {
                 });
             })
          };
-         Vue.prototype.addTem = function (DocID) {//添加为我的模板
-            this.$http.get(this.requestUrl+"/addMyTemplate",{
-                params:{
-                    userID:sessionStorage.getItem("userId"),
-                    ID:DocID
-                }
-            }).then(res=>{
-                if (res.data.success==1){
-                    alert("已添加为我的模板，快去编辑吧");
-                }
-                else alert(res.data.msg);
-
-            })
-        };
         Vue.prototype.changePermission = function(id,permission){
             this.$http.get(this.requestUrl+"/changePermission",{
                 params:{
@@ -311,7 +297,19 @@ export default {
                 }
                 else alert("权限不足");
             })
-        }       
+        }
+        Vue.prototype.addCollection=function(docId){
+            this.$http.get(this.requestUrl+"/collection",{
+                params:{
+                    documentationId:docId,
+                    userID:sessionStorage.getItem("userId"),
+                }
+            }).then(res=>{
+                if (!res.data.success){
+                    alert(res.data.msg)
+                }
+            })
+        }
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post(this.requestUrl+"/delDoc",{
         //         params:{

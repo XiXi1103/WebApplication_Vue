@@ -36,7 +36,7 @@
                                         <p>{{template.name}}</p>
 
                                         <el-button type="info" @click="viewmk(template.ID)" v-show="flag">查看模板</el-button>
-                                        <el-button type="info" @click="addTem(template.ID)" v-show="flag">添加为我的模板</el-button>
+                                        <el-button type="info" @click="addCollection(template.ID)" v-show="flag">添加为我的模板</el-button>
                                         <el-button type="info" @click="editmk(template.ID)" v-show="!flag">使用模板</el-button>
                                     </el-card>
                                 </el-col>
