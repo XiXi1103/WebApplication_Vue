@@ -328,7 +328,8 @@ export default {
                     alert(res.data.msg)
                 }
             })
-        }       
+        }
+
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post(this.requestUrl+"/delDoc",{
         //         params:{
