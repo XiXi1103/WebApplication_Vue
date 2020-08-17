@@ -98,7 +98,7 @@
         data(){
             return{
                 res : {
-                    groupList: [], 
+                    groupList: [],
                     memberList: [],
                 },
                 permission:["查看","评论","分享","修改","管理"],
@@ -125,10 +125,10 @@
                 this.$router.push({path: '/groupspace'});
             },
             delGroup:function(id){
-                this.$http.post(this.requestUrl+"/delGroup",{
+                this.$http.get(this.requestUrl+"/delGroup",{
                     params:{
-                        groupID:id,
                         userID:sessionStorage.getItem("userId"),
+                        groupID:id,
                     }
                 }).then(res =>{
                     console.log(res.data);

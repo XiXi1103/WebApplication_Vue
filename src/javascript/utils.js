@@ -67,8 +67,9 @@ export default {
                    userID:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
-                console.log(res.data.groupLists);
-                GroupList.groupList = res.data.groupLists;
+                console.log(1);
+                console.log(res.data);
+                GroupList.groupList = res.data;
             })
         };
         Vue.prototype.editmk = function editmk(DocID){
@@ -227,7 +228,7 @@ export default {
                 }
             }).then(res =>{
                 console.log(res.data);
-                MemberList.memberList = res.data.memberLists;
+                MemberList.memberList = res.data;
             })
          };
          Vue.prototype.getWriter = function(docid,WriterList){
