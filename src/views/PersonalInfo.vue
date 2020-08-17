@@ -110,7 +110,7 @@
               this.ischange=1;
               this.$http.post(this.requestUrl+"/changePerInfo",{
                 param:{
-                  userID: sessionStorage.getItem("userId"),
+                  userId: sessionStorage.getItem("userId"),
                   passwd: this.passwd,
                   email: this.email,
                   phoneNum: this.phoneNum
@@ -135,7 +135,7 @@
   created() {
       this.$http.get(this.requestUrl+"/personalInfo",{
         param:{
-          userid:sessionStorage.getItem("userId"),
+          userId:sessionStorage.getItem("userId"),
         }
       }).then(res=>{
         if(res.data.success){

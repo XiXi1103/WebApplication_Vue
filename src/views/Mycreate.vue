@@ -117,11 +117,11 @@
             this.getMyPage(this.res);
         },
         methods : {
-            delDoc:function(DocID){
+            delDoc:function(docId){
                 this.$http.post(this.requestUrl+"/delDoc",{
                     params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
+                        userId:sessionStorage.getItem("userId"),
+                        docId:docId
                     }
                 }).then(res=>{
                     if (res.data.success){
@@ -130,7 +130,7 @@
                             type: 'success',
                             message: '删除成功!'
                         });
-                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                        this.res.pageList.splice(this.ArrayIndexOfBydocId(this.res.pageList, docId),1);
                         location.reload();
                     }
                     else {

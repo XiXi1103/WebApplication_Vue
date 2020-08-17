@@ -146,7 +146,7 @@
             getNotification: function() {
                 // this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getNotification",{
                 //     params:{
-                //         userID:sessionStorage.getItem("userId"),
+                //         userId:sessionStorage.getItem("userId"),
                 //     }
                 // }).then(res => {
                 //     console.log(res.data);
@@ -291,7 +291,7 @@
             confirmGroupInvitation(notification, userResponse) {
                 this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/confirmGroupInvitation",{
                     params:{
-                        userID:sessionStorage.getItem("userID"),
+                        userId:sessionStorage.getItem("userId"),
                         groupID:notification.objectID,
                         userResponse:userResponse,
                         noticeID:notification.id
@@ -302,15 +302,15 @@
                     // msg.success = res.data.success;
                 });
             },
-            // collaborationDocumentModified(docID) {
-            //     this.viewmk(docID);
+            // collaborationDocumentModified(docId) {
+            //     this.viewmk(docId);
             // },
-            // collaborationDocumentDeleted(docID) {
-            //     this.viewmk(docID);
+            // collaborationDocumentDeleted(docId) {
+            //     this.viewmk(docId);
             // },
             confirmDocInvitationPopout(notification) {
                 // var msg = {};
-                // msg.groupID = docID;
+                // msg.groupID = docId;
                 // msg.success = false;
                 if (notification.status) {
                     this.$message({
@@ -361,7 +361,7 @@
             confirmDocInvitation(notification, userResponse) {
                 this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/confirmDocInvitation",{
                     params:{
-                        userID:sessionStorage.getItem("userId"),
+                        userId:sessionStorage.getItem("userId"),
                         groupID:notification.objectID,
                         userResponse:userResponse,
                         noticeID:notification.id
@@ -375,7 +375,7 @@
             read(notification) {
                 this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/readNotifications",{
                     params:{
-                        userID:sessionStorage.getItem("userId"),
+                        userId:sessionStorage.getItem("userId"),
                         notificationID:notification.id
                     }
                 }).then(res => {

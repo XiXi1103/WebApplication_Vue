@@ -107,11 +107,11 @@
             Asidebar
         },
         methods : {
-            removeRecentBrowsing:function(DocID){
+            removeRecentBrowsing:function(docId){
                 this.$http.post(this.requestUrl+"/removeRecentBrowsing",{
                     params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
+                        userId:sessionStorage.getItem("userId"),
+                        docId:docId
                     }
                 }).then(res=>{
                     if (res.data.success){
@@ -120,7 +120,7 @@
                             type: 'success',
                             message: '移出最近浏览成功'
                         });
-                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                        this.res.pageList.splice(this.ArrayIndexOfBydocId(this.res.pageList, docId),1);
                         location.reload();
                     }
                     else {

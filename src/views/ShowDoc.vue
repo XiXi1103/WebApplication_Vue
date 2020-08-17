@@ -12,7 +12,7 @@
                             <mavon-editor  v-model="value" :toolbars="markdownOption" :editable = "false" :toolbarsFlag = "false" defaultOpen="preview" :subfield="false" style="z-index:1;border: 1px solid #d9d9d9;height:auto"/>
                         </div>
                         <div v-if=isTemplate>
-                            <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(this.docID)">添加模板</el-button>
+                            <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(this.docId)">添加模板</el-button>
                             <el-popover
                                     title="复制以下连接来进行分享"
                                     width="200"
@@ -102,10 +102,10 @@
         data() {
             return {
                 value: ``,
-                docID:'',
+                docId:'',
                 comment: {
-                    userID:'',
-                    docID:'',
+                    userId:'',
+                    docId:'',
                     replyId:'',
                     isReply:'',
                     content:'',
@@ -119,8 +119,8 @@
         },
         methods:{
             sendComment(){
-                this.comment.userID=sessionStorage.getItem("username");
-                this.comment.docID = this.docID;
+                this.comment.userId=sessionStorage.getItem("username");
+                this.comment.docId = this.docId;
                 this.comment.replyId= 0;
                 this.comment.isReply = false;
                 this.$http.post(this.requestUrl+"/reply",this.comment).then(res=>{
@@ -158,7 +158,7 @@
                 this.$http.get(this.requestUrl+"/collection",{
                     params:{
                         documentationId:this.docId,
-                        userID:sessionStorage.getItem("userId"),
+                        userId:sessionStorage.getItem("userId"),
                     }
                 }).then(res=>{
                     if (res.data.success){
@@ -176,7 +176,7 @@
                     this.$message.error('权限不足，无法分享哦');
                 }
                 else {
-                    this.link=this.baseUrl+"showDoc?docId="+this.docID;
+                    this.link=this.baseUrl+"showDoc?docId="+this.docId;
                 }
             }
         },
@@ -184,8 +184,8 @@
             if (this.$route.query.content==null&&this.$route.query.docId!=null){
                 this.$http.get(this.requestUrl+"/viewDoc",{
                     params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:this.$route.query.docId
+                        userId:sessionStorage.getItem("userId"),
+                        docId:this.$route.query.docId
                     }
                 }).then(res=>{
                     if (res.data.success){
@@ -194,7 +194,7 @@
                         if (res.data.isTemplate==1) this.isTemplate=true;
                         else this.isTemplate=false;
                         this.value = res.data.content;
-                        this.docID = this.$route.query.docId;
+                        this.docId = this.$route.query.docId;
                         this.permission = res.data.userPermission;
                         this.findAllReply();
                     }
@@ -210,7 +210,7 @@
                 if (this.$route.query.isTemplate==1) this.isTemplate=true;
                 else this.isTemplate=false;
                 this.value = this.$route.query.content;
-                this.docID = this.$route.query.docId;
+                this.docId = this.$route.query.docId;
                 this.permission = this.$route.query.permission;
                 this.findAllReply();
                 this.$forceUpdate();

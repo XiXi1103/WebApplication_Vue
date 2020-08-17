@@ -66,11 +66,11 @@
             load(){
                 this.count +=2
             },
-            recover:function(DocID){
+            recover:function(docId){
                 this.$http.post(this.requestUrl+"/recoverDoc",{
                     params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
+                        userId:sessionStorage.getItem("userId"),
+                        docId:docId
                     }
                 }).then(res=>{
                     if (res.data.success){
@@ -87,11 +87,11 @@
                     }
                 });
             },
-            deleteCompletely:function(DocID){
+            deleteCompletely:function(docId){
                 this.$http.post(this.requestUrl+"/delDocCompletely",{
                     params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
+                        userId:sessionStorage.getItem("userId"),
+                        docId:docId
                     }
                 }).then(res=>{
                     if (res.data.success){

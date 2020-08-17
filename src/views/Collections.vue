@@ -116,11 +116,11 @@
             Asidebar
         },
         methods : {
-            cancelCollection:function(DocID){
+            cancelCollection:function(docId){
                 this.$http.post(this.requestUrl+"/cancelCollection",{
                     params:{
-                        userID:sessionStorage.getItem("userId"),
-                        docID:DocID
+                        userId:sessionStorage.getItem("userId"),
+                        docId:docId
                     }
                 }).then(res=>{
                     if (res.data.success){
@@ -129,7 +129,7 @@
                             type: 'success',
                             message: '取消收藏成功'
                         });
-                        this.res.pageList.splice(this.ArrayIndexOfByDocID(this.res.pageList, DocID),1);
+                        this.res.pageList.splice(this.ArrayIndexOfBydocId(this.res.pageList, docId),1);
                         location.reload();
                     }
                     else {

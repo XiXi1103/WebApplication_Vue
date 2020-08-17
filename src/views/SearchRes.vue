@@ -61,7 +61,7 @@
            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchDoc",{
                     params:{
                         text:this.text,                        
-                        userID:sessionStorage.getItem("userId"),
+                        userId:sessionStorage.getItem("userId"),
                     }
                 }).then(res => {
                     console.log(res.data);
@@ -70,7 +70,7 @@
            this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchGroup",{
                     params:{
                         text:this.text,   
-                        userID:sessionStorage.getItem("userId"),                     
+                        userId:sessionStorage.getItem("userId"),                     
                     }
                 }).then(res => {
                     console.log(res.data);
