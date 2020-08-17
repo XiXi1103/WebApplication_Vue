@@ -24,6 +24,7 @@
                                     <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
                                     <el-dropdown-menu slot="dropdown" style="float: right">
                                         <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
+                                        <el-dropdown-item @click.native="createDoc(Group.id)">创建文档</el-dropdown-item>
                                         <el-dropdown-item @click.native="reserveId(Group.id);dialogFormVisible = true">添加成员</el-dropdown-item>
                                         <el-dropdown-item @click.native="catMember(Group.id);drawer = true">查看成员</el-dropdown-item>
                                         <el-dropdown-item @click.native="delGroup(Group.id)" style="color:red" v-show="Group.isCreator">删除团队</el-dropdown-item>
@@ -124,6 +125,14 @@
             GotoGroupSpace:function(){
                 this.$router.push({path: '/groupspace'});
             },
+            createDoc:function(id){
+                this.$router.push({
+                    path:'/markdown',
+                    query:{
+                        groupId:id
+                    }
+                })
+            },            
             delGroup:function(id){
                 this.$http.get(this.requestUrl+"/delGroup",{
                     params:{
