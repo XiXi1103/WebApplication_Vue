@@ -13,7 +13,7 @@ export default {
         Vue.prototype.getRecentPage = function (PageList){
             this.$http.get(this.requestUrl+"/getRecentDoc",{
                 params:{
-                    userID:sessionStorage.getItem("userId")
+                    userId:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
                 console.log(res.data);
@@ -27,7 +27,7 @@ export default {
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.pageList = res.data.pageLists;
+                PageList.pageList = res.data;
             });
         };
         Vue.prototype.getCollectionPage = function (PageList){
@@ -145,10 +145,10 @@ export default {
             }
             return -1;
         };
-        Vue.prototype.addWriter = function(Docid,username){
+        Vue.prototype.addWriter = function(docID,username){
             this.$http.get(this.requestUrl+"/addWriter",{
                 params:{
-                    docID:Docid,
+                    docID:docID,
                     userID: sessionStorage.getItem("userId"),
                     username: username,
                 }
@@ -167,12 +167,12 @@ export default {
                 }
             });
         };
-         Vue.prototype.addMember = function(Groupid,userName){
+         Vue.prototype.addMember = function(groupId,username){
             this.$http.get(this.requestUrl+"/addMember",{
                 params:{
-                    groupID:Groupid,
+                    groupID:groupId,
                     userID: sessionStorage.getItem("userId"),
-                    username: userName,
+                    username: username,
                 }
             }).then(res =>{
                 if(res.data.success){
@@ -320,8 +320,8 @@ export default {
         Vue.prototype.addCollection=function(docId){
             this.$http.get(this.requestUrl+"/collection",{
                 params:{
-                    documentationId:docId,
-                    userID:sessionStorage.getItem("userId"),
+                    docId:docId,
+                    userId:sessionStorage.getItem("userId"),
                 }
             }).then(res=>{
                 if (!res.data.success){

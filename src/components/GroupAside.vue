@@ -81,12 +81,12 @@
              <el-option
                 v-for="user in searchList"
                  :key="user.id"
-                 :label="user.name">
+                 :label="user.username">
              </el-option>
             </el-select>
             <div slot="footer" class="dialog-footer">
                 <el-button @click.native="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click.native="addMember(groupId,value);dialogFormVisible = false">添 加</el-button>
+                <el-button type="primary" @click="addMember(groupId,value);dialogFormVisible = false">添 加</el-button>
             </div>
         </el-dialog>
 
@@ -108,7 +108,7 @@
                 value:"",
                 searchList: [],         
                 dialogFormVisible: false,
-                groupId:sessionStorage.getItem("groupId")
+                groupId : 0,//sessionStorage.getItem("groupId")
             }
         },
         methods:{
@@ -192,7 +192,7 @@
                 if(query !== ''){
                     this.$http.get(this.requestUrl+"/searchUser",{
                             params:{
-                                text:query,
+                                username:query,
                             }
                         }).then(res => {
                             console.log(res.data);
@@ -208,7 +208,8 @@
                 }
             },
             reserveId:function(id){
-                sessionStorage.setItem("groupId",id);
+                this.groupId = id ;
+                // sessionStorage.setItem("groupId",id);
             }  
         },
         created() {
