@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <el-container>
+    <div style="height: 100%">
+        <el-container style="height: 100%" direction="vertical">
             <el-header>
                 <Topbar></Topbar>
             </el-header>
@@ -9,7 +9,7 @@
                 <el-container>
                     <el-main>
                         <div id="doc">
-                            <el-row :gutter="12">
+                            <el-row :gutter="14">
 <!--                                <el-col :span="6">-->
 <!--                                    <el-card shadow="hover" @click.native="GotoMarkDown" style="font-size: 20px; font-weight: bold; height: 210px;">-->
 <!--                                        新建<i class="el-icon-plus"></i>-->
@@ -17,7 +17,7 @@
 <!--                                    </el-card>-->
 <!--                                </el-col>-->
                                 <el-col :span="6" v-for="Page in res.pageList" :key="Page.id">
-                                    <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;">
+                                    <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;margin-bottom: 20px">
                                         <!--                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>-->
                                         <el-dropdown trigger="hover" style="float: right;">
                                             <i class="el-icon-more"></i>
@@ -131,6 +131,7 @@
         color: #333;
         text-align: center;
         line-height: 160px;
+        overflow-y: hidden;
     }
 
     .el-header, .el-footer {

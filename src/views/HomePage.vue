@@ -171,6 +171,7 @@
         color: #333;
         text-align: center;
         line-height: 160px;
+        overflow-y: hidden;
     }
 
     body > .el-container {
