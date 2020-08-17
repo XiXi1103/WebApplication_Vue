@@ -136,7 +136,7 @@
             findAllReply(){
                 this.$http.get(this.requestUrl+"/findAllReply",{
                     params:{
-                        docId:this.docId
+                        docId:this.docID
                     }
                 }).then(res=>{
                     this.replyList = res.data;
@@ -157,7 +157,7 @@
             collection(){
                 this.$http.get(this.requestUrl+"/collection",{
                     params:{
-                        documentationId:this.docId,
+                        documentationId:this.docID,
                         userID:sessionStorage.getItem("userId"),
                     }
                 }).then(res=>{
