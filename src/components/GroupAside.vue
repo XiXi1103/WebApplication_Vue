@@ -108,7 +108,7 @@
                 value:"",
                 searchList: [],         
                 dialogFormVisible: false,
-                groupId : 0,//sessionStorage.getItem("groupId")
+                groupId :0
             }
         },
         methods:{
