@@ -161,7 +161,12 @@
                         docId:this.docId
                     }
                 }).then(res=>{
-                    this.replyList = res.data;
+                    if(res.data.success) {
+                        this.replyList = res.data.replyList;
+                    }
+                    else {
+                        alert(res.data.msg);
+                    }
                 })
             },
             delReply(replyID){

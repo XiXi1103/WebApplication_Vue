@@ -112,11 +112,11 @@ export default {
                 }
             })
         };
-        Vue.prototype.viewmk = function (DocID){
+        Vue.prototype.viewmk = function (docId){
             this.$http.get(this.requestUrl+"/viewDoc",{
                 params:{
-                    userID:sessionStorage.getItem("userId"),
-                    docID:DocID
+                    userId:sessionStorage.getItem("userId"),
+                    docId:docId
                 }
             }).then(res=>{
                 if (res.data.success){
@@ -127,7 +127,7 @@ export default {
                             content: res.data.content,
                             permission:3,//res.data.userPermission,
                             isTemplate:res.data.isTemplate,
-                            docId:DocID,
+                            docId:docId,
                         }
                     })
                 }
