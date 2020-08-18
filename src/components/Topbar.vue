@@ -115,7 +115,53 @@
                 type:sessionStorage.getItem("type"),
                 pageList:[],
                 groupList:[],
-                notificationList:[],
+                notificationList:[
+                    {
+                        "msg": "XXX评论了你的文章",
+                        "category": 1,
+                        "objectID": 0,
+                        "status": false,
+                        "date": "2020-8-14",
+                        "id": 1,
+                        "name": ""
+                    },
+                    {
+                        "msg": "邀请协作文档",
+                        "category": 3,
+                        "objectID": 0,
+                        "status": false,
+                        "date": "2020-8-14",
+                        "id": 2,
+                        "name": ""
+                    },
+                    {
+                        "msg": "邀请加入团队",
+                        "category": 21,
+                        "objectID": 0,
+                        "status": false,
+                        "date": "2020-8-14",
+                        "id": 2,
+                        "name": ""
+                    },
+                    {
+                        "msg": "被踢出团队",
+                        "category": 22,
+                        "objectID": 0,
+                        "status": false,
+                        "date": "2020-8-14",
+                        "id": 2,
+                        "name": ""
+                    },
+                    {
+                        "msg": "被踢出团队",
+                        "category": 22,
+                        "objectID": 0,
+                        "status": true,
+                        "date": "2020-8-14",
+                        "id": 2,
+                        "name": ""
+                    }
+                ],
                 drawer: false,
                 direction: 'rtl',
                 count: 0,
@@ -301,6 +347,7 @@
                     // return res.data.success;
                     return true;
                 });
+                return true;
             },
             // collaborationDocumentModified(docId) {
             //     this.viewmk(docId);
@@ -371,6 +418,7 @@
                     return true;
                     // return res.data.success;
                 });
+                return true;
             },
             read(notification) {
                 this.$http.get(this.requestUrl + "/readNotifications",{
