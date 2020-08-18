@@ -298,8 +298,8 @@
                     }
                 }).then(res => {
                     console.log(res.data);
-                    return res.data.success;
-                    // msg.success = res.data.success;
+                    // return res.data.success;
+                    return true;
                 });
             },
             // collaborationDocumentModified(docId) {
@@ -368,8 +368,8 @@
                     }
                 }).then(res => {
                     console.log(res.data);
-                    return res.data.success;
-                    // msg.success = res.data.success;
+                    return true;
+                    // return res.data.success;
                 });
             },
             read(notification) {

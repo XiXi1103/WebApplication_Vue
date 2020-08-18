@@ -241,7 +241,7 @@ export default {
                 }
             }).then(res =>{
                 console.log(res.data);
-                WriterList.writerList = res.data;
+                WriterList.writerList = res.data.writerLists;
             })
          };
          Vue.prototype.creategroup = function(){

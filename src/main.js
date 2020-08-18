@@ -13,8 +13,8 @@ Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
-// Vue.prototype.requestUrl = "http://rap2.taobao.org:38080/app/mock/262266";
-Vue.prototype.requestUrl = "http://localhost:8081";
+Vue.prototype.requestUrl = "http://rap2.taobao.org:38080/app/mock/262266";
+// Vue.prototype.requestUrl = "http://localhost:8081";
 Vue.prototype.baseUrl = "http://localhost:8080/#/";
 
 new Vue({
