@@ -204,6 +204,24 @@
                 </el-table-column>
             </el-table>
         </el-dialog>
+        <el-dialog title="添加协作者" :visible.sync="dialogFormVisible">
+            <el-select
+                    v-model="value"
+                    placeholder="输入用户名"
+                    filterable
+                    remote
+                    :remote-method="remoteMethod">
+                <el-option
+                        v-for="user in searchList"
+                        :key="user.id"
+                        :label="user.name">
+                </el-option>
+            </el-select>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click.native="addWriter(docId,value);dialogFormVisible = false">添 加</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
