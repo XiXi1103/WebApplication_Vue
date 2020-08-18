@@ -274,9 +274,10 @@ export default {
             this.$http.get(this.requestUrl+"/addMyTemplate",{
                 params:{
                     userID:sessionStorage.getItem("userId"),
-                    ID:DocID
+                    docID:DocID
                 }
             }).then(res=>{
+                console.log(res.data);
                 if (res.data.success==1){
                     alert("已添加为我的模板，快去编辑吧");
                 }

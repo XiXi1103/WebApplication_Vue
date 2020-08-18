@@ -11,7 +11,7 @@
                         <div>
                             <mavon-editor  v-model="value" :toolbars="markdownOption" :editable = "false" :toolbarsFlag = "false" defaultOpen="preview" :subfield="false" style="z-index:1;border: 1px solid #d9d9d9;height:auto"/>
                         </div>
-                        <div v-if=isTemplate>
+                        <div v-if = isTemplate style="float: right">
                             <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(docId)">添加模板</el-button>
                             <el-popover
                                     title="复制以下连接来进行分享"
@@ -219,7 +219,7 @@
                     if (res.data.success){
                         if (res.data.isCollect) this.isCollect=true;
                         else this.isCollect=false;
-                        if (!res.data.isTemplate) this.isTemplate=true;
+                        if (res.data.isTemplate) this.isTemplate=true;
                         else this.isTemplate=false;
                         this.value = res.data.content;
                         this.docId = this.$route.query.docId;
@@ -235,7 +235,7 @@
             else{
                 if (this.$route.query.isCollect) this.isCollect=true;
                 else this.isCollect=false;
-                if (!this.$route.query.isTemplate) this.isTemplate=true;
+                if (this.$route.query.isTemplate) this.isTemplate=true;
                 else this.isTemplate=false;
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;
@@ -243,7 +243,7 @@
                 this.findAllReply();
                 this.$forceUpdate();
             }
-
+            // alert(this.isTemplate);
         }
     }
 </script>
