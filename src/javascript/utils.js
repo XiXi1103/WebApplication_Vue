@@ -26,8 +26,8 @@ export default {
                     userID:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
-                console.log(res.data);
-                PageList.pageList = res.data;
+                // console.log(res.data);
+                PageList.pageList = res.data.pageList;
             });
         };
         Vue.prototype.getCollectionPage = function (PageList){
@@ -179,7 +179,7 @@ export default {
                 if(res.data.success){
                     this.$message({
                         type:'success',
-                        message: "添加成功"
+                        message: "发送邀请成功"
                     });
                 }
                 else{

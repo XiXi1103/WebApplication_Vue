@@ -82,7 +82,8 @@
              <el-option
                 v-for="user in searchList"
                  :key="user.id"
-                 :label="user.name">
+                 :label="user.name"
+                :value="user.name">
              </el-option>
             </el-select>
             <div slot="footer" class="dialog-footer">
