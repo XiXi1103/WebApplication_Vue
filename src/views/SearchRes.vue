@@ -58,7 +58,7 @@
             }
         },
         created() {
-           this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchDoc",{
+           this.$http.get(this.requestUrl + "/searchDoc",{
                     params:{
                         text:this.text,                        
                         userId:sessionStorage.getItem("userId"),
@@ -67,7 +67,7 @@
                     console.log(res.data);
                     this.pageList = res.data;
             });
-           this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/searchGroup",{
+           this.$http.get(this.requestUrl + "/searchGroup",{
                     params:{
                         text:this.text,   
                         userId:sessionStorage.getItem("userId"),                     

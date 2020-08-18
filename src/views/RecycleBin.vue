@@ -17,14 +17,14 @@
 <!--                                    </el-card>-->
 <!--                                </el-col>-->
                                 <el-col :span="6" v-for="Page in res.pageList" :key="Page.id">
-                                    <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;margin-bottom: 20px">
+                                    <el-card shadow="hover" @click.native="viewmk(Page.id)" style="font-size: 20px; font-weight: bold; height: 210px;margin-bottom: 20px">
                                         <!--                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>-->
                                         <el-dropdown trigger="hover" style="float: right;">
                                             <i class="el-icon-more"></i>
                                             <!--                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>-->
                                             <el-dropdown-menu slot="dropdown" style="margin-top: -55px">
-                                            <el-dropdown-item @click.native="recover(0)">还原</el-dropdown-item>
-                                                <el-dropdown-item @click.native="deleteCompletely(0)" style="color:red">彻底删除</el-dropdown-item>
+                                            <el-dropdown-item @click.native="recover(Page.id)">还原</el-dropdown-item>
+                                                <el-dropdown-item @click.native="deleteCompletely(Page.id)" style="color:red">彻底删除</el-dropdown-item>
                                                 <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
                                             </el-dropdown-menu>
                                         </el-dropdown>
@@ -67,7 +67,7 @@
                 this.count +=2
             },
             recover:function(docId){
-                this.$http.post(this.requestUrl+"/recoverDoc",{
+                this.$http.get(this.requestUrl+"/recoverDoc",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
                         docId:docId
@@ -88,7 +88,7 @@
                 });
             },
             deleteCompletely:function(docId){
-                this.$http.post(this.requestUrl+"/delDocCompletely",{
+                this.$http.get(this.requestUrl+"/delDocCompletely",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
                         docId:docId

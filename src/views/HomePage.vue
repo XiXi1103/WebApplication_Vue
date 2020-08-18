@@ -195,7 +195,7 @@
             }
         },
         created() {
-            sessionStorage.setItem("type",0);
+            // sessionStorage.setItem("type",0);
             this.getRecentPage(this.res);
         },
         components:{

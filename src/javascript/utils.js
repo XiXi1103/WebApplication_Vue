@@ -79,6 +79,7 @@ export default {
                     docID:DocID
                 }
             }).then(res=>{
+                console.log(res.data);
                 if (res.data.success){
                     if (res.data.msg=="isTemplate"){//模板编辑不传ID
                         this.$router.push({
@@ -112,11 +113,11 @@ export default {
                 }
             })
         };
-        Vue.prototype.viewmk = function (DocID){
+        Vue.prototype.viewmk = function (docId){
             this.$http.get(this.requestUrl+"/viewDoc",{
                 params:{
-                    userID:sessionStorage.getItem("userId"),
-                    docID:DocID
+                    userId:sessionStorage.getItem("userId"),
+                    docId:docId
                 }
             }).then(res=>{
                 if (res.data.success){
@@ -125,9 +126,9 @@ export default {
                         query:{
                             isCollect: res.data.isCollect,
                             content: res.data.content,
-                            permission:res.data.userPermission,
+                            permission: res.data.permission,
                             isTemplate:res.data.isTemplate,
-                            docId:DocID,
+                            docId:docId,
                         }
                     })
                 }
@@ -317,18 +318,18 @@ export default {
                 else alert("权限不足");
             })
         };
-        Vue.prototype.addCollection=function(docId){
-            this.$http.get(this.requestUrl+"/collection",{
-                params:{
-                    docId:docId,
-                    userId:sessionStorage.getItem("userId"),
-                }
-            }).then(res=>{
-                if (!res.data.success){
-                    alert(res.data.msg)
-                }
-            })
-        }
+        // Vue.prototype.addCollection=function(docId){
+        //     this.$http.get(this.requestUrl+"/collection",{
+        //         params:{
+        //             docId:docId,
+        //             userId:sessionStorage.getItem("userId"),
+        //         }
+        //     }).then(res=>{
+        //         if (!res.data.success){
+        //             alert(res.data.msg)
+        //         }
+        //     })
+        // }
 
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post(this.requestUrl+"/delDoc",{

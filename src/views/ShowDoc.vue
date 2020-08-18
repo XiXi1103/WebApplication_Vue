@@ -12,7 +12,7 @@
                             <mavon-editor  v-model="value" :toolbars="markdownOption" :editable = "false" :toolbarsFlag = "false" defaultOpen="preview" :subfield="false" style="z-index:1;border: 1px solid #d9d9d9;height:auto"/>
                         </div>
                         <div v-if=isTemplate>
-                            <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(this.docId)">添加模板</el-button>
+                            <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(docId)">添加模板</el-button>
                             <el-popover
                                     title="复制以下连接来进行分享"
                                     width="200"
@@ -24,7 +24,7 @@
 
                         <!--        <el-button type="danger" icon="el-icon-link" round  style="float: right;font-size:20px;width: 160px" @click="shareDoc()" v-if="isTemplate&&permission>=3" >分享文档</el-button>-->
                         <div v-if=!isTemplate style="float: right">
-                            <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(0)">编辑</el-button>
+                            <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(docId)">编辑</el-button>
                             <el-button type="danger" icon="el-icon-star-off" round  style="" @click="collection()" v-show=!isCollect>收藏</el-button>
                             <el-button type="danger" icon="el-icon-star-on" round  style="" @click="collection()" v-show=isCollect>已收藏</el-button>
                             <el-popover
@@ -34,10 +34,12 @@
                                     :content=link>
                                 <el-button slot="reference" icon="el-icon-link" type="warning" round style="margin-left: 10px" @click="shareDoc()">分享</el-button>
                             </el-popover>
+                            <el-button type="info" icon="el-icon-s-custom" round style="margin-left: 10px" @click="dialogFormVisible=true" >邀请协作者</el-button>
+
                         </div>
                         <div id="doc">
                             <div v-if="this.permission>=2">
-                                <el-input v-model="comment.content" placeholder="快来评论吧" style="width: 85%"></el-input>
+                                <el-input v-model="comment.content" placeholder="快来评论吧" style="width: 65%;"></el-input>
 <!--                                <el-input class="commentBox"-->
 <!--                                          type="textarea"-->
 <!--                                          :rows="5"-->
@@ -47,7 +49,7 @@
                                 <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" style="margin-left: 15px">发射！</el-button>
                             </div>
                             <div v-else>
-                                <el-input v-model="comment.content" placeholder="该文档不支持评论哦" style="width: 85%"></el-input>
+                                <el-input v-model="comment.content" placeholder="该文档不支持评论哦" style="width: 65%"></el-input>
 <!--                                <el-input class="commentBox"-->
 <!--                                          type="textarea"-->
 <!--                                          :rows="5"-->
@@ -55,20 +57,20 @@
 <!--                                          :disabled="true"-->
 <!--                                >-->
 <!--                                </el-input>-->
-                                <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" :disabled="true">发射！</el-button>
+                                <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" style="margin-left: 15px" :disabled="true">发射！</el-button>
                             </div>
                         </div>
                         <el-divider style=""></el-divider>
                         <el-card class="box-card" v-for="reply in replyList" :key="reply.replyId" style="width: 100%; margin-top: 10px">
                             <div slot="header" class="clearfix" style="height: 15px">
                                 <span style="position: relative;top: -70px; float: left; font-size: 20px;font-weight: bold;height: 10px">{{reply.username}}</span>
-                                <el-button style="float: right; padding: 3px 0;" type="text" class="textbutton" v-if="permission==5">删除</el-button>
+                                <el-button style="float: right; padding: 3px 0;" type="text" class="textbutton" @click = "delReply(reply.id)" v-if="permission==5">删除</el-button>
                             </div>
                             <div style="height: auto;font-size: 25px">
                                 {{reply.content}}
                             </div>
 
-                            <el-tag style="position: relative; float: right;font-size: 15px; margin-bottom: 20px; margin-right: 2px">评论于{{reply.time}}</el-tag>
+                            <el-tag style="position: relative; float: right;font-size: 15px; margin-bottom: 20px; margin-right: 2px">评论于{{reply.date}}</el-tag>
                         </el-card>
 <!--                        <div class="replyBox" v-for="reply in replyList" :key="reply.replyId">-->
 <!--                            <button class="el-icon-close" @click="delReply(reply.replyID)" style=""></button>-->
@@ -86,6 +88,24 @@
                 </el-container>
             </el-container>
         </el-container>
+        <el-dialog title="添加协作者" :visible.sync="dialogFormVisible">
+            <el-select
+                    v-model="name"
+                    placeholder="输入用户名"
+                    filterable
+                    remote
+                    :remote-method="remoteMethod">
+                <el-option
+                        v-for="user in searchList"
+                        :key="user.id"
+                        :label="user.name">
+                </el-option>
+            </el-select>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click.native="addWriter(docId,name);dialogFormVisible = false">添 加</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -114,12 +134,14 @@
                 isCollect:'',
                 isTemplate:'',
                 permission:'',
-                link:''
+                link:'',
+                dialogFormVisible:false,
+                name:''
             };
         },
         methods:{
             sendComment(){
-                this.comment.userId=sessionStorage.getItem("username");
+                this.comment.userId=sessionStorage.getItem("userId");
                 this.comment.docId = this.docId;
                 this.comment.replyId= 0;
                 this.comment.isReply = false;
@@ -139,13 +161,18 @@
                         docId:this.docId
                     }
                 }).then(res=>{
-                    this.replyList = res.data;
+                    if(res.data.success) {
+                        this.replyList = res.data.replyList;
+                    }
+                    else {
+                        alert(res.data.msg);
+                    }
                 })
             },
             delReply(replyID){
                 this.$http.get(this.requestUrl+"/deleteReply",{
                     params:{
-                        replyID:replyID,
+                        replyId:replyID,
                     }
                 }).then(res=>{
                     console.log(res);
@@ -157,11 +184,12 @@
             collection(){
                 this.$http.get(this.requestUrl+"/collection",{
                     params:{
-                        documentationId:this.docId,
+                        docId:this.docId,
                         userId:sessionStorage.getItem("userId"),
                     }
                 }).then(res=>{
                     if (res.data.success){
+                        alert(111)
                         this.isCollect=!this.isCollect;
                     }
                     else{
@@ -189,9 +217,9 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        if (res.data.isCollect==1) this.isCollect=true;
+                        if (res.data.isCollect) this.isCollect=true;
                         else this.isCollect=false;
-                        if (res.data.isTemplate==1) this.isTemplate=true;
+                        if (!res.data.isTemplate) this.isTemplate=true;
                         else this.isTemplate=false;
                         this.value = res.data.content;
                         this.docId = this.$route.query.docId;
@@ -205,9 +233,9 @@
                 })
             }
             else{
-                if (this.$route.query.isCollect==1) this.isCollect=true;
+                if (this.$route.query.isCollect) this.isCollect=true;
                 else this.isCollect=false;
-                if (this.$route.query.isTemplate==1) this.isTemplate=true;
+                if (!this.$route.query.isTemplate) this.isTemplate=true;
                 else this.isTemplate=false;
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;

@@ -144,79 +144,79 @@
                 this.$router.push({path:'/PersonalInfo'});
             },
             getNotification: function() {
-                // this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/getNotification",{
-                //     params:{
-                //         userId:sessionStorage.getItem("userId"),
-                //     }
-                // }).then(res => {
-                //     console.log(res.data);
-                //     this.notificationList = res.data.List;
-                //     for (var i = 0; i < this.notificationList.length; i++) {
-                //         if (this.notificationList[i].status) {
-                //             break;
-                //         }
-                //         else {
-                //             this.numberOfUnreadMessages++;
-                //         }
-                //     }
-                //
-                // });
+                this.$http.get(this.requestUrl + "/getNotification",{
+                    params:{
+                        userId:sessionStorage.getItem("userId"),
+                    }
+                }).then(res => {
+                    console.log(res.data);
+                    this.notificationList = res.data;
+                    for (var i = 0; i < this.notificationList.length; i++) {
+                        if (this.notificationList[i].status) {
+                            break;
+                        }
+                        else {
+                            this.numberOfUnreadMessages++;
+                        }
+                    }
 
-                this.notificationList = [
-                    {
-                        "msg": "XXX评论了你的文章",
-                        "category": 1,
-                        "objectID": 0,
-                        "status": false,
-                        "date": "2020-8-14",
-                        "id": 1,
-                        "name": ""
-                    },
-                    {
-                        "msg": "邀请协作文档",
-                        "category": 3,
-                        "objectID": 0,
-                        "status": false,
-                        "date": "2020-8-14",
-                        "id": 2,
-                        "name": ""
-                    },
-                    {
-                        "msg": "邀请加入团队",
-                        "category": 21,
-                        "objectID": 0,
-                        "status": false,
-                        "date": "2020-8-14",
-                        "id": 2,
-                        "name": ""
-                    },
-                    {
-                        "msg": "被踢出团队",
-                        "category": 22,
-                        "objectID": 0,
-                        "status": false,
-                        "date": "2020-8-14",
-                        "id": 2,
-                        "name": ""
-                    },
-                    {
-                        "msg": "被踢出团队",
-                        "category": 22,
-                        "objectID": 0,
-                        "status": true,
-                        "date": "2020-8-14",
-                        "id": 2,
-                        "name": ""
-                    }
-                ];
-                for (var i = 0; i < this.notificationList.length; i++) {
-                    if (this.notificationList[i].status) {
-                        break;
-                    }
-                    else {
-                        this.numberOfUnreadMessages++;
-                    }
-                }
+                });
+
+                // this.notificationList = [
+                //     {
+                //         "msg": "XXX评论了你的文章",
+                //         "category": 1,
+                //         "objectID": 0,
+                //         "status": false,
+                //         "date": "2020-8-14",
+                //         "id": 1,
+                //         "name": ""
+                //     },
+                //     {
+                //         "msg": "邀请协作文档",
+                //         "category": 3,
+                //         "objectID": 0,
+                //         "status": false,
+                //         "date": "2020-8-14",
+                //         "id": 2,
+                //         "name": ""
+                //     },
+                //     {
+                //         "msg": "邀请加入团队",
+                //         "category": 21,
+                //         "objectID": 0,
+                //         "status": false,
+                //         "date": "2020-8-14",
+                //         "id": 2,
+                //         "name": ""
+                //     },
+                //     {
+                //         "msg": "被踢出团队",
+                //         "category": 22,
+                //         "objectID": 0,
+                //         "status": false,
+                //         "date": "2020-8-14",
+                //         "id": 2,
+                //         "name": ""
+                //     },
+                //     {
+                //         "msg": "被踢出团队",
+                //         "category": 22,
+                //         "objectID": 0,
+                //         "status": true,
+                //         "date": "2020-8-14",
+                //         "id": 2,
+                //         "name": ""
+                //     }
+                // ];
+                // for (var i = 0; i < this.notificationList.length; i++) {
+                //     if (this.notificationList[i].status) {
+                //         break;
+                //     }
+                //     else {
+                //         this.numberOfUnreadMessages++;
+                //     }
+                // }
             },
             goToNotification(notification) {
                 this.viewmk(notification.objectID);
@@ -292,9 +292,9 @@
                 this.$http.get(this.requestUrl + "/confirmGroupInvitation",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
-                        groupID:notification.objectID,
+                        groupId:notification.objectID,
                         userResponse:userResponse,
-                        noticeID:notification.id
+                        noticeId:notification.id
                     }
                 }).then(res => {
                     console.log(res.data);
@@ -359,12 +359,12 @@
                 }
             },
             confirmDocInvitation(notification, userResponse) {
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/confirmDocInvitation",{
+                this.$http.get(this.requestUrl + "/confirmDocInvitation",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
-                        groupID:notification.objectID,
+                        groupId:notification.objectID,
                         userResponse:userResponse,
-                        noticeID:notification.id
+                        noticeId:notification.id
                     }
                 }).then(res => {
                     console.log(res.data);
@@ -373,7 +373,7 @@
                 });
             },
             read(notification) {
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/readNotifications",{
+                this.$http.get(this.requestUrl + "/readNotifications",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
                         notificationID:notification.id
