@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100%">
-        <el-container direction="vertical">
+        <el-container style="height: 100%" direction="vertical">
             <el-header>
                 <Topbar></Topbar>
             </el-header>
@@ -16,7 +16,7 @@
                                         <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
                                             <el-image
                                                     style="width: 50px; height: 50px; float: left; margin-left: 10px"
-                                                    :src="require('@/assets/document.png')"
+                                                    :src="require('@/assets/document-gray.png')"
                                                     :fit="fit"></el-image>
                                             <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
                                                 <el-button style="border-color: white">
@@ -29,7 +29,7 @@
                                                     <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
                                                 </el-dropdown-menu>
                                             </el-dropdown>
-                                            <h4>{{Page.title}}</h4>
+                                            <h4>啊{{Page.title}}</h4>
                                             <p>廉皓然 提交于 2018/4/12 20:46{{Page.date}}</p>
                                         </el-card>
                                     </el-col>
