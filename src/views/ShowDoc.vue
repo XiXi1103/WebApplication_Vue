@@ -184,6 +184,7 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
+                        alert(111)
                         this.isCollect=!this.isCollect;
                     }
                     else{
@@ -213,7 +214,7 @@
                     if (res.data.success){
                         if (res.data.isCollect) this.isCollect=true;
                         else this.isCollect=false;
-                        if (res.data.isTemplate) this.isTemplate=true;
+                        if (!res.data.isTemplate) this.isTemplate=true;
                         else this.isTemplate=false;
                         this.value = res.data.content;
                         this.docId = this.$route.query.docId;
@@ -229,7 +230,7 @@
             else{
                 if (this.$route.query.isCollect) this.isCollect=true;
                 else this.isCollect=false;
-                if (this.$route.query.isTemplate) this.isTemplate=true;
+                if (!this.$route.query.isTemplate) this.isTemplate=true;
                 else this.isTemplate=false;
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;
