@@ -210,7 +210,7 @@
                 searchList: [],
                 value:"",
                 dialogFormVisible: false,
-                docId:sessionStorage.getItem("docId"),
+                docId:0,
                 dialogTableVisible: false,
                 dialogVisible: false,
                 tableData: [{
@@ -273,7 +273,8 @@
                 });
             },
             catwriter:function(id){
-                sessionStorage.setItem("docId",id);
+                this.docId = id;
+                // sessionStorage.setItem("docId",id);
                 this.getWriter(id,this.res);
                 this.dialogVisible = true;
                 // this.drawer = true;
