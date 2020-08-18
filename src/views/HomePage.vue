@@ -12,7 +12,7 @@
                         <el-timeline>
                             <el-timeline-item v-for="Pages in res.pageList" :key="Pages.date" timestamp=Pages.date placement="top">
                                 <el-row :gutter="14">
-                                    <el-col :span="12" v-for="Page in Pages" :key="Page.id">
+                                    <el-col :span="12" v-for="Page in Pages.pageList" :key="Page.id">
                                         <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
                                             <el-image
                                                     style="width: 50px; height: 50px; float: left; margin-left: 10px"
@@ -29,8 +29,8 @@
                                                     <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
                                                 </el-dropdown-menu>
                                             </el-dropdown>
-                                            <h4>啊{{Page.title}}</h4>
-                                            <p>廉皓然 提交于 2018/4/12 20:46{{Page.date}}</p>
+                                            <h4>{{Page.title}}</h4>
+                                            <p>{{Page.date}}</p>
                                         </el-card>
                                     </el-col>
                                 </el-row>

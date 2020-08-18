@@ -12,7 +12,7 @@
                             <el-timeline>
                                 <el-timeline-item v-for="Pages in this.res.pageList" :key="Pages.date" timestamp=Pages.date placement="top">
                                     <el-row :gutter="14">
-                                        <el-col :span="12" v-for="Page in Pages" :key="Page.id">
+                                        <el-col :span="12" v-for="Page in Pages.pageList" :key="Page.id">
                                             <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
                                                 <el-image
                                                         style="width: 50px; height: 50px; float: left; margin-left: 10px"
