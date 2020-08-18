@@ -28,34 +28,34 @@
                         <el-badge :value="numberOfUnreadMessages" class="item" v-if="numberOfUnreadMessages!==0" style="top: -10px"></el-badge>
                     </el-button>
                     <el-dropdown-menu slot="dropdown" style="overflow-y: auto;height: auto" class="project-dropdown">
-                        <el-dropdown-item v-for="Notification in notificationList" :key="Notification.id">
-<!--                            <span v-if="Notification.statusboolean" @click.native="viewmk(0)">{{Notification.msg}}</span>-->
-<!--                            <span v-if="!Notification.statusboolean">{{Notification.msg}}(未读)</span>-->
-                            <i class="el-icon-message-solid" v-if="!Notification.status"></i>
-                            <el-button v-if="Notification.category === 1" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 2" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 3" @click="confirmDocInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 4" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 5" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 6" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 7" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
-<!--                            <el-button v-if="Notification.category === 8" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>-->
-<!--                            <el-button v-if="Notification.category === 9" @click="confirmGroupInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>-->
-<!--                            <el-button v-if="Notification.category === 10" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>-->
+                        <el-dropdown-item v-for="notification in notificationList" :key="notification.id">
+<!--                            <span v-if="notification.statusboolean" @click.native="viewmk(0)">{{notification.msg}}</span>-->
+<!--                            <span v-if="!notification.statusboolean">{{notification.msg}}(未读)</span>-->
+                            <i class="el-icon-message-solid" v-if="!notification.status"></i>
+                            <el-button v-if="notification.category === 1" @click="goToNotification(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 2" @click="goToNotification(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 3" @click="confirmDocInvitationPopout(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 4" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 5" @click="goToNotification(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 6" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 7" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>
+<!--                            <el-button v-if="notification.category === 8" @click="goToNotification(notification)" style="border: white">{{notification.msg}}</el-button>-->
+<!--                            <el-button v-if="notification.category === 9" @click="confirmGroupInvitationPopout(notification)" style="border: white">{{notification.msg}}</el-button>-->
+<!--                            <el-button v-if="notification.category === 10" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>-->
 
-                            <el-button v-if="Notification.category === 11" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 12" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 11" @click="goToNotification(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 12" @click="goToNotification(notification)" style="border: white">{{notification.msg}}</el-button>
 
-                            <el-button v-if="Notification.category === 21" @click="confirmGroupInvitationPopout(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 22" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 23" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 24" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 21" @click="confirmGroupInvitationPopout(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 22" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 23" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 24" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>
 
-                            <el-button v-if="Notification.category === 31" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 32" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 31" @click="goToNotification(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 32" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>
 
-                            <el-button v-if="Notification.category === 41" @click="read(Notification)" style="border: white">{{Notification.msg}}</el-button>
-                            <el-button v-if="Notification.category === 42" @click="goToNotification(Notification)" style="border: white">{{Notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 41" @click="read(notification)" style="border: white">{{notification.msg}}</el-button>
+                            <el-button v-if="notification.category === 42" @click="goToNotification(notification)" style="border: white">{{notification.msg}}</el-button>
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -71,11 +71,11 @@
 <!--&lt;!&ndash;                        <li v-for="i in count" :key="i" class="infinite-list-item">{{ i }}</li>&ndash;&gt;-->
 <!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
 <!--                    <div style="height: 200px; overflow-y: auto">-->
-<!--                        <div v-for="Notification in notificationList" :key="Notification.id">-->
+<!--                        <div v-for="notification in notificationList" :key="notification.id">-->
 <!--                            <el-card shadow="hover">-->
-<!--                                {{Notification.msg}}-->
+<!--                                {{notification.msg}}-->
 <!--                            </el-card>-->
-<!--&lt;!&ndash;                            <span>{{Notification.msg}}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span>{{notification.msg}}</span>&ndash;&gt;-->
 <!--                        </div>-->
 
 <!--&lt;!&ndash;                        <ul>&ndash;&gt;-->
@@ -289,7 +289,7 @@
                 }
             },
             confirmGroupInvitation(notification, userResponse) {
-                this.$http.get("http://rap2.taobao.org:38080/app/mock/262266/confirmGroupInvitation",{
+                this.$http.get(this.requestUrl + "/confirmGroupInvitation",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
                         groupID:notification.objectID,
