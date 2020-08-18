@@ -118,7 +118,7 @@
         },
         methods : {
             delDoc:function(docId){
-                this.$http.post(this.requestUrl+"/delDoc",{
+                this.$http.get(this.requestUrl+"/delDoc",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
                         docId:docId
@@ -130,8 +130,8 @@
                             type: 'success',
                             message: '删除成功!'
                         });
-                        this.res.pageList.splice(this.ArrayIndexOfBydocId(this.res.pageList, docId),1);
                         location.reload();
+                        this.res.pageList.splice(this.ArrayIndexOfBydocId(this.res.pageList, docId),1);
                     }
                     else {
                         // alert("删除失败");

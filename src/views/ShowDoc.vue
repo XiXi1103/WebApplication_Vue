@@ -70,7 +70,7 @@
                                 {{reply.content}}
                             </div>
 
-                            <el-tag style="position: relative; float: right;font-size: 15px; margin-bottom: 20px; margin-right: 2px">评论于{{reply.time}}</el-tag>
+                            <el-tag style="position: relative; float: right;font-size: 15px; margin-bottom: 20px; margin-right: 2px">评论于{{reply.date}}</el-tag>
                         </el-card>
 <!--                        <div class="replyBox" v-for="reply in replyList" :key="reply.replyId">-->
 <!--                            <button class="el-icon-close" @click="delReply(reply.replyID)" style=""></button>-->
@@ -141,7 +141,7 @@
         },
         methods:{
             sendComment(){
-                this.comment.userId=sessionStorage.getItem("username");
+                this.comment.userId=sessionStorage.getItem("userId");
                 this.comment.docId = this.docId;
                 this.comment.replyId= 0;
                 this.comment.isReply = false;

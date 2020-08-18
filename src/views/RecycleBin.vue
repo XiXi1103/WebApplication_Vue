@@ -67,7 +67,7 @@
                 this.count +=2
             },
             recover:function(docId){
-                this.$http.post(this.requestUrl+"/recoverDoc",{
+                this.$http.get(this.requestUrl+"/recoverDoc",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
                         docId:docId
@@ -88,7 +88,7 @@
                 });
             },
             deleteCompletely:function(docId){
-                this.$http.post(this.requestUrl+"/delDocCompletely",{
+                this.$http.get(this.requestUrl+"/delDocCompletely",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
                         docId:docId
