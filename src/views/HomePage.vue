@@ -80,33 +80,34 @@
         data() {
             return {
                 res : {
-                    pageList : [
-                        {
-                            "title": "最近浏览",
-                            "id": 1,
-                            "isCreator": false
-                        },
-                        {
-                            "title": "最近浏览",
-                            "id": 2,
-                            "isCreator": false
-                        },
-                        {
-                            "title": "最近浏览",
-                            "id": 3,
-                            "isCreator": false
-                        },
-                        {
-                            "title": "最近浏览",
-                            "id": 4,
-                            "isCreator": false
-                        },
-                        {
-                            "title": "最近浏览",
-                            "id": 5,
-                            "isCreator": false
-                        }
-                    ],
+                    pageList : [],
+                    // pageList : [
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 1,
+                    //         "isCreator": false
+                    //     },
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 2,
+                    //         "isCreator": false
+                    //     },
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 3,
+                    //         "isCreator": false
+                    //     },
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 4,
+                    //         "isCreator": false
+                    //     },
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 5,
+                    //         "isCreator": false
+                    //     }
+                    // ],
                     writerList:[]
                 },
                 drawer:false,
@@ -114,8 +115,8 @@
             }
         },
         created() {
-            sessionStorage.setItem("type",0);
-            // this.getRecentPage(this.res);
+            // sessionStorage.setItem("type",0);
+            this.getRecentPage(this.res);
         },
         components:{
             Topbar,

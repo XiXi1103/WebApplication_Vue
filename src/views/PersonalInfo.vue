@@ -108,12 +108,12 @@
             }
             else{
               this.ischange=1;
-              this.$http.post(this.requestUrl+"/changePerInfo",{
-                param:{
+              this.$http.get(this.requestUrl+"/changePerInfo",{
+                params:{
                   userId: sessionStorage.getItem("userId"),
-                  passwd: this.passwd,
-                  email: this.email,
-                  phoneNum: this.phoneNum
+                  password: this.user.passwd,
+                  email: this.user.email,
+                  phoneNum: this.user.phoneNum
                 }
               })
               .then(res=>{
@@ -134,13 +134,13 @@
   },
   created() {
       this.$http.get(this.requestUrl+"/personalInfo",{
-        param:{
+        params:{
           userId:sessionStorage.getItem("userId"),
         }
       }).then(res=>{
         if(res.data.success){
           this.user.username= res.data.username;
-          this.user.passwd= res.data.passwd;
+          this.user.passwd= res.data.password;
           this.user.email= res.data.email;
           this.user.phoneNum= res.data.phoneNum;
           this.user.create_time= res.data.create_time;

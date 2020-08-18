@@ -12,7 +12,7 @@
                             <mavon-editor  v-model="value" :toolbars="markdownOption" :editable = "false" :toolbarsFlag = "false" defaultOpen="preview" :subfield="false" style="z-index:1;border: 1px solid #d9d9d9;height:auto"/>
                         </div>
                         <div v-if=isTemplate>
-                            <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(this.docId)">添加模板</el-button>
+                            <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(docId)">添加模板</el-button>
                             <el-popover
                                     title="复制以下连接来进行分享"
                                     width="200"
@@ -24,7 +24,7 @@
 
                         <!--        <el-button type="danger" icon="el-icon-link" round  style="float: right;font-size:20px;width: 160px" @click="shareDoc()" v-if="isTemplate&&permission>=3" >分享文档</el-button>-->
                         <div v-if=!isTemplate style="float: right">
-                            <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(this.docId)">编辑</el-button>
+                            <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(docId)">编辑</el-button>
                             <el-button type="danger" icon="el-icon-star-off" round  style="" @click="collection()" v-show=!isCollect>收藏</el-button>
                             <el-button type="danger" icon="el-icon-star-on" round  style="" @click="collection()" v-show=isCollect>已收藏</el-button>
                             <el-popover
@@ -64,7 +64,7 @@
                         <el-card class="box-card" v-for="reply in replyList" :key="reply.replyId" style="width: 100%; margin-top: 10px">
                             <div slot="header" class="clearfix" style="height: 15px">
                                 <span style="position: relative;top: -70px; float: left; font-size: 20px;font-weight: bold;height: 10px">{{reply.username}}</span>
-                                <el-button style="float: right; padding: 3px 0;" type="text" class="textbutton" v-if="permission==5">删除</el-button>
+                                <el-button style="float: right; padding: 3px 0;" type="text" class="textbutton" @click = "delReply(reply.id)" v-if="permission==5">删除</el-button>
                             </div>
                             <div style="height: auto;font-size: 25px">
                                 {{reply.content}}
@@ -172,7 +172,7 @@
             delReply(replyID){
                 this.$http.get(this.requestUrl+"/deleteReply",{
                     params:{
-                        replyID:replyID,
+                        replyId:replyID,
                     }
                 }).then(res=>{
                     console.log(res);

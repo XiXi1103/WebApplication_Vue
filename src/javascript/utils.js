@@ -79,6 +79,7 @@ export default {
                     docID:DocID
                 }
             }).then(res=>{
+                console.log(res.data);
                 if (res.data.success){
                     if (res.data.msg=="isTemplate"){//模板编辑不传ID
                         this.$router.push({
@@ -125,7 +126,7 @@ export default {
                         query:{
                             isCollect: res.data.isCollect,
                             content: res.data.content,
-                            permission:3,//res.data.userPermission,
+                            permission: res.data.permission,
                             isTemplate:res.data.isTemplate,
                             docId:docId,
                         }

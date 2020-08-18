@@ -75,13 +75,14 @@
             <el-select
              v-model="value"
              placeholder="输入用户名"
+             reserve-keyword
              filterable
              remote
              :remote-method="remoteMethod">
              <el-option
                 v-for="user in searchList"
                  :key="user.id"
-                 :label="user.username">
+                 :label="user.name">
              </el-option>
             </el-select>
             <div slot="footer" class="dialog-footer">
@@ -192,7 +193,7 @@
                 if(query !== ''){
                     this.$http.get(this.requestUrl+"/searchUser",{
                             params:{
-                                username:query,
+                                text:query,
                             }
                         }).then(res => {
                             console.log(res.data);

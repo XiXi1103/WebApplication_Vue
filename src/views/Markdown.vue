@@ -30,8 +30,8 @@
                 <br>
                 <el-button type="success" icon="el-icon-check" round @click="submit" style="margin-left: 0px">提交</el-button>
                 <el-dropdown @command="changePermission" >
-                    <el-button type="primary" style="margin-left: 20px" :disabled="!(this.userPermission==5||this.$route.query.docID==null)" >
-                        当前权限：{{this.permission}}<i class="el-icon-arrow-up el-icon--right"></i>
+                    <el-button type="primary" style="margin-left: 20px" :disabled="!(userPermission==5||this.$route.query.docID==null)" >
+                        当前权限：{{otherPermission}}<i class="el-icon-arrow-up el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown" >
                         <el-dropdown-item command="0">私密</el-dropdown-item>
@@ -64,7 +64,7 @@
                 html:'',
                 configs: {},
                 result: {},
-                permission:'私密',
+                otherPermission:'私密',
                 permissionLevel:0,
                 userPermission:4,
                 docID:'',
@@ -97,10 +97,10 @@
                 }
                 else{
                     this.result.docID=this.$route.query.docID;
-                    this.result.authorID = sessionStorage.getItem("userId");
+                    this.result.userID = sessionStorage.getItem("userId");
                     this.result.content = this.content;
                     this.result.html = this.html;
-                    this.result.permission = this.permissionLevel;
+                    this.result.otherPermission = this.permissionLevel;
                     this.result.title = this.title;
                     this.result.groupId = this.$route.query.groupId;
                     var re1 = new RegExp("<.+?>","g");
@@ -113,16 +113,16 @@
                         });
                         this.$router.push("/");
                     })
-                    alert(this.result.content)
+                    // alert(this.result.content)
                 }
 
             },
             changePermission(level){
                 this.permissionLevel=level;
-                if (this.permissionLevel==0) this.permission="私密";
-                if (this.permissionLevel==1) this.permission="公开";
-                if (this.permissionLevel==2) this.permission="可评论";
-                if (this.permissionLevel==3) this.permission="可评论分享";
+                if (this.permissionLevel==0) this.otherPermission="私密";
+                if (this.permissionLevel==1) this.otherPermission="公开";
+                if (this.permissionLevel==2) this.otherPermission="可评论";
+                if (this.permissionLevel==3) this.otherPermission="可评论分享";
             },
             getHistory(){
                 this.drawer=true;
