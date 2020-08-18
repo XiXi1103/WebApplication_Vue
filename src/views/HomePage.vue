@@ -6,149 +6,156 @@
             </el-header>
             <el-container>
                 <Asidebar></Asidebar>
-            <el-container>
-                <el-main>
-                    <div class="block" style="line-height: normal">
-                        <el-timeline>
-                            <el-timeline-item v-for="Pages in res.pageList" :key="Pages.date" :timestamp="Pages.dates" placement="top">
-                                <el-row :gutter="14">
-                                    <el-col :span="12" v-for="Page in Pages.pageList" :key="Page.id">
-                                        <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
-                                            <el-image
-                                                    style="width: 50px; height: 50px; float: left; margin-left: 10px"
-                                                    :src="require('@/assets/document-gray.png')"
-                                                    :fit="fit"> </el-image>
-                                            <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
-                                                <el-button style="border-color: white">
-                                                    <i class="el-icon-more"></i>
-                                                </el-button>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>
-                                                    <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>
-                                                    <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
-                                                    <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
-                                            <h4>{{Page.title}}</h4>
-                                            <p>{{Page.dates}}</p>
-                                        </el-card>
-                                    </el-col>
-                                </el-row>
-                            </el-timeline-item>
-                        </el-timeline>
-                    </div>
-                    <!--                        <el-timeline :reverse="reverse">-->
-                    <!--                            <el-timeline-item-->
-                    <!--                                    v-for="Page in res.pageList"-->
-                    <!--                                    :key="Page.id"-->
-                    <!--                                    :timestamp="2020-12-1">-->
-                    <!--                                {{Page.title}}-->
-                    <!--                            </el-timeline-item>-->
-                    <!--                        </el-timeline>-->
+                <el-container>
+                    <el-main>
+                        <div class="block" style="line-height: normal">
+                            <el-timeline>
+                                <el-timeline-item v-for="Pages in res.pageList" :key="Pages.date" :timestamp="Pages.dates" placement="top">
+                                    <el-row :gutter="14">
+                                        <el-col :span="12" v-for="Page in Pages.pageList" :key="Page.id">
+                                            <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
+                                                <el-image
+                                                        style="width: 50px; height: 50px; float: left; margin-left: 10px"
+                                                        :src="require('@/assets/document-gray.png')"
+                                                        :fit="fit"></el-image>
+                                                <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
+                                                    <el-button style="border-color: white">
+                                                        <i class="el-icon-more"></i>
+                                                    </el-button>
+                                                    <el-dropdown-menu slot="dropdown">
+                                                        <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>
+                                                        <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>
+                                                        <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
+                                                        <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
+                                                    </el-dropdown-menu>
+                                                </el-dropdown>
+                                                <h4>{{Page.title}}</h4>
+                                                <p>{{Page.dates}}</p>
+                                            </el-card>
+                                        </el-col>
+                                    </el-row>
+                                </el-timeline-item>
+                            </el-timeline>
+                        </div>
+                        <!--                        <el-timeline :reverse="reverse">-->
+                        <!--                            <el-timeline-item-->
+                        <!--                                    v-for="Page in res.pageList"-->
+                        <!--                                    :key="Page.id"-->
+                        <!--                                    :timestamp="2020-12-1">-->
+                        <!--                                {{Page.title}}-->
+                        <!--                            </el-timeline-item>-->
+                        <!--                        </el-timeline>-->
+                        <!--                        <div id="doc">-->
+                        <!--                            <el-row :gutter="14">-->
+                        <!--&lt;!&ndash;                                <el-col :span="6">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                    <el-card shadow="hover" @click.native="GotoMarkDown" style="font-size: 20px; font-weight: bold; height: 210px;">&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                        新建<i class="el-icon-plus"></i>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                        &lt;!&ndash;                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                    </el-card>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                </el-col>&ndash;&gt;-->
+                        <!--                                <el-col :span="10" v-for="Page in res.pageList" :key="Page.id">-->
+                        <!--                                    <el-card shadow="hover" @click.native="viewmk(Page.id)" style="margin-bottom: 20px; width: 100%;height: 140px">-->
+                        <!--                                        &lt;!&ndash;                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;                                        <el-dropdown trigger="hover" style="float: right;">&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;&lt;!&ndash;                                            <el-button type="primary" style="border-color: white;background-color: white">&ndash;&gt;&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;&lt;!&ndash;                                            </el-button>&ndash;&gt;&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;                                            <i class="el-icon-more"></i>&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;                                            &lt;!&ndash;                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>&ndash;&gt;&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;                                            <el-dropdown-menu slot="dropdown" style="margin-top: -55px">&ndash;&gt;-->
+                        <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
+                        <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
+                        <!--                                                                                        <el-dropdown-item @click.native="catwriter(Page.id);drawer = true">查看协作者</el-dropdown-item>-->
+                        <!--                                                                                        <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>-->
+                        <!--                                                                                        <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>-->
+                        <!--                                                                                        <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>-->
+                        <!--                                                                                        &lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>&ndash;&gt;-->
+                        <!--                                                                                        <el-dropdown-item @click.native="cancelCollection(Page.id)" style="color:red">取消收藏</el-dropdown-item>-->
+                        <!--                                        &lt;!&ndash;                                            </el-dropdown-menu>&ndash;&gt;-->
+                        <!--                                        &lt;!&ndash;                                        </el-dropdown>&ndash;&gt;-->
+                        <!--                                        <div  style="float: left; margin-top: -57px">-->
+                        <!--                                            <div style="margin-bottom: 0; height: 50px; margin-left: -40px">-->
+                        <!--                                                <i class="el-icon-document" style="margin-right: 5px"></i>-->
+                        <!--                                                &lt;!&ndash;                                            <span >{{Page.title}}</span>&ndash;&gt;-->
+                        <!--                                                <span style="font-size: 20px; font-weight: bold">标题</span><br>-->
+                        <!--                                            </div>-->
+                        <!--                                            <el-button type="primary" style="float: right;margin-right: -300px">主要按钮</el-button>-->
+                        <!--                                            <div style="float: right">-->
+                        <!--                                                <el-tag type="info" style=" font-size: 15px;">2020-12-2 廉皓然</el-tag>-->
+                        <!--                                            </div>-->
+                        <!--                                        </div>-->
+                        <!--                                    </el-card>-->
+                        <!--                                </el-col>-->
+                        <!--                            </el-row>                            -->
+                        <!--                        </div>-->
+                    </el-main>
+                    <!--                    <el-main>-->
                     <!--                        <div id="doc">-->
-                    <!--                            <el-row :gutter="14">-->
+                    <!--                            <el-row :gutter="12">-->
                     <!--&lt;!&ndash;                                <el-col :span="6">&ndash;&gt;-->
                     <!--&lt;!&ndash;                                    <el-card shadow="hover" @click.native="GotoMarkDown" style="font-size: 20px; font-weight: bold; height: 210px;">&ndash;&gt;-->
                     <!--&lt;!&ndash;                                        新建<i class="el-icon-plus"></i>&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                        &lt;!&ndash;                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>&ndash;&gt;&ndash;&gt;-->
                     <!--&lt;!&ndash;                                    </el-card>&ndash;&gt;-->
                     <!--&lt;!&ndash;                                </el-col>&ndash;&gt;-->
-                    <!--                                <el-col :span="10" v-for="Page in res.pageList" :key="Page.id">-->
-                    <!--                                    <el-card shadow="hover" @click.native="viewmk(Page.id)" style="margin-bottom: 20px; width: 100%;height: 140px">-->
-                    <!--                                        &lt;!&ndash;                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>&ndash;&gt;-->
-                    <!--                                        &lt;!&ndash;                                        <el-dropdown trigger="hover" style="float: right;">&ndash;&gt;-->
-                    <!--                                        &lt;!&ndash;&lt;!&ndash;                                            <el-button type="primary" style="border-color: white;background-color: white">&ndash;&gt;&ndash;&gt;-->
-                    <!--                                        &lt;!&ndash;&lt;!&ndash;                                            </el-button>&ndash;&gt;&ndash;&gt;-->
-                    <!--                                        &lt;!&ndash;                                            <i class="el-icon-more"></i>&ndash;&gt;-->
-                    <!--                                        &lt;!&ndash;                                            &lt;!&ndash;                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>&ndash;&gt;&ndash;&gt;-->
-                    <!--                                        &lt;!&ndash;                                            <el-dropdown-menu slot="dropdown" style="margin-top: -55px">&ndash;&gt;-->
-                    <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
-                    <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
-                    <!--                                                                                        <el-dropdown-item @click.native="catwriter(Page.id);drawer = true">查看协作者</el-dropdown-item>-->
-                    <!--                                                                                        <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>-->
-                    <!--                                                                                        <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>-->
-                    <!--                                                                                        <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>-->
-                    <!--                                                                                        &lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>&ndash;&gt;-->
-                    <!--                                                                                        <el-dropdown-item @click.native="cancelCollection(Page.id)" style="color:red">取消收藏</el-dropdown-item>-->
-                    <!--                                        &lt;!&ndash;                                            </el-dropdown-menu>&ndash;&gt;-->
-                    <!--                                        &lt;!&ndash;                                        </el-dropdown>&ndash;&gt;-->
-                    <!--                                        <div  style="float: left; margin-top: -57px">-->
-                    <!--                                            <div style="margin-bottom: 0; height: 50px; margin-left: -40px">-->
-                    <!--                                                <i class="el-icon-document" style="margin-right: 5px"></i>-->
-                    <!--                                                &lt;!&ndash;                                            <span >{{Page.title}}</span>&ndash;&gt;-->
-                    <!--                                                <span style="font-size: 20px; font-weight: bold">标题</span><br>-->
-                    <!--                                            </div>-->
-                    <!--                                            <el-button type="primary" style="float: right;margin-right: -300px">主要按钮</el-button>-->
-                    <!--                                            <div style="float: right">-->
-                    <!--                                                <el-tag type="info" style=" font-size: 15px;">2020-12-2 廉皓然</el-tag>-->
-                    <!--                                            </div>-->
-                    <!--                                        </div>-->
-                    <!--                                    </el-card>-->
-                    <!--                                </el-col>-->
-                    <!--                            </el-row>                            -->
+                    <!--&lt;!&ndash;                                <el-col :span="6" v-for="Page in res.pageList" :key="Page.id">&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                    <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;">&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                        <el-dropdown trigger="hover" style="float: right;">&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            <i class="el-icon-more"></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            <el-dropdown-menu slot="dropdown" style="float: right">&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <el-dropdown-item @click.native="addwriter(0)">邀请协作</el-dropdown-item>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <el-dropdown-item @click.native="dropwrite(0)" v-show="!Page.isCreator">退出协作</el-dropdown-item>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <el-dropdown-item @click.native="delDoc(0)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <el-dropdown-item @click.native="removeRecentBrowsing(0)" style="color:red">移除最近浏览</el-dropdown-item>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            </el-dropdown-menu>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                        </el-dropdown>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;                                        <span style="text-align: center; display: block">{{Page.title}}</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                    </el-card>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                </el-col>&ndash;&gt;-->
+                    <!--                                <div class="block">-->
+                    <!--                                    <el-timeline style="margin-left: 20px">-->
+                    <!--                                        <el-timeline-item v-for="Page in res.pageList" :key="Page.id" timestamp="2018/4/12" placement="top" style="width: 50%;" >-->
+                    <!--                                            <el-card shadow="hover" @click.native="viewmk(Page.id)" style="line-height:55px">-->
+                    <!--                                                <span style="height: 20px;font-weight: bold;font-size: 16px">{{Page.title}}</span><br>-->
+                    <!--                                                <span style="height: 20px">(可以写点文档属性)</span>-->
+                    <!--                                            </el-card>-->
+                    <!--                                        </el-timeline-item>-->
+
+
+
+                    <!--                                    </el-timeline>-->
+                    <!--                                </div>-->
+                    <!--                            </el-row>-->
                     <!--                        </div>-->
-                </el-main>
-<!--                    <el-main>-->
-<!--                        <div id="doc">-->
-<!--                            <el-row :gutter="12">-->
-<!--&lt;!&ndash;                                <el-col :span="6">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <el-card shadow="hover" @click.native="GotoMarkDown" style="font-size: 20px; font-weight: bold; height: 210px;">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        新建<i class="el-icon-plus"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                        <el-button type="info" @click="GotoMarkDown" style="width: 100%; height: 100%; background-color: white"><i class="el-icon-plus" style="size: auto"></i>新建</el-button>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </el-card>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </el-col>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <el-col :span="6" v-for="Page in res.pageList" :key="Page.id">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <el-card shadow="hover" @click.native="viewmk(0)" style="font-size: 20px; font-weight: bold; height: 210px;">&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                        <el-button icon="el-icon-more" circle style="float: right"></el-button><br>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <el-dropdown trigger="hover" style="float: right;">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <i class="el-icon-more"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                            <el-button icon="el-icon-more" circle style="float: right" type="info"></el-button>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <el-dropdown-menu slot="dropdown" style="float: right">&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <el-dropdown-item @click.native="addwriter(0)">邀请协作</el-dropdown-item>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <el-dropdown-item @click.native="dropwrite(0)" v-show="!Page.isCreator">退出协作</el-dropdown-item>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <el-dropdown-item @click.native="delDoc(0)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <el-dropdown-item @click.native="removeRecentBrowsing(0)" style="color:red">移除最近浏览</el-dropdown-item>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </el-dropdown-menu>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </el-dropdown>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        <span style="text-align: center; display: block">{{Page.title}}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </el-card>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </el-col>&ndash;&gt;-->
-<!--                                <div class="block">-->
-<!--                                    <el-timeline style="margin-left: 20px">-->
-<!--                                        <el-timeline-item v-for="Page in res.pageList" :key="Page.id" timestamp="2018/4/12" placement="top" style="width: 50%;" >-->
-<!--                                            <el-card shadow="hover" @click.native="viewmk(Page.id)" style="line-height:55px">-->
-<!--                                                <span style="height: 20px;font-weight: bold;font-size: 16px">{{Page.title}}</span><br>-->
-<!--                                                <span style="height: 20px">(可以写点文档属性)</span>-->
-<!--                                            </el-card>-->
-<!--                                        </el-timeline-item>-->
-
-
-
-<!--                                    </el-timeline>-->
-<!--                                </div>-->
-<!--                            </el-row>-->
-<!--                        </div>-->
-<!--                    </el-main>-->
-<!--                    <el-footer>Footer</el-footer>-->
+                    <!--                    </el-main>-->
+                    <!--                    <el-footer>Footer</el-footer>-->
                 </el-container>
             </el-container>
         </el-container>
-        <el-drawer
-            title="协作成员"
-            :visible.sync="drawer"
-            :direction="direction">
-                <ul>
-                    <li v-for="writer in res.writerList" :key="writer.id">
-                        <span>{{writer.name}}</span>
-                        <i class="el-icon-error" style="float:right;color:red;margin-right:30px;cursor:pointer" @click="delWriter(writer.id)"></i>
-                    </li>
-                </ul>
-        </el-drawer>
+        <el-dialog title="添加协作者" :visible.sync="dialogFormVisible">
+            <el-select
+                    v-model="value"
+                    placeholder="输入用户名"
+                    filterable
+                    remote
+                    :remote-method="remoteMethod">
+                <el-option
+                        v-for="user in searchList"
+                        :key="user.id"
+                        :label="user.name">
+                </el-option>
+            </el-select>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click.native="addWriter(docId,value);dialogFormVisible = false">添 加</el-button>
+            </div>
+        </el-dialog>
         <el-dialog
                 title="协作者"
                 :visible.sync="dialogVisible"
@@ -266,6 +273,7 @@
                 drawer:false,
                 direction:"rtl",
                 dialogVisible: false,
+                dialogFormVisible : false
             }
         },
         created() {
