@@ -10,14 +10,14 @@
                 <el-main>
                     <div class="block" style="line-height: normal">
                         <el-timeline>
-                            <el-timeline-item v-for="Pages in res.pageList" :key="Pages.date" :timestamp="Pages.date" placement="top">
+                            <el-timeline-item v-for="Pages in res.pageList" :key="Pages.date" :timestamp="Pages.dates" placement="top">
                                 <el-row :gutter="14">
                                     <el-col :span="12" v-for="Page in Pages.pageList" :key="Page.id">
                                         <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
                                             <el-image
                                                     style="width: 50px; height: 50px; float: left; margin-left: 10px"
                                                     :src="require('@/assets/document-gray.png')"
-                                                    :fit="fit"></el-image>
+                                                    :fit="fit"> </el-image>
                                             <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
                                                 <el-button style="border-color: white">
                                                     <i class="el-icon-more"></i>
@@ -30,7 +30,7 @@
                                                 </el-dropdown-menu>
                                             </el-dropdown>
                                             <h4>{{Page.title}}</h4>
-                                            <p>{{Page.date}}</p>
+                                            <p>{{Page.dates}}</p>
                                         </el-card>
                                     </el-col>
                                 </el-row>

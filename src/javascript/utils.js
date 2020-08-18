@@ -26,8 +26,8 @@ export default {
                     userID:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
-                // console.log(res.data);
-                PageList.pageList = res.data.pageList;
+                 console.log(res.data);
+                PageList.pageList = res.data;
             });
         };
         Vue.prototype.getCollectionPage = function (PageList){
