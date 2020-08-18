@@ -211,9 +211,9 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        if (res.data.isCollect==1) this.isCollect=true;
+                        if (res.data.isCollect) this.isCollect=true;
                         else this.isCollect=false;
-                        if (res.data.isTemplate==1) this.isTemplate=true;
+                        if (res.data.isTemplate) this.isTemplate=true;
                         else this.isTemplate=false;
                         this.value = res.data.content;
                         this.docId = this.$route.query.docId;
@@ -227,9 +227,9 @@
                 })
             }
             else{
-                if (this.$route.query.isCollect==1) this.isCollect=true;
+                if (this.$route.query.isCollect) this.isCollect=true;
                 else this.isCollect=false;
-                if (this.$route.query.isTemplate==1) this.isTemplate=true;
+                if (this.$route.query.isTemplate) this.isTemplate=true;
                 else this.isTemplate=false;
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;
