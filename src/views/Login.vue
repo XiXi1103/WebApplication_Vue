@@ -41,8 +41,8 @@
         }
         else {
           this.$http.post(this.requestUrl+"/login",this.user).then(res=>{
-            if (this.user.password==3){
-              // if (res.data.success){
+            // if (this.user.password==3){
+              if (res.data.success){
               sessionStorage.setItem("username",this.user.username);
               sessionStorage.setItem("userId",res.data.ID);
               this.$router.push("/homepage");

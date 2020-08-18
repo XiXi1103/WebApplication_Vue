@@ -125,7 +125,7 @@ export default {
                         query:{
                             isCollect: res.data.isCollect,
                             content: res.data.content,
-                            permission:res.data.userPermission,
+                            permission:3,//res.data.userPermission,
                             isTemplate:res.data.isTemplate,
                             docId:DocID,
                         }
@@ -317,18 +317,18 @@ export default {
                 else alert("权限不足");
             })
         };
-        Vue.prototype.addCollection=function(docId){
-            this.$http.get(this.requestUrl+"/collection",{
-                params:{
-                    docId:docId,
-                    userId:sessionStorage.getItem("userId"),
-                }
-            }).then(res=>{
-                if (!res.data.success){
-                    alert(res.data.msg)
-                }
-            })
-        }
+        // Vue.prototype.addCollection=function(docId){
+        //     this.$http.get(this.requestUrl+"/collection",{
+        //         params:{
+        //             docId:docId,
+        //             userId:sessionStorage.getItem("userId"),
+        //         }
+        //     }).then(res=>{
+        //         if (!res.data.success){
+        //             alert(res.data.msg)
+        //         }
+        //     })
+        // }
 
         // Vue.prototype.delDoc = function (DocID, PageList){
         //     this.$http.post(this.requestUrl+"/delDoc",{
