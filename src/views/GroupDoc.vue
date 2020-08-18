@@ -19,10 +19,10 @@
                                             <el-dropdown-menu slot="dropdown" style="float: right">
 <!--                                                <el-dropdown-item @click.native="editmk(0)">修改文章</el-dropdown-item>-->
 <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
-                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>
-                                                <el-dropdown-item @click.native="catwriter(0);drawer = true">查看协作者</el-dropdown-item>
+                                                <el-dropdown-item @click.native="editmk(Page.id)">收藏</el-dropdown-item>
+                                                <el-dropdown-item @click.native="catwriter(Page.id);drawer = true">查看协作者</el-dropdown-item>
                                                 <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>
-                                                <el-dropdown-item @click.native="delDoc(0)" style="color:red" v-show="Page.isCreator">移至回收站</el-dropdown-item>
+                                                <el-dropdown-item @click.native="delDoc(Page.id)" style="color:red" v-show="Page.isCreator">移至回收站</el-dropdown-item>
                                             </el-dropdown-menu>
                                         </el-dropdown>
 

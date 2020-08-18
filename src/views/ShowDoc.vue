@@ -24,7 +24,7 @@
 
                         <!--        <el-button type="danger" icon="el-icon-link" round  style="float: right;font-size:20px;width: 160px" @click="shareDoc()" v-if="isTemplate&&permission>=3" >分享文档</el-button>-->
                         <div v-if=!isTemplate style="float: right">
-                            <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(0)">编辑</el-button>
+                            <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(this.docId)">编辑</el-button>
                             <el-button type="danger" icon="el-icon-star-off" round  style="" @click="collection()" v-show=!isCollect>收藏</el-button>
                             <el-button type="danger" icon="el-icon-star-on" round  style="" @click="collection()" v-show=isCollect>已收藏</el-button>
                             <el-popover
@@ -34,10 +34,12 @@
                                     :content=link>
                                 <el-button slot="reference" icon="el-icon-link" type="warning" round style="margin-left: 10px" @click="shareDoc()">分享</el-button>
                             </el-popover>
+                            <el-button type="info" icon="el-icon-s-custom" round style="margin-left: 10px" @click="dialogFormVisible=true" >邀请协作者</el-button>
+
                         </div>
                         <div id="doc">
                             <div v-if="this.permission>=2">
-                                <el-input v-model="comment.content" placeholder="快来评论吧" style="width: 85%"></el-input>
+                                <el-input v-model="comment.content" placeholder="快来评论吧" style="width: 65%;"></el-input>
 <!--                                <el-input class="commentBox"-->
 <!--                                          type="textarea"-->
 <!--                                          :rows="5"-->
@@ -47,7 +49,7 @@
                                 <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" style="margin-left: 15px">发射！</el-button>
                             </div>
                             <div v-else>
-                                <el-input v-model="comment.content" placeholder="该文档不支持评论哦" style="width: 85%"></el-input>
+                                <el-input v-model="comment.content" placeholder="该文档不支持评论哦" style="width: 65%"></el-input>
 <!--                                <el-input class="commentBox"-->
 <!--                                          type="textarea"-->
 <!--                                          :rows="5"-->
@@ -55,7 +57,7 @@
 <!--                                          :disabled="true"-->
 <!--                                >-->
 <!--                                </el-input>-->
-                                <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" :disabled="true">发射！</el-button>
+                                <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" style="margin-left: 15px" :disabled="true">发射！</el-button>
                             </div>
                         </div>
                         <el-divider style=""></el-divider>
@@ -86,6 +88,24 @@
                 </el-container>
             </el-container>
         </el-container>
+        <el-dialog title="添加协作者" :visible.sync="dialogFormVisible">
+            <el-select
+                    v-model="name"
+                    placeholder="输入用户名"
+                    filterable
+                    remote
+                    :remote-method="remoteMethod">
+                <el-option
+                        v-for="user in searchList"
+                        :key="user.id"
+                        :label="user.name">
+                </el-option>
+            </el-select>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click.native="addWriter(docId,name);dialogFormVisible = false">添 加</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -114,7 +134,9 @@
                 isCollect:'',
                 isTemplate:'',
                 permission:'',
-                link:''
+                link:'',
+                dialogFormVisible:false,
+                name:''
             };
         },
         methods:{
