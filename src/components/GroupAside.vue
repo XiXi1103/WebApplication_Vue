@@ -61,11 +61,11 @@
                     <el-dropdown style="float:right;margin-top:-10px"  v-show="member.permission!=5">
                         <el-button type="primary">{{permission[member.permission-1]}}</el-button>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item @click.native="changePermission(member.id,1)">查看</el-dropdown-item>
-                            <el-dropdown-item @click.native="changePermission(member.id,2)">评论</el-dropdown-item>
-                            <el-dropdown-item @click.native="changePermission(member.id,3)">分享</el-dropdown-item>
-                            <el-dropdown-item @click.native="changePermission(member.id,4)">修改</el-dropdown-item>
-                            <el-dropdown-item @click.native="changePermission(member.id,5)">管理</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,1)">可查看</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,2)">可评论</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,3)">可分享</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,4)">可修改</el-dropdown-item>
+                            <el-dropdown-item @click.native="changePermission(member.id,5)">可管理</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </li>
@@ -104,7 +104,7 @@
                     groupList: [],
                     memberList: [],
                 },
-                permission:["查看","评论","分享","修改","管理"],
+                permission:["可查看","可评论","可分享","可修改","可管理"],
                 drawer:false,
                 direction:"rtl",
                 value:"",
@@ -153,7 +153,7 @@
                 })
             },
             dropGroup:function(id){
-                this.$http.post(this.requestUrl+"/delGroup",{
+                this.$http.get(this.requestUrl+"/delGroup",{
                     params:{
                         groupID:id,
                         userID:sessionStorage.getItem("userId"),
@@ -174,7 +174,7 @@
                 this.getMember(id,this.res);
             },
             delMember:function(id){
-                this.$http.post(this.requestUrl+"/kickMember",{
+                this.$http.get(this.requestUrl+"/kickMember",{
                     params:{
                         userId1:sessionStorage.getItem("userId"),
                         userId2:id,
