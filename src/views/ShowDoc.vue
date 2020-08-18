@@ -179,7 +179,7 @@
             collection(){
                 this.$http.get(this.requestUrl+"/collection",{
                     params:{
-                        documentationId:this.docId,
+                        docId:this.docId,
                         userId:sessionStorage.getItem("userId"),
                     }
                 }).then(res=>{
