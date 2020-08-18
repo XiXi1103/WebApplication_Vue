@@ -29,15 +29,15 @@
                 <el-container>
                     <el-main>
                         <div>
-                            <div v-for="template in templateList" :key="template.ID" >
+                            <div v-for="template in templateList" :key="template.id" >
                             <el-row :gutter="12" style="margin-bottom: 50px;">
                                 <el-col :span="8">
                                     <el-card shadow="hover">
-                                        <p>{{template.name}}</p>
+                                        <p>{{template.title}}</p>
 
-                                        <el-button type="info" @click="viewmk(template.ID)" v-show="flag">查看模板</el-button>
-                                        <el-button type="info" @click="addCollection(template.ID)" v-show="flag">添加为我的模板</el-button>
-                                        <el-button type="info" @click="editmk(template.ID)" v-show="!flag">使用模板</el-button>
+                                        <el-button type="info" @click="viewmk(template.id)" v-show="flag">查看模板</el-button>
+                                        <el-button type="info" @click="addCollection(template.id)" v-show="flag">添加为我的模板</el-button>
+                                        <el-button type="info" @click="editmk(template.id)" v-show="!flag">使用模板</el-button>
                                     </el-card>
                                 </el-col>
                             </el-row>
@@ -70,23 +70,28 @@
         methods:{
             showMyTem(){
                 this.flag=false;
+                this.templateList = null;
                 this.$http.get(this.requestUrl+"/getMyTemplate1",{
                     params:{
-                        // userId:sessionStorage.getItem("userId")
-                        userId:0//测试用
+                        userId:sessionStorage.getItem("userId"),
+                        // userId:0//测试用
                     }
                 }).then(res=>{
-                    if (res.data.success!=1) {
+                    console.log(res.data);
+                    if (!res.data) {
                         // alert(res.data.msg);
-                        this.$message.error(res.data.msg);
+                        this.$message.error("获取失败");
                     }
                     else {
                         this.templateList = res.data;
                     }
+                    // location.reload();
+                    // alert(this.templateList.length);
                 })
             },
             showAllTem(){
                 this.flag=true;
+                this.templateList = null;
                 this.$http.get(this.requestUrl+"/getAllTemplate",).then(res=>{
                     this.templateList = res.data;
                 })
