@@ -32,6 +32,38 @@
                 </el-aside>
                 <el-container>
                     <el-main>
+                        <div v-if="res.pageList.length===0">
+                            <span style="font-size: 16px;color: #8492a6">这里什么都没有~</span>
+                        </div>
+                        <div class="block" v-if="res.pageList.length>0">
+                            <el-timeline>
+                                <el-timeline-item v-for="Pages in res.pageList" :key="Pages.date" :timestamp="Pages.dates" placement="top">
+                                    <el-row :gutter="14">
+                                        <el-col :span="12" v-for="Page in Pages.pageList" :key="Page.id">
+                                            <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
+                                                <el-image
+                                                        style="width: 50px; height: 50px; float: left; margin-left: 10px"
+                                                        :src="require('@/assets/document-gray.png')"
+                                                        :fit="fit"></el-image>
+                                                <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
+                                                    <el-button style="border-color: white">
+                                                        <i class="el-icon-more"></i>
+                                                    </el-button>
+                                                    <el-dropdown-menu slot="dropdown">
+                                                        <el-dropdown-item @click.native="addCollection(Page.id)">添加为我的模板</el-dropdown-item>
+                                                        <el-dropdown-item @click.native="editmk(Page.id);dialogFormVisible = true">使用模板</el-dropdown-item>
+<!--                                                        <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>-->
+<!--                                                        <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>-->
+                                                    </el-dropdown-menu>
+                                                </el-dropdown>
+                                                <h4>{{Page.title}}</h4>
+                                                <p>{{Page.dates}}</p>
+                                            </el-card>
+                                        </el-col>
+                                    </el-row>
+                                </el-timeline-item>
+                            </el-timeline>
+                        </div>
                         <div>
                             <div v-for="template in templateList" :key="template.id" >
                             <el-row :gutter="12" style="margin-bottom: 50px;">
@@ -49,7 +81,7 @@
                         </div>
                     </el-main>
 
-                    <el-footer>Footer</el-footer>
+<!--                    <el-footer>Footer</el-footer>-->
                 </el-container>
             </el-container>
         </el-container>
@@ -71,6 +103,10 @@
                 templateList:[],
                 count: 0,
                 flag:true,//控制显示内容，模板库页面为真，我的模板页面为假
+                res : {
+                    pageList : [],
+                    writerList : []
+                },
             };
         },
         methods:{
@@ -89,7 +125,8 @@
                         this.$message.error("获取失败");
                     }
                     else {
-                        this.templateList = res.data;
+                        // this.templateList = res.data;
+                        this.res.pageList = res.data;
                     }
                     // location.reload();
                     // alert(this.templateList.length);
@@ -99,7 +136,7 @@
                 this.flag=true;
                 this.templateList = null;
                 this.$http.get(this.requestUrl+"/getAllTemplate",).then(res=>{
-                    this.templateList = res.data;
+                    this.res.pageList = res.data;
                 })
             },
 
