@@ -143,7 +143,7 @@
                 title="协作者"
                 :visible.sync="dialogVisible"
 
-                style="overflow-x: hidden"
+                style="overflow-x: hidden;overflow-y: scroll"
                 :before-close="handleClose">
             <el-table
                     :data="res.writerList"
@@ -256,6 +256,14 @@
                     // ],
                     writerList:[]
                 },
+                drawer:false,
+                direction:"rtl",
+                dialogVisible: false,
+                dialogFormVisible : false,
+                searchList:[],
+                permission:["查看","评论","分享","修改","管理"],
+                value:"",
+                docId:0,
                 dialogTableVisible: false,
             }
         },

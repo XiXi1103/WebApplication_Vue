@@ -91,6 +91,61 @@
                 </el-container>
             </el-container>
         </el-container>
+        <el-dialog
+                title="协作者"
+                :visible.sync="dialogVisible"
+
+                style="overflow-x: hidden;overflow-y: scroll"
+                :before-close="handleClose">
+            <el-table
+                    :data="res.writerList"
+                    style="width: 100%">
+                <el-table-column
+                        label="用户名"
+                        width="180">
+                    <template slot-scope="scope">
+                        <!--                        <i class="el-icon-time"></i>-->
+                        <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="权限"
+                        width="180">
+                    <template slot-scope="scope">
+                        <!--                        <el-popover trigger="hover" placement="top">-->
+                        <!--                            <p>姓名: {{ scope.row.name }}</p>-->
+                        <!--                            <p>住址: {{ scope.row.address }}</p>-->
+                        <div slot="reference" class="name-wrapper">
+                            <el-tag size="medium">{{ permission[scope.row.permission-1] }}</el-tag>
+                        </div>
+                        <!--                        </el-popover>-->
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-dropdown style="margin-right: 5px">
+                            <el-button
+                                    size="mini"
+                                    @click="handleEdit(scope.$index, scope.row)">改变权限</el-button>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item @click.native="writerPermission(scope.row.id,1)">查看</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(scope.row.id,2)">评论</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(scope.row.id,3)">分享</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(scope.row.id,4)">修改</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(scope.row.id,5)">管理</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                        <!--                        <el-button-->
+                        <!--                                size="mini"-->
+                        <!--                                @click="handleEdit(scope.$index, scope.row)">改变权限</el-button>-->
+                        <el-button
+                                size="mini"
+                                type="danger"
+                                @click="delWriter(scope.row.id)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-dialog>
     </div>
 </template>
 

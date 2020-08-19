@@ -96,7 +96,7 @@
                 title="协作者"
                 :visible.sync="dialogVisible"
 
-                style="overflow-x: hidden"
+                style="overflow-x: hidden;overflow-y: scroll"
                 :before-close="handleClose">
             <el-table
                     :data="res.writerList"
