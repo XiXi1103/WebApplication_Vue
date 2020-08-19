@@ -30,7 +30,7 @@
         <el-form-item label="用户名：">
           <el-input type="text" v-model="user.username" auto-complete="off" disabled></el-input>
         </el-form-item>
-        <el-form-item label="密码：">
+        <el-form-item label="密码：" v-show="!isother">
           <el-input type="password" v-model="user.passwd" auto-complete="off" :disabled="ischange"></el-input>
         </el-form-item>    
         <el-form-item label="邮箱：">
@@ -42,10 +42,10 @@
         <el-form-item label="创建日期：">
           <el-input type="text" v-model="user.create_time" auto-complete="off" disabled></el-input>
         </el-form-item>
-        <el-form-item style="width: 75%">
+        <el-form-item style="width: 75%" v-show="!isother">
           <el-button type="primary" @click="changeinfo" style="width: 50%">编辑</el-button>
         </el-form-item>
-        <el-form-item style="width: 75%">
+        <el-form-item style="width: 75%" v-show="!isother">
           <el-button @click="preserve" style="width: 50%">保存</el-button>
         </el-form-item>
       </el-form>
@@ -75,7 +75,7 @@
             create_time:"",
           },
           loading: false,
-
+          isother:false,
         }
       },
       methods: {
@@ -133,6 +133,9 @@
         },
   },
   created() {
+      if(this.$router.query.isother){
+        this.isother=true;
+      }
       this.$http.get(this.requestUrl+"/personalInfo",{
         params:{
           userId:sessionStorage.getItem("userId"),
@@ -144,6 +147,7 @@
           this.user.email= res.data.email;
           this.user.phoneNum= res.data.phoneNum;
           this.user.create_time= res.data.create_time;
+          this.isother=false;
         }
         else{
           // alert(res.data.msg);

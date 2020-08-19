@@ -22,12 +22,11 @@
                                                     <el-button style="border-color: white">
                                                         <i class="el-icon-more"></i>
                                                     </el-button>
-                                                    <el-dropdown-menu slot="dropdown">
-                                                        <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>
-                                                        <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>
-                                                        <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
-                                                        <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
-                                                    </el-dropdown-menu>
+                                            <el-dropdown-menu slot="dropdown" style="float: right">
+                                                <el-dropdown-item @click.native="recover(Page.id)">还原</el-dropdown-item>
+                                                <el-dropdown-item @click.native="deleteCompletely(Page.id)" style="color:red">彻底删除</el-dropdown-item>
+                                                <!--                                                <el-dropdown-item @click.native="editmk(0)">分享</el-dropdown-item>-->
+                                            </el-dropdown-menu>
                                                 </el-dropdown>
                                                 <h4>{{Page.title}}</h4>
                                                 <p>{{Page.dates}}</p>
