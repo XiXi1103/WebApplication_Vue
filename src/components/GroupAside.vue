@@ -64,7 +64,7 @@
                         width="180">
                     <template slot-scope="scope">
                         <!--                        <i class="el-icon-time"></i>-->
-                        <span style="margin-left: 10px" @click="getOtherInfo(scope.row.id)">{{ scope.row.name }}</span>
+                        <span style="margin-left: 10px ;cursor:pointer" @click="GotoPersonalInfo(scope.row.id)">{{ scope.row.name }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column

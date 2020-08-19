@@ -319,29 +319,52 @@ export default {
                 else alert("权限不足");
             })
         };
-        Vue.prototype.getOtherInfo = function(id){
-            this.$http.get(this.requestUrl+"/getOtherInfo",{
-                params:{
-                    userID1:sessionStorage.getItem("userId"),
-                    userID2:id,
+        // Vue.prototype.getOtherInfo = function(id){
+        //     // this.$http.get(this.requestUrl+"/personalInfo",{
+        //     //     params:{
+        //     //         userId:sessionStorage.getItem("userId"),
+        //     //         id:id,
+        //     //     }
+        //     // }).then(res=>{
+        //     //     console.log(res.data);
+        //     //     if(res.data.success){
+        //     //         this.$router.push({
+        //     //             path:'/personalinfo',
+        //     //             query:{
+        //     //                 data:res.data
+        //     //             }
+        //     //         })
+        //     //     }
+        //     //     else alert("查看失败");
+        //     // })
+        // };
+        Vue.prototype.GotoPersonalInfo =function(id){
+            this.$http.get(this.requestUrl + "/personalInfo", {
+                params: {
+                    userId: sessionStorage.getItem("userId"),
+                    id:id
                 }
-            }).then(res=>{
-                console.log(res.data);
-                if(res.data.success){
-                    this.$router.push({
-                        path:'/personalinfo',
+            }).then(res => {
+                if (res.data.success) {
+                    this.$router.push({path:'/PersonalInfo',
                         query:{
-                            isother: res.data.isother,
-                            username: res.data.username,
-                            email: res.data.email,
-                            phoneNum: res.data.phoneNum,
-                            create_time: res.data.create_time
-                        }
-                    })
+                            data:res.data,
+                        }}
+                    );
+                    // this.user.username = res.data.username;
+                    // this.user.passwd = res.data.password;
+                    // this.user.email = res.data.email;
+                    // this.user.phoneNum = res.data.phoneNum;
+                    // this.user.create_time = res.data.create_time;
+                    // this.isOther = res.data.isOther;
+                } else {
+                    // alert(res.data.msg);
+                    this.$message.error(res.data.msg);
                 }
-                else alert("查看失败");
             })
         };
+
+
 
         // Vue.prototype.addCollection=function(docId){
         //     this.$http.get(this.requestUrl+"/collection",{

@@ -17,7 +17,7 @@
 <!--            <el-menu-item index="/recyclebin">回收站</el-menu-item>-->
             <el-submenu index="4" style="float:right">
                 <template slot="title" >{{username}}</template>
-                <el-menu-item @click="GotoPersonalInfo" v-show="!isshow">个人信息</el-menu-item>
+                <el-menu-item @click="GotoPersonalInfo(id)" v-show="!isshow">个人信息</el-menu-item>
                 <el-menu-item @click="logout" v-show="!isshow">退出登录</el-menu-item>
                 <el-menu-item @click="GotoLogin" v-show="isshow">登录/注册</el-menu-item>
             </el-submenu>
@@ -103,6 +103,7 @@
     export default {
         data() {
             return {
+                id:sessionStorage.getItem("userId"),
                 navList:[],
                 username:"游客",
                 passwd:"",
@@ -187,9 +188,13 @@
             GotoLogin: function() {
                 this.$router.push({path: '/login'});
             },
-            GotoPersonalInfo:function(){
-                this.$router.push({path:'/PersonalInfo'});
-            },
+            // GotoPersonalInfo:function(){
+            //     this.$router.push({path:'/PersonalInfo',
+            //         query:{
+            //             isOther: false,
+            //         }}
+            //     );
+            // },
             getNotification: function() {
                 this.$http.get(this.requestUrl + "/getNotification",{
                     params:{

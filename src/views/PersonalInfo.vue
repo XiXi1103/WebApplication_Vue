@@ -16,7 +16,8 @@
                           @close="handleClose">
                       <el-menu-item >
                           <i class="el-icon-document"></i>
-                          <span slot="title">我的信息</span>
+                          <span slot="title" v-show = !isOther>我的信息</span>
+                          <span slot="title" v-show = isOther>用户信息</span>
                       </el-menu-item>
                   </el-menu>
               </el-col>
@@ -26,11 +27,12 @@
       <el-main>
       <el-form  class="Info-container" label-position="left"
           label-width="90px" v-loading="loading">
-        <h2 class="title">个人信息</h2>
+        <h2 class="title" v-show = !isOther>个人信息</h2>
+          <h2 class="title" v-show = isOther>用户：{{user.username}}</h2>
         <el-form-item label="用户名：">
           <el-input type="text" v-model="user.username" auto-complete="off" disabled></el-input>
         </el-form-item>
-        <el-form-item label="密码：" v-show="!isother">
+        <el-form-item label="密码：" v-show="!isOther">
           <el-input type="password" v-model="user.passwd" auto-complete="off" :disabled="ischange"></el-input>
         </el-form-item>    
         <el-form-item label="邮箱：">
@@ -42,10 +44,10 @@
         <el-form-item label="创建日期：">
           <el-input type="text" v-model="user.create_time" auto-complete="off" disabled></el-input>
         </el-form-item>
-        <el-form-item style="width: 75%" v-show="!isother">
+        <el-form-item style="width: 75%" v-show="!isOther">
           <el-button type="primary" @click="changeinfo" style="width: 50%">编辑</el-button>
         </el-form-item>
-        <el-form-item style="width: 75%" v-show="!isother">
+        <el-form-item style="width: 75%" v-show="!isOther">
           <el-button @click="preserve" style="width: 50%">保存</el-button>
         </el-form-item>
       </el-form>
@@ -75,7 +77,7 @@
             create_time:"",
           },
           loading: false,
-          isother:false,
+          isOther:false,
         }
       },
       methods: {
@@ -133,32 +135,44 @@
         },
   },
   created() {
-      if(this.$router.query.isother){
-        this.user.username = this.$router.query.username;
-        this.user.email = this.$router.query.email;
-        this.user.phoneNum = this.$router.query.phoneNum;
-        this.user.create_time = this.$router.query.create_time;
-        this.isother=true;
-      }
-      this.$http.get(this.requestUrl+"/personalInfo",{
-        params:{
-          userId:sessionStorage.getItem("userId"),
-        }
-      }).then(res=>{
-        if(res.data.success){
-          this.user.username= res.data.username;
-          this.user.passwd= res.data.password;
-          this.user.email= res.data.email;
-          this.user.phoneNum= res.data.phoneNum;
-          this.user.create_time= res.data.create_time;
-          this.isother=false;
-        }
-        else{
-          // alert(res.data.msg);
-          this.$message.error(res.data.msg);
-        }
-      })
-  }
+      this.user.username = this.$route.query.data.username;
+      this.user.passwd = this.$route.query.data.password;
+      this.user.email = this.$route.query.data.email;
+      this.user.phoneNum = this.$route.query.data.phoneNum;
+      this.user.create_time = this.$route.query.data.create_time;
+      this.isOther = this.$route.query.data.isOther;
+  },
+      //     // console.log(this.$route.query.isOther);
+      // var isOther = this.$route.query.isOther;
+      // if(isOther == true){
+      //     console.log(this.$route.query.isOther);
+      //   this.user.username = this.$route.query.username;
+      //   this.user.email = this.$route.query.email;
+      //   this.user.phoneNum = this.$route.query.phoneNum;
+      //   this.user.create_time = this.$route.query.create_time;
+      //   this.isOther=true;
+      // }
+      // else {
+      //     // console.log(this.$route.query.isOther);
+      //     this.$http.get(this.requestUrl + "/personalInfo", {
+      //         params: {
+      //             userId: sessionStorage.getItem("userId"),
+      //         }
+      //     }).then(res => {
+      //         if (res.data.success) {
+      //             this.user.username = res.data.username;
+      //             this.user.passwd = res.data.password;
+      //             this.user.email = res.data.email;
+      //             this.user.phoneNum = res.data.phoneNum;
+      //             this.user.create_time = res.data.create_time;
+      //             this.isOther = false;
+      //         } else {
+      //             // alert(res.data.msg);
+      //             this.$message.error(res.data.msg);
+      //         }
+      //     })
+      // }
+  // }
 }
 </script>
 
