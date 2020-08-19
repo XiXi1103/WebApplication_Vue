@@ -338,31 +338,26 @@ export default {
         //     //     else alert("查看失败");
         //     // })
         // };
-        Vue.prototype.GotoPersonalInfo =function(id){
-            this.$http.get(this.requestUrl + "/personalInfo", {
-                params: {
-                    userId: sessionStorage.getItem("userId"),
-                    id:id
-                }
-            }).then(res => {
-                if (res.data.success) {
-                    this.$router.push({path:'/PersonalInfo',
-                        query:{
-                            data:res.data,
-                        }}
-                    );
+        Vue.prototype.GotoPersonalInfo = function(id){
+            if(id == sessionStorage.getItem("userId")){
+                this.$router.push({path:'/PersonalInfo',query:{id:id}});
+            }
+            else{
+                this.$router.push({path:'/otherPersonalInfo',query:{id:id}});
+            }
+        };
                     // this.user.username = res.data.username;
                     // this.user.passwd = res.data.password;
                     // this.user.email = res.data.email;
                     // this.user.phoneNum = res.data.phoneNum;
                     // this.user.create_time = res.data.create_time;
                     // this.isOther = res.data.isOther;
-                } else {
-                    // alert(res.data.msg);
-                    this.$message.error(res.data.msg);
-                }
-            })
-        };
+                // } else {
+                //     // alert(res.data.msg);
+                //     this.$message.error(res.data.msg);
+                // }
+            // })
+        // };
 
 
 

@@ -16,7 +16,7 @@
                                     @close="handleClose">
                                 <el-menu-item >
                                     <i class="el-icon-document"></i>
-                                    <span slot="title">我的信息</span>
+                                    <span slot="title">用户信息</span>
                                 </el-menu-item>
                             </el-menu>
                         </el-col>
@@ -26,12 +26,9 @@
                     <el-main>
                         <el-form  class="Info-container" label-position="left"
                                   label-width="90px" v-loading="loading">
-                            <h2 class="title">个人信息</h2>
+                            <h2 class="title">用户信息</h2>
                             <el-form-item label="用户名：">
                                 <el-input type="text" v-model="user.username" auto-complete="off" disabled></el-input>
-                            </el-form-item>
-                            <el-form-item label="密码：" v-show="!isother">
-                                <el-input type="password" v-model="user.passwd" auto-complete="off" :disabled="ischange"></el-input>
                             </el-form-item>
                             <el-form-item label="邮箱：">
                                 <el-input type="email" v-model="user.email" auto-complete="off" :disabled="ischange"></el-input>
@@ -41,12 +38,6 @@
                             </el-form-item>
                             <el-form-item label="创建日期：">
                                 <el-input type="text" v-model="user.create_time" auto-complete="off" disabled></el-input>
-                            </el-form-item>
-                            <el-form-item style="width: 75%" v-show="!isother">
-                                <el-button type="primary" @click="changeinfo" style="width: 50%">编辑</el-button>
-                            </el-form-item>
-                            <el-form-item style="width: 75%" v-show="!isother">
-                                <el-button @click="preserve" style="width: 50%">保存</el-button>
                             </el-form-item>
                         </el-form>
                     </el-main>
@@ -78,60 +69,60 @@
                 isother:false,
             }
         },
-        methods: {
-            changeinfo:function(){
-                this.ischange=0;
-            },
-            preserve(){
-                const emailPattern =  /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-                const phoneNumPattern = /^1[3|4|5|7|8][0-9]{9}$/;
-                if(this.user.passwd == ''){
-                    // alert("密码不能为空");
-                    this.$message({
-                        message: '密码不能为空',
-                        type: 'warning'
-                    });
-                }
-                else if(!emailPattern.test(this.user.email)){
-                    // alert("请输入正确的邮箱");
-                    this.$message({
-                        message: '请输入正确的邮箱',
-                        type: 'warning'
-                    });
-                }
-                else if(!phoneNumPattern.test(this.user.phoneNum)){
-                    // alert("请输入正确的电话号码");
-                    this.$message({
-                        message: '请输入正确的电话号码',
-                        type: 'warning'
-                    });
-                }
-                else{
-                    this.ischange=1;
-                    this.$http.get(this.requestUrl+"/changePerInfo",{
-                        params:{
-                            userId: sessionStorage.getItem("userId"),
-                            password: this.user.passwd,
-                            email: this.user.email,
-                            phoneNum: this.user.phoneNum
-                        }
-                    })
-                        .then(res=>{
-                            if(res.data.success){
-                                // alert("保存成功");
-                                this.$message({
-                                    message: '保存成功',
-                                    type: 'success'
-                                });
-                            }
-                            else{
-                                // alert("修改失败");
-                                this.$message.error('修改失败！请重试');
-                            }
-                        })
-                }
-            },
-        },
+        // methods: {
+        //     changeinfo:function(){
+        //         this.ischange=0;
+        //     },
+        //     preserve(){
+        //         const emailPattern =  /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+        //         const phoneNumPattern = /^1[3|4|5|7|8][0-9]{9}$/;
+        //         if(this.user.passwd == ''){
+        //             // alert("密码不能为空");
+        //             this.$message({
+        //                 message: '密码不能为空',
+        //                 type: 'warning'
+        //             });
+        //         }
+        //         else if(!emailPattern.test(this.user.email)){
+        //             // alert("请输入正确的邮箱");
+        //             this.$message({
+        //                 message: '请输入正确的邮箱',
+        //                 type: 'warning'
+        //             });
+        //         }
+        //         else if(!phoneNumPattern.test(this.user.phoneNum)){
+        //             // alert("请输入正确的电话号码");
+        //             this.$message({
+        //                 message: '请输入正确的电话号码',
+        //                 type: 'warning'
+        //             });
+        //         }
+        //         else{
+        //             this.ischange=1;
+        //             this.$http.get(this.requestUrl+"/changePerInfo",{
+        //                 params:{
+        //                     userId: sessionStorage.getItem("userId"),
+        //                     password: this.user.passwd,
+        //                     email: this.user.email,
+        //                     phoneNum: this.user.phoneNum
+        //                 }
+        //             })
+        //                 .then(res=>{
+        //                     if(res.data.success){
+        //                         // alert("保存成功");
+        //                         this.$message({
+        //                             message: '保存成功',
+        //                             type: 'success'
+        //                         });
+        //                     }
+        //                     else{
+        //                         // alert("修改失败");
+        //                         this.$message.error('修改失败！请重试');
+        //                     }
+        //                 })
+        //         }
+        //     },
+        // },
         created() {
             this.$http.get(this.requestUrl+"/personalInfo",{
                 params:{

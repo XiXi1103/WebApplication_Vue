@@ -183,6 +183,7 @@
                 this.status = "登录";
                 this.isshow = false;
                 this.$router.push({path: '/'});
+                location.reload();
                 sessionStorage.clear();
             },
             GotoLogin: function() {

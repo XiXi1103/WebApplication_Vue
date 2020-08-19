@@ -76,6 +76,11 @@ Vue.use(mavonEditor)
     path:'/searchres',
     name:'/Searchres',
     component: () => import('../views/SearchRes')
+  },
+  {
+    path:'/otherPersonalInfo',
+    name:'/OtherPersonalInfo',
+    component: () => import('../views/OtherPersonalInfo')
   }
 ]
 
