@@ -1,13 +1,13 @@
 <template>
     <div class="full">
-        <el-container style="height: 100%" direction="vertical">
+        <el-container>
             <el-header>
                 <Topbar></Topbar>
             </el-header>
             <el-container>
                 <Asidebar></Asidebar>
                 <el-container>
-                    <el-main>
+                    <el-main style="overflow-y: scroll">
                         <div v-if="res.pageList.length===0">
                             <span style="font-size: 16px;color: #8492a6">这里什么都没有~</span>
 <!--                            <el-tag-->
@@ -238,30 +238,94 @@
                     pageList : [],
                     // pageList : [
                     //     {
-                    //         "title": "最近浏览",
-                    //         "id": 1,
-                    //         "isCreator": false
+                    //         pageList: [{
+                    //             "title": "最近浏览",
+                    //             "id": 1,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //         {
+                    //             "title": "最近浏览",
+                    //             "id": 2,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //         {
+                    //             "title": "最近浏览",
+                    //             "id": 3,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //         {
+                    //             "title": "最近浏览",
+                    //             "id": 4,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //         {
+                    //             "title": "最近浏览",
+                    //             "id": 5,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //         {
+                    //             "title": "最近浏览",
+                    //             "id": 5,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //         {
+                    //             "title": "最近浏览",
+                    //             "id": 5,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //         {
+                    //             "title": "最近浏览",
+                    //             "id": 5,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //         {
+                    //             "title": "最近浏览",
+                    //             "id": 5,
+                    //             dates: "2018-12-9"
+                    //         },
+                    //             {
+                    //                 "title": "最近浏览",
+                    //                 "id": 2,
+                    //                 dates: "2018-12-9"
+                    //             },
+                    //             {
+                    //                 "title": "最近浏览",
+                    //                 "id": 3,
+                    //                 dates: "2018-12-9"
+                    //             },
+                    //             {
+                    //                 "title": "最近浏览",
+                    //                 "id": 4,
+                    //                 dates: "2018-12-9"
+                    //             },
+                    //             {
+                    //                 "title": "最近浏览",
+                    //                 "id": 5,
+                    //                 dates: "2018-12-9"
+                    //             },
+                    //             {
+                    //                 "title": "最近浏览",
+                    //                 "id": 5,
+                    //                 dates: "2018-12-9"
+                    //             },
+                    //             {
+                    //                 "title": "最近浏览",
+                    //                 "id": 5,
+                    //                 dates: "2018-12-9"
+                    //             },
+                    //             {
+                    //                 "title": "最近浏览",
+                    //                 "id": 5,
+                    //                 dates: "2018-12-9"
+                    //             },
+                    //             {
+                    //                 "title": "最近浏览",
+                    //                 "id": 5,
+                    //                 dates: "2018-12-9"
+                    //             }
+                    //         ],
+                    //         dates: "2018-12-9"
                     //     },
-                    //     {
-                    //         "title": "最近浏览",
-                    //         "id": 2,
-                    //         "isCreator": false
-                    //     },
-                    //     {
-                    //         "title": "最近浏览",
-                    //         "id": 3,
-                    //         "isCreator": false
-                    //     },
-                    //     {
-                    //         "title": "最近浏览",
-                    //         "id": 4,
-                    //         "isCreator": false
-                    //     },
-                    //     {
-                    //         "title": "最近浏览",
-                    //         "id": 5,
-                    //         "isCreator": false
-                    //     }
                     // ],
                     writerList:[]
                 },
