@@ -8,7 +8,11 @@
                 <Asidebar></Asidebar>
                 <el-container>
                     <el-main>
-                        <div class="block" style="line-height: normal">
+                        <div v-if="res.pageList.length===0">
+                            <span style="font-size: 16px;color: #8492a6">这里什么都没有~</span>
+
+                        </div>
+                        <div class="block" style="line-height: normal" v-if="res.pageList.length>0">
                             <el-timeline>
                                 <el-timeline-item v-for="Pages in this.res.pageList" :key="Pages.date" :timestamp="Pages.dates" placement="top">
                                     <el-row :gutter="14">

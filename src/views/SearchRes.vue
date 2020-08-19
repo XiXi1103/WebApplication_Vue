@@ -33,7 +33,13 @@
                     </el-aside>
                     <el-container>
                         <el-main>
-                            <div id="doc" v-if="documentOrGroup">
+                            <div v-if="documentOrGroup && pageList.length===0">
+                                <span style="font-size: 16px;color: #8492a6">这里什么都没有~</span>
+                            </div>
+                            <div v-if="!documentOrGroup && groupList.length===0">
+                                <span style="font-size: 16px;color: #8492a6">这里什么都没有~</span>
+                            </div>
+                            <div id="doc" v-if="documentOrGroup" style="line-height: normal">
                                 <el-row :gutter="14">
                                     <el-col :span="12" v-for="Page in pageList" :key="Page.id">
                                         <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
@@ -58,13 +64,13 @@
                                     </el-col>
                                 </el-row>
                             </div>
-                            <div id="group" v-if="!documentOrGroup">
+                            <div id="group" v-if="!documentOrGroup" style="line-height: normal">
                                 <el-row :gutter="14">
                                     <el-col :span="12" v-for="Group in groupList" :key="Group.id">
                                         <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="GotoGroupDoc(Group.id)">
                                             <el-image
                                                     style="width: 50px; height: 50px; float: left; margin-left: 10px"
-                                                    :src="require('@/assets/document-gray.png')"
+                                                    :src="require('@/assets/group-gray.png')"
                                                     :fit="fit"></el-image>
                                             <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
                                                 <el-button style="border-color: white">
