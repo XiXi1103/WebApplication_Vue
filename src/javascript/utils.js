@@ -331,13 +331,18 @@ export default {
                     this.$router.push({
                         path:'/personalinfo',
                         query:{
-                            isother: res.data.isother
+                            isother: res.data.isother,
+                            username: res.data.username,
+                            email: res.data.email,
+                            phoneNum: res.data.phoneNum,
+                            create_time: res.data.create_time
                         }
                     })
                 }
                 else alert("查看失败");
             })
         };
+
         // Vue.prototype.addCollection=function(docId){
         //     this.$http.get(this.requestUrl+"/collection",{
         //         params:{
