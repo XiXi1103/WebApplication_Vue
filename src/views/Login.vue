@@ -1,6 +1,6 @@
 <template>
 <!--  <div :style="{backgroundImage:'url('+require('@/assets/backgroud1.jpg')+')'}" style="height: 100%;width: 100%">-->
-  <div id="full">
+  <div class="full">
     <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item style="font-weight: bold">金刚石文档</el-menu-item>
     </el-menu>
@@ -94,7 +94,7 @@
     margin:0;
     padding:0;
   }
-  #full{
+  .full{
     background:url("../assets/backgroud1.jpg");
     width:100%;
     height:100%;

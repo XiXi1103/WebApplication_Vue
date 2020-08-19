@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="full">
         <el-container>
             <el-header>
                 <Topbar></Topbar>
@@ -22,6 +22,8 @@
 <script>
     import Topbar from "../components/Topbar";
     import GroupAside from "../components/GroupAside";
+    import "@/css/myCSS.css"
+
     export default {
         name: "GroupSpace",
         data(){

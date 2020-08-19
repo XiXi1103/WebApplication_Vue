@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="full">
         <el-container>
             <el-header>
                 <Topbar></Topbar>
@@ -70,7 +70,7 @@
                                         <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="GotoGroupDoc(Group.id)">
                                             <el-image
                                                     style="width: 50px; height: 50px; float: left; margin-left: 10px"
-                                                    :src="require('@/assets/group-gray.png')"
+                                                    :src="require('@/assets/group1-gray.png')"
                                                     :fit="fit"></el-image>
                                             <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
                                                 <el-button style="border-color: white">
@@ -84,7 +84,7 @@
                                                 </el-dropdown-menu>
                                             </el-dropdown>
                                             <h4>{{Group.name}}</h4>
-                                            <p>en</p>
+                                            <p>{{Group.creator}}</p>
                                         </el-card>
                                     </el-col>
                                 </el-row>
@@ -183,6 +183,7 @@
 
 <script>
     import Topbar from "../components/Topbar";
+    import "@/css/myCSS.css"
 
     export default {
         name: "GroupDoc",

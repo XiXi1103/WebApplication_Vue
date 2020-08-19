@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 100%">
+    <div class="full">
         <el-container style="height: 100%" direction="vertical">
             <el-header>
                 <Topbar></Topbar>
@@ -199,6 +199,7 @@
 <script>
     import Topbar from "../components/Topbar";
     import Asidebar from "../components/Asidebar";
+    import "@/css/myCSS.css"
 
     export default {
         data() {
