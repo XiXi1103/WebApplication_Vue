@@ -90,15 +90,16 @@
             },
             // 提交
             submit(){
-                if (this.html==null) {
+                if (this.html==null||this.title==null) {
                     // alert("内容不能为空哦");
                     this.$message({
-                        message: '内容不能为空哦',
+                        message: '内容或标题不能为空哦',
                         type: 'warning'
                     });
                 }
                 else{
                     this.result.docID=this.$route.query.docID;
+                    this.result.authorID = sessionStorage.getItem("userId");
                     this.result.userID = sessionStorage.getItem("userId");
                     this.result.content = this.content;
                     this.result.html = this.html;
@@ -114,7 +115,7 @@
                             message: res.data.msg,
                             type: 'success'
                         });
-                        this.$router.push("/");
+                        this.$router.push("/homepage");
                     })
                     // alert(this.result.content)
                 }
@@ -131,7 +132,7 @@
                 this.drawer=true;
                 this.$http.get(this.requestUrl+"/modifyRecord",{
                     params:{
-                        documentationId:this.docID,
+                        docId:this.docID,
                     }
                 }).then(res=>{
                     this.historyList=res.data;

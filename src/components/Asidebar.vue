@@ -4,7 +4,7 @@
             <el-col>
                 <br>
                 <br>
-                <el-button type="success" icon="el-icon-edit" style="margin-left: 5%;width: 60%" @click.native="GotoMarkDown(0)">新建文档</el-button>
+                <el-button type="success" icon="el-icon-edit" style="margin-left: 5%;width: 60%" @click.native="GotoMarkDown(false)">新建文档</el-button>
                 <br>
                 <br>
                 <el-menu

@@ -153,7 +153,9 @@
         methods:{
 
             GotoGroupDoc:function(id){
+
                 this.$router.push({path:'/groupdoc',query:{id:id}});
+                location.reload();
             },
             GotoGroupSpace:function(){
                 this.$router.push({path: '/groupspace'});
@@ -249,7 +251,7 @@
         },
         created(){
             sessionStorage.setItem("type",4);
-            this.getGroupPage(this.groupId,this.res);
+            this.getGroup(this.res);
         }
     }
 
