@@ -85,8 +85,8 @@
                         <el-dropdown style="margin-right: 5px">
                             <el-button
                                     size="mini"
-                                    @click="handleEdit(scope.$index, scope.row)">改变权限</el-button>
-                            <el-dropdown-menu slot="dropdown">
+                                    @click="handleEdit(scope.$index, scope.row)" v-show = "scope.row.permission!=5" >改变权限</el-button>
+                            <el-dropdown-menu slot="dropdown" >
                                 <el-dropdown-item @click.native="writerPermission(scope.row.id,1)">查看</el-dropdown-item>
                                 <el-dropdown-item @click.native="writerPermission(scope.row.id,2)">评论</el-dropdown-item>
                                 <el-dropdown-item @click.native="writerPermission(scope.row.id,3)">分享</el-dropdown-item>
@@ -100,7 +100,7 @@
                         <el-button
                                 size="mini"
                                 type="danger"
-                                @click="delMember(scope.row.id)">删除</el-button>
+                                @click="delMember(scope.row.id)"  v-show = "scope.row.permission!=5">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
