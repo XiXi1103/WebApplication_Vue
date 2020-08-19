@@ -137,8 +137,13 @@ export default {
                 }
             })
         };
-        Vue.prototype.GotoMarkDown = function (){
-            this.$router.push({path:'/markdown'});
+        Vue.prototype.GotoMarkDown = function (tem){
+            this.$router.push({
+                path:'/markdown',
+                query:{
+                    isTemplate: tem,
+                }
+            });
         };
         Vue.prototype.ArrayIndexOfByDocID = function (array, DocID) {
             for (var i = 0; i < array.length; i++) {
@@ -302,13 +307,13 @@ export default {
                 else alert("权限不足");
             })
         };
-        Vue.prototype.writerPermission = function(id,permission){
+        Vue.prototype.writerPermission = function(docId,id,permission){
             this.$http.get(this.requestUrl+"/writerPermission",{
                 params:{
-                    userID1:sessionStorage.getItem("userId"),
-                    groupID:sessionStorage.getItem("docId"),
+                    userId1:sessionStorage.getItem("userId"),
+                    docId:docId,
                     permission:permission,
-                    userID2:id,
+                    userId2:id,
                 }
             }).then(res=>{
                 console.log(res.data);

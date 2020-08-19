@@ -8,7 +8,11 @@
                 <el-aside width="15%">
                     <el-row class="tac">
                         <el-col>
-                            <h5>默认颜色</h5>
+                            <br>
+                            <br>
+                            <el-button type="success" icon="el-icon-edit" style="margin-left: 5%;width: 60%" @click.native="GotoMarkDown(1)">新建模板</el-button>
+                            <br>
+                            <br>
                             <el-menu
                                     router :default-active="$route.path"
                                     class="el-menu-vertical-demo"

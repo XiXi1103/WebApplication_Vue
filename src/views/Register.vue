@@ -12,7 +12,11 @@
       <el-input type="password" v-model="RegisterForm.password2" auto-complete="off" placeholder="请重复输入密码"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass" label="邮箱">
-      <el-input type="email" v-model="RegisterForm.email" auto-complete="off" placeholder="请输入您的邮箱" ></el-input>
+      <el-input type="email" v-model="RegisterForm.email" auto-complete="off" placeholder="请输入您的邮箱" style="float:left;width: 160px"></el-input>
+      <el-button type="primary" style="float: right;font-size: 5px" @click="sendEmail">发送验证码</el-button>
+    </el-form-item>
+    <el-form-item prop="checkPass" label="验证码">
+      <el-input type="text" v-model="RegisterForm.code" auto-complete="off" placeholder="请输入验证码" ></el-input>
     </el-form-item>
     <br>
     <el-form-item style="width: 80%">
@@ -30,6 +34,7 @@
           password1: '',
           password2: '',
           email: '',
+          code: '',
         },
         loading: false
       }
@@ -56,7 +61,8 @@
                   {
                     username:this.RegisterForm.username,
                     password:this.RegisterForm.password1,
-                    email:this.RegisterForm.email
+                    email:this.RegisterForm.email,
+                    code:this.RegisterForm.code
           }).then(res=>{ //严：springboot开启8081端口测试
           // this.$http.post(this.requestUrl+"/register",this.user).then(res=>{
           //   if (this.RegisterForm.password1==3){
@@ -71,12 +77,31 @@
               this.$router.push("/homepage");
             }
             else{
-              // alert("注册失败");
-              this.$message.error('注册失败！请重试');
+              this.$message.error({
+                message: res.data.msg,
+                type: 'danger'
+              });
               this.$router.push("/register");
             }
           })
         }
+      },
+      sendEmail(){
+        this.$http.get(this.requestUrl+"/sendEmail",{
+          params:{
+            email:this.RegisterForm.email
+          }
+        }).then(res=>{
+          if (!res.data.success) {
+            this.$message.error("发送失败");
+          }
+          else {
+            this.$message({
+              message: '已发送，请接收',
+              type: 'success'
+            });
+          }
+        })
       }
     }
 }
