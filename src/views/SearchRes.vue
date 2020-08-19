@@ -41,7 +41,7 @@
                             </div>
                             <div class="block" style="line-height: normal" v-if="documentOrGroup">
                                 <el-timeline>
-                                    <el-timeline-item v-for="Pages in this.res.pageList" :key="Pages.date" :timestamp="Pages.dates" placement="top">
+                                    <el-timeline-item v-for="Pages in res.pageList" :key="Pages.date" :timestamp="Pages.dates" placement="top">
                                         <el-row :gutter="14">
                                             <el-col :span="12" v-for="Page in Pages.pageList" :key="Page.id">
                                                 <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
@@ -271,6 +271,7 @@
                 }).then(res => {
                     console.log(res.data);
                     this.res.pageList = res.data;
+                    console.log(this.res.pageList);
             });
            this.$http.get(this.requestUrl + "/searchGroup",{
                     params:{
@@ -280,7 +281,7 @@
                 }).then(res => {
                     console.log(res.data);
                     this.res.groupList = res.data;
-            })             
+            });
             sessionStorage.setItem("type",4);
             this.getGroupPage(this.res);
         }
