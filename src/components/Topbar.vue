@@ -285,6 +285,7 @@
             GotoGroupDoc:function(id) {
                 sessionStorage.setItem("groupid",id);
                 this.$router.push({path: '/groupdoc'});
+
             },
             search(){
                 sessionStorage.setItem("text",this.text);

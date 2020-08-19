@@ -50,6 +50,32 @@ export default {
                 PageList.pageList = res.data; 
             });
         };
+        Vue.prototype.getSearchPage = function (PageList){
+            this.$http.get(this.requestUrl+"/searchDoc",{
+                params:{
+                    userId:sessionStorage.getItem("userId"),
+                    text:sessionStorage.getItem("text"),
+                }
+            }).then(res=>{
+                console.log(res.data);
+                PageList.pageList = res.data;
+                // console.log("aaaaaaaaa");
+            });
+            // console.log("ccc");
+        };
+        Vue.prototype.getSearchGroup = function (PageList){
+            this.$http.get(this.requestUrl+"/searchGroup",{
+                params:{
+                    userId:sessionStorage.getItem("userId"),
+                    text:sessionStorage.getItem("text"),
+                }
+            }).then(res=>{
+                console.log(res.data);
+                PageList.groupList = res.data;
+                // console.log("aaaaaaaaa");
+            });
+            // console.log("ccc");
+        };
         Vue.prototype.getGroupPage=function(id,PageList){
             this.$http.get(this.requestUrl+"/getGroupDoc",{
                 params:{
@@ -211,21 +237,21 @@ export default {
                 }
             })
          };
-         Vue.prototype.delWriter = function(id,docId){
-            this.$http.get(this.requestUrl+"/kickCollaborator",{
+         Vue.prototype.delWriter = function(id){
+            this.$http.post(this.requestUrl+"/kickCollaborator",{
                 params:{
                     userId1:sessionStorage.getItem("userId"),
                     userId2:id,
-                    docId:docId,
+                    docId:sessionStorage.getItem("docId"),
                 }
             }).then(res =>{
-                console.log(res.data)
                 if(res.data.success){
-                    alert(res.data.msg);
+                    alert("成功踢出");
                     location.reload();
                 }
                 else{
-                    alert(res.data.msg);
+                    alert("权限不足");
+
                 }
             })
         };
