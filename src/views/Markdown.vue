@@ -131,7 +131,7 @@
                 this.drawer=true;
                 this.$http.get(this.requestUrl+"/modifyRecord",{
                     params:{
-                        documentationId:this.docID,
+                        docId:this.docID,
                     }
                 }).then(res=>{
                     this.historyList=res.data;
