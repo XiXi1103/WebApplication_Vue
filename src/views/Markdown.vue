@@ -90,10 +90,10 @@
             },
             // 提交
             submit(){
-                if (this.html==null) {
+                if (this.html==null||this.title==null) {
                     // alert("内容不能为空哦");
                     this.$message({
-                        message: '内容不能为空哦',
+                        message: '内容或标题不能为空哦',
                         type: 'warning'
                     });
                 }
