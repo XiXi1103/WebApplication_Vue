@@ -21,12 +21,12 @@
                                     <el-menu-item style="font-weight: bold">搜索结果</el-menu-item>
                                     <el-menu-item index="" @click.native="documentOrGroup = true">
                                         <i class="el-icon-document"></i>
-                                        <span slot="title">我的文档</span>
+                                        <span slot="title">文档</span>
                                     </el-menu-item>
-                                    <el-menu-item index="" @click.native="documentOrGroup = false">
-                                        <i class="el-icon-user"></i>
-                                        <span slot="title">我的团队</span>
-                                    </el-menu-item>
+<!--                                    <el-menu-item index="" @click.native="documentOrGroup = false">-->
+<!--                                        <i class="el-icon-user"></i>-->
+<!--                                        <span slot="title">我的团队</span>-->
+<!--                                    </el-menu-item>-->
                                 </el-menu>
                             </el-col>
                         </el-row>
@@ -95,9 +95,9 @@
 <!--                            </div>-->
                             <div class="block" v-if="!documentOrGroup">
                                 <el-timeline>
-                                    <el-timeline-item v-for="groupList in this.res.groupList" :key="groupList.date" :timestamp="Pages.dates" placement="top">
+                                    <el-timeline-item v-for="groupList in res.groupList" :key="groupList.dates" :timestamp="groupList.dates" placement="top">
                                         <el-row :gutter="14">
-                                            <el-col :span="12" v-for="Group in groupList.groupList" :key="Group.id">
+                                            <el-col :span="12" v-for="Group in groupList.pagepList" :key="Group.id">
                                                 <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="GotoGroupDoc(Group.id)">
                                                     <el-image
                                                             style="width: 50px; height: 50px; float: left; margin-left: 10px"
@@ -114,8 +114,8 @@
                                                             <!--                                                    <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>-->
                                                         </el-dropdown-menu>
                                                     </el-dropdown>
-                                                    <h4>{{Group.name}}</h4>
-                                                    <p>{{Group.creator}}</p>
+                                                    <h4>{{Group.title}}</h4>
+                                                    <p>{{Group.dates}}</p>
                                                 </el-card>
                                             </el-col>
                                         </el-row>
