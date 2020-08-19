@@ -23,7 +23,7 @@
                         </div>
 
                         <!--        <el-button type="danger" icon="el-icon-link" round  style="float: right;font-size:20px;width: 160px" @click="shareDoc()" v-if="isTemplate&&permission>=3" >分享文档</el-button>-->
-                        <div v-if=!isTemplate style="float: right">
+                        <div v-else style="float: right">
                             <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(docId)">编辑</el-button>
                             <el-button type="danger" icon="el-icon-star-off" round  style="" @click="collection()" v-show=!isCollect>收藏</el-button>
                             <el-button type="danger" icon="el-icon-star-on" round  style="" @click="collection()" v-show=isCollect>已收藏</el-button>
@@ -72,15 +72,15 @@
 
                             <el-tag style="position: relative; float: right;font-size: 15px; margin-bottom: 20px; margin-right: 2px">评论于{{reply.date}}</el-tag>
                         </el-card>
-<!--                        <div class="replyBox" v-for="reply in replyList" :key="reply.replyId">-->
-<!--                            <button class="el-icon-close" @click="delReply(reply.replyID)" style=""></button>-->
-<!--                            <span style="float:left;padding-left:20px;font-size:25px">{{reply.username}}:</span>-->
-<!--                            <span style="float:left;padding-left:9%;padding-top:1%">{{reply.content}}</span>-->
-<!--                            &lt;!&ndash;                <article>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                    <h1 style="float: left">{{reply.username}}:</h1>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                    <p> {{reply.content}}</p>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                </article>&ndash;&gt;-->
-<!--                        </div>-->
+                        <!--                        <div class="replyBox" v-for="reply in replyList" :key="reply.replyId">-->
+                        <!--                            <button class="el-icon-close" @click="delReply(reply.replyID)" style=""></button>-->
+                        <!--                            <span style="float:left;padding-left:20px;font-size:25px">{{reply.username}}:</span>-->
+                        <!--                            <span style="float:left;padding-left:9%;padding-top:1%">{{reply.content}}</span>-->
+                        <!--                            &lt;!&ndash;                <article>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                    <h1 style="float: left">{{reply.username}}:</h1>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                    <p> {{reply.content}}</p>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                </article>&ndash;&gt;-->
+                        <!--                        </div>-->
                     </el-main>
 
                     <el-footer>
@@ -190,7 +190,6 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        alert(111)
                         this.isCollect=!this.isCollect;
                     }
                     else{
@@ -209,7 +208,7 @@
                 }
             }
         },
-        created() {
+        mounted() {
             if (this.$route.query.content==null&&this.$route.query.docId!=null){
                 this.$http.get(this.requestUrl+"/viewDoc",{
                     params:{
@@ -220,8 +219,14 @@
                     if (res.data.success){
                         if (res.data.isCollect) this.isCollect=true;
                         else this.isCollect=false;
-                        if (res.data.isTemplate) this.isTemplate=true;
-                        else this.isTemplate=false;
+                        if (res.data.isTemplate) {
+                            // alert(1);
+                            this.isTemplate=true;
+                        }
+                        else{
+                            // alert(0);
+                            this.isTemplate=false;
+                        }
                         this.value = res.data.content;
                         this.docId = this.$route.query.docId;
                         this.permission = res.data.userPermission;
@@ -236,8 +241,14 @@
             else{
                 if (this.$route.query.isCollect) this.isCollect=true;
                 else this.isCollect=false;
-                if (this.$route.query.isTemplate) this.isTemplate=true;
-                else this.isTemplate=false;
+                if (this.$route.query.isTemplate==true) {
+                    // alert(1);
+                    this.isTemplate=false;
+                }
+                else {
+                    // alert(0);
+                    this.isTemplate=true;
+                }
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;
                 this.permission = this.$route.query.permission;

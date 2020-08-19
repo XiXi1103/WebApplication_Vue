@@ -165,6 +165,7 @@
                 dialogFormVisible: false,
                 dialogVisible: false,
                 docId:0,
+                groupId:this.$route.query.id
             }
         },
         components: {
