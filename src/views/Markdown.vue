@@ -99,6 +99,7 @@
                 }
                 else{
                     this.result.docID=this.$route.query.docID;
+                    this.result.authorID = sessionStorage.getItem("userId");
                     this.result.userID = sessionStorage.getItem("userId");
                     this.result.content = this.content;
                     this.result.html = this.html;
@@ -114,7 +115,7 @@
                             message: res.data.msg,
                             type: 'success'
                         });
-                        this.$router.push("/");
+                        this.$router.push("/homepage");
                     })
                     // alert(this.result.content)
                 }

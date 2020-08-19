@@ -211,21 +211,21 @@ export default {
                 }
             })
          };
-         Vue.prototype.delWriter = function(id){
-            this.$http.post(this.requestUrl+"/kickCollaborator",{
+         Vue.prototype.delWriter = function(id,docId){
+            this.$http.get(this.requestUrl+"/kickCollaborator",{
                 params:{
                     userId1:sessionStorage.getItem("userId"),
                     userId2:id,
-                    docId:sessionStorage.getItem("docId"),
+                    docId:docId,
                 }
             }).then(res =>{
+                console.log(res.data)
                 if(res.data.success){
-                    alert("成功踢出");
+                    alert(res.data.msg);
                     location.reload();
                 }
                 else{
-                    alert("权限不足");
-
+                    alert(res.data.msg);
                 }
             })
         };
