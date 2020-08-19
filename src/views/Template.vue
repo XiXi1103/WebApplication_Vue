@@ -32,7 +32,7 @@
                 </el-aside>
                 <el-container>
                     <el-main>
-                        <div v-if="res.pageList.length===0">
+                        <div v-if="templateList.length===0">
                             <span style="font-size: 16px;color: #8492a6">这里什么都没有~</span>
                         </div>
                         <div class="block" v-if="res.pageList.length>0">
