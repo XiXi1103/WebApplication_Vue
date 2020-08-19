@@ -116,7 +116,7 @@
                         <el-button
                                 size="mini"
                                 type="danger"
-                                @click="delWriter(scope.row.id,docId)"  v-show = "scope.row.permission!=5">删除</el-button>
+                                @click="delWriter(scope.row.id)"  v-show = "scope.row.permission!=5">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -201,7 +201,7 @@
                 }
             },
         },
-        created(){
+        created() {
             sessionStorage.setItem("type",4);
             this.getGroupPage(this.groupId,this.res);
         }

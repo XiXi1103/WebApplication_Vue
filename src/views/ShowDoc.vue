@@ -12,19 +12,19 @@
                             <mavon-editor  v-model="value" :toolbars="markdownOption" :editable = "false" :toolbarsFlag = "false" defaultOpen="preview" :subfield="false" style="z-index:1;border: 1px solid #d9d9d9;height:auto"/>
                         </div>
                         <div v-if = isTemplate style="float: right">
-                            <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click.native="addTem(docId)">添加模板</el-button>
+                            <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(docId)">添加模板</el-button>
                             <el-popover
                                     title="复制以下连接来进行分享"
                                     width="200"
                                     trigger="click"
                                     :content=link>
-                                <el-button slot="reference" icon="el-icon-link" type="warning" round style="margin-left: 10px" @click="shareDoc()">分享</el-button>
+                                <el-button slot="reference" icon="el-icon-link" type="warning" round style="margin-left: 10px" @click="shareDoc">分享</el-button>
                             </el-popover>
                         </div>
 
                         <!--        <el-button type="danger" icon="el-icon-link" round  style="float: right;font-size:20px;width: 160px" @click="shareDoc()" v-if="isTemplate&&permission>=3" >分享文档</el-button>-->
                         <div v-else style="float: right">
-                            <el-button type="primary" icon="el-icon-edit" round style="" @click.native="editmk(docId)">编辑</el-button>
+                            <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(docId)">编辑</el-button>
                             <el-button type="danger" icon="el-icon-star-off" round  style="" @click="collection()" v-show=!isCollect>收藏</el-button>
                             <el-button type="danger" icon="el-icon-star-on" round  style="" @click="collection()" v-show=isCollect>已收藏</el-button>
                             <el-popover
@@ -38,7 +38,7 @@
 
                         </div>
                         <div id="doc">
-                            <div v-if="permission>=2">
+                            <div v-if="this.permission>=2">
                                 <el-input v-model="comment.content" placeholder="快来评论吧" style="width: 65%;"></el-input>
 <!--                                <el-input class="commentBox"-->
 <!--                                          type="textarea"-->
@@ -90,22 +90,20 @@
         </el-container>
         <el-dialog title="添加协作者" :visible.sync="dialogFormVisible">
             <el-select
-                    v-model="username"
+                    v-model="name"
                     placeholder="输入用户名"
-                    reserve-keyword
                     filterable
                     remote
                     :remote-method="remoteMethod">
                 <el-option
                         v-for="user in searchList"
                         :key="user.id"
-                        :label="user.name"
-                        :value="user.name">
+                        :label="user.name">
                 </el-option>
             </el-select>
             <div slot="footer" class="dialog-footer">
                 <el-button @click.native="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click.native="addWriter(docId,username);dialogFormVisible = false">添 加</el-button>
+                <el-button type="primary" @click.native="addWriter(docId,name);dialogFormVisible = false">添 加</el-button>
             </div>
         </el-dialog>
     </div>
@@ -124,46 +122,25 @@
         },
         data() {
             return {
-                value:"",
-                docId:"",
+                value: ``,
+                docId:'',
                 comment: {
-                    userId:"",
-                    docId:"",
-                    replyId:"",
-                    isReply:"",
-                    content:"",
+                    userId:'',
+                    docId:'',
+                    replyId:'',
+                    isReply:'',
+                    content:'',
                 },
-                username:"",
-                searchList:[],
                 replyList:[],
-                isCollect:"",
-                isTemplate:"",
-                permission:"",
-                link:"",
+                isCollect:'',
+                isTemplate:'',
+                permission:'',
+                link:'',
                 dialogFormVisible:false,
-                name:"",
+                name:''
             };
         },
         methods:{
-            remoteMethod(query){
-                if(query !== ''){
-                    this.$http.get(this.requestUrl+"/searchUser",{
-                        params:{
-                            text:query,
-                        }
-                    }).then(res => {
-                        console.log(res.data);
-                        this.searchList = res.data;
-                        /*this.searchList = res.data.filter(user =>{
-                            return user.name.toLowerCase()
-                            .indexOf(query.toLowerCase()) > -1;
-                        });*/
-                    })
-                }
-                else{
-                    this.searchList = [];
-                }
-            },
             sendComment(){
                 this.comment.userId=sessionStorage.getItem("userId");
                 this.comment.docId = this.docId;
@@ -240,15 +217,20 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        this.isCollect = res.data.isCollect;
-                        this.isTemplate = res.data.isTemplate;
+                        if (res.data.isCollect) this.isCollect=true;
+                        else this.isCollect=false;
+                        if (res.data.isTemplate) {
+                            // alert(1);
+                            this.isTemplate=true;
+                        }
+                        else{
+                            // alert(0);
+                            this.isTemplate=false;
+                        }
                         this.value = res.data.content;
                         this.docId = this.$route.query.docId;
                         this.permission = res.data.userPermission;
-                        console.log(2);
-                        console.log(this.isTemplate);
                         this.findAllReply();
-                        this.$forceUpdate();
                     }
                     else {
                         // alert(res.data.msg);
@@ -257,14 +239,19 @@
                 })
             }
             else{
-                this.isCollect = this.$route.query.isCollect;
-                this.isTemplate = this.$route.query.isTemplate;
+                if (this.$route.query.isCollect) this.isCollect=true;
+                else this.isCollect=false;
+                if (this.$route.query.isTemplate==true) {
+                    // alert(1);
+                    this.isTemplate=false;
+                }
+                else {
+                    // alert(0);
+                    this.isTemplate=true;
+                }
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;
                 this.permission = this.$route.query.permission;
-                console.log(1);
-                console.log(this.$route.query);
-                // console.log(this.isTemplate);
                 this.findAllReply();
                 this.$forceUpdate();
             }

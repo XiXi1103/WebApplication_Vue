@@ -77,7 +77,7 @@
                         <!--                                                                                        <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>-->
                         <!--                                                                                        <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>-->
                         <!--                                                                                        &lt;!&ndash;                                                <el-dropdown-item @click.native="editmk(0)">收藏</el-dropdown-item>&ndash;&gt;-->
-                        <!--                                                                                        <el-dropdown-item @click.native="cancelCollection(Page.id)" style="color:red">取消收藏</el-dropdown-item>-->
+                        <!--                                                                                         <el-dropdown-item @click.native="cancelCollection(Page.id)" style="color:red">取消收藏</el-dropdown-item>-->
                         <!--                                        &lt;!&ndash;                                            </el-dropdown-menu>&ndash;&gt;-->
                         <!--                                        &lt;!&ndash;                                        </el-dropdown>&ndash;&gt;-->
                         <!--                                        <div  style="float: left; margin-top: -57px">-->
@@ -197,7 +197,7 @@
                         <el-button
                                 size="mini"
                                 type="danger"
-                                @click="delWriter(scope.row.id,docId)"  v-show = "scope.row.permission!=5">删除</el-button>
+                                @click="delWriter(scope.row.id)"  v-show = "scope.row.permission!=5">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
