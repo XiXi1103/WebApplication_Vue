@@ -63,7 +63,7 @@
                         <el-divider style=""></el-divider>
                         <el-card class="box-card" v-for="reply in replyList" :key="reply.id" style="width: 100%; margin-top: 10px">
                             <div slot="header" class="clearfix" style="height: 15px">
-                                <span style="position: relative;top: -70px; float: left; font-size: 20px;font-weight: bold;height: 10px ;cursor:pointer" @click="GotoPersonalInfo(reply.userId)">{{reply.username}}</span>
+                                <span style="position: relative;top: -70px; float: left; font-size: 20px;font-weight: bold;height: 10px ;cursor:pointer" @click.native="GotoPersonalInfo(reply.userId)">{{reply.username}}</span>
                                 <el-button style="float: right; padding: 3px 0;" type="text" class="textbutton" @click = "delReply(reply.id)" v-if="permission==5">删除</el-button>
                             </div>
                             <div style="height: auto;font-size: 25px">

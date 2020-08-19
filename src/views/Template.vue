@@ -71,9 +71,9 @@
                                     <el-card shadow="hover">
                                         <p>{{template.title}}</p>
 
-                                        <el-button type="info" @click="viewmk(template.id)" v-show="flag">查看模板</el-button>
-                                        <el-button type="info" @click="addCollection(template.id)" v-show="flag">添加为我的模板</el-button>
-                                        <el-button type="info" @click="editmk(template.id)" v-show="!flag">使用模板</el-button>
+                                        <el-button type="info" @click.native="viewmk(template.id)" v-show="flag">查看模板</el-button>
+                                        <el-button type="info" @click.native="addTem(template.id)" v-show="flag">添加为我的模板</el-button>
+                                        <el-button type="info" @click.native="editmk(template.id)" v-show="!flag">使用模板</el-button>
                                     </el-card>
                                 </el-col>
                             </el-row>
