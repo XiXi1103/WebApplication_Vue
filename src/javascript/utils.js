@@ -234,13 +234,13 @@ export default {
                 MemberList.memberList = res.data;
             })
          };
-         Vue.prototype.getWriter = function(docid,WriterList){
+         Vue.prototype.getWriter = function(docId,WriterList){
             this.$http.get(this.requestUrl+"/catWriter",{
                 params:{
-                    docID:docid,
+                    docId:docId,
                 }
             }).then(res =>{
-                console.log(res.data);
+                // console.log(res.data);
                 WriterList.writerList = res.data;
             })
          };

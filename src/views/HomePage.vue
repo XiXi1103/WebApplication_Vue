@@ -256,7 +256,14 @@
                     // ],
                     writerList:[]
                 },
-                dialogTableVisible: false,
+                drawer:false,
+                direction:"rtl",
+                dialogVisible: false,
+                dialogFormVisible : false,
+                searchList:[],
+                value:"",
+                docId:0,
+                permission:["查看","评论","分享","修改","管理"],
             }
         },
         created() {
