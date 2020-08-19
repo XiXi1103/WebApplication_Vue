@@ -273,18 +273,21 @@
            //          this.res.pageList = res.data;
            //          console.log(this.res.pageList);
            //  });
+            console.log("bbb");
             this.getSearchPage(this.res);
-           this.$http.get(this.requestUrl + "/searchGroup",{
-                    params:{
-                        text:this.text,   
-                        userId:sessionStorage.getItem("userId"),                     
-                    }
-                }).then(res => {
-                    console.log(res.data);
-                    this.res.groupList = res.data;
-            });
-            sessionStorage.setItem("type",4);
-            this.getGroupPage(this.res);
+            console.log(this.res);
+           // this.$http.get(this.requestUrl + "/searchGroup",{
+           //          params:{
+           //              text:this.text,
+           //              userId:sessionStorage.getItem("userId"),
+           //          }
+           //      }).then(res => {
+           //          console.log(res.data);
+           //          this.res.groupList = res.data;
+           //  });
+           //  sessionStorage.setItem("type",4);
+           //  this.getGroupPage(this.res);
+            this.getSearchGroup(this.res);
         }
     }
 

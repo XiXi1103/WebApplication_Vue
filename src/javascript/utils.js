@@ -50,16 +50,31 @@ export default {
                 PageList.pageList = res.data; 
             });
         };
-        Vue.prototype.getCollectionPage = function (PageList){
+        Vue.prototype.getSearchPage = function (PageList){
             this.$http.get(this.requestUrl+"/searchDoc",{
                 params:{
-                    userID:sessionStorage.getItem("userId"),
+                    userId:sessionStorage.getItem("userId"),
                     text:sessionStorage.getItem("text"),
                 }
             }).then(res=>{
                 console.log(res.data);
                 PageList.pageList = res.data;
+                // console.log("aaaaaaaaa");
             });
+            // console.log("ccc");
+        };
+        Vue.prototype.getSearchGroup = function (PageList){
+            this.$http.get(this.requestUrl+"/searchGroup",{
+                params:{
+                    userId:sessionStorage.getItem("userId"),
+                    text:sessionStorage.getItem("text"),
+                }
+            }).then(res=>{
+                console.log(res.data);
+                PageList.groupList = res.data;
+                // console.log("aaaaaaaaa");
+            });
+            // console.log("ccc");
         };
         Vue.prototype.getGroupPage=function(id,PageList){
             this.$http.get(this.requestUrl+"/getGroupDoc",{
