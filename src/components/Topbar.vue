@@ -93,7 +93,7 @@
 <!--            </el-menu-item>-->
             <el-menu-item style="float:right;margin-right: 50px">
                 <el-input v-model="text" placeholder="请输入内容"></el-input>
-                <el-button type="primary" @click="search">搜索</el-button>
+                <el-button type="primary" @click="search()">搜索</el-button>
             </el-menu-item>
         </el-menu>
     </div>
