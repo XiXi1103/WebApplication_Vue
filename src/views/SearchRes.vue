@@ -97,7 +97,7 @@
                                 <el-timeline>
                                     <el-timeline-item v-for="groupList in this.res.groupList" :key="groupList.date" :timestamp="Pages.dates" placement="top">
                                         <el-row :gutter="14">
-                                            <el-col :span="12" v-for="Group in groupList" :key="Group.id">
+                                            <el-col :span="12" v-for="Group in groupList.groupList" :key="Group.id">
                                                 <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="GotoGroupDoc(Group.id)">
                                                     <el-image
                                                             style="width: 50px; height: 50px; float: left; margin-left: 10px"
