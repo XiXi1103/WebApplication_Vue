@@ -24,7 +24,7 @@
                                                     </el-button>
                                                     <el-dropdown-menu slot="dropdown">
                                                         <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>
-                                                        <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>
+                                                        <el-dropdown-item @click.native="reserveId(Page.id);dialogFormVisible = true">邀请协作</el-dropdown-item>
                                                         <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
                                                         <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
                                                     </el-dropdown-menu>
@@ -115,22 +115,24 @@
         </el-drawer>
         <el-dialog title="添加协作者" :visible.sync="dialogFormVisible">
             <el-select
-             v-model="value"
-             placeholder="输入用户名"
-             filterable
-             remote
-             :remote-method="remoteMethod">
-             <el-option
-                v-for="user in searchList"
-                 :key="user.id"
-                 :label="user.name">
-             </el-option>
+                    v-model="value"
+                    placeholder="输入用户名"
+                    reserve-keyword
+                    filterable
+                    remote
+                    :remote-method="remoteMethod">
+                <el-option
+                        v-for="user in searchList"
+                        :key="user.id"
+                        :label="user.name"
+                        :value="user.name">
+                </el-option>
             </el-select>
             <div slot="footer" class="dialog-footer">
                 <el-button @click.native="dialogFormVisible = false">取 消</el-button>
                 <el-button type="primary" @click.native="addWriter(docId,value);dialogFormVisible = false">添 加</el-button>
             </div>
-        </el-dialog>        
+        </el-dialog>     
     </div>
 </template>
 
@@ -153,7 +155,8 @@
                 value:"",
                 dialogFormVisible: false,
                 dialogVisible: false,
-                docId:sessionStorage.getItem("docId")
+                docId:sessionStorage.getItem("docId"),
+                docId:0,
             }
         },
         created() {
@@ -165,6 +168,10 @@
             Asidebar
         },
         methods : {
+            reserveId:function(id){
+                this.docId = id ;
+                // sessionStorage.setItem("groupId",id);
+            },
             cancelCollection:function(docId){
                 this.$http.post(this.requestUrl+"/cancelCollection",{
                     params:{
