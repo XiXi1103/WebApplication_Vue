@@ -134,10 +134,10 @@
   },
   created() {
       if(this.$router.query.isother){
-        this.user.username = $router.query.username;
-        this.user.email = $router.query.email;
-        this.user.phoneNum = $router.query.phoneNum;
-        this.user.create_time = $router.query.create_time;
+        this.user.username = this.$router.query.username;
+        this.user.email = this.$router.query.email;
+        this.user.phoneNum = this.$router.query.phoneNum;
+        this.user.create_time = this.$router.query.create_time;
         this.isother=true;
       }
       this.$http.get(this.requestUrl+"/personalInfo",{
