@@ -1,6 +1,8 @@
 <template>
     <div>
         <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+
+        </el-menu>
             <el-menu-item style="font-weight: bold">金刚石文档</el-menu-item>
             <el-menu-item index="/homepage">我的工作台</el-menu-item>
             <el-menu-item index="/groupspace">团队空间</el-menu-item>

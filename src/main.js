@@ -18,6 +18,9 @@ Vue.prototype.requestUrl = "http://localhost:8081";
 Vue.prototype.baseUrl = "http://localhost:8080/#/";
 
 new Vue({
+  el: '#app',
   router,
+  components: {App},
+  template: '<App/>',
   render: h => h(App)
 }).$mount('#app');

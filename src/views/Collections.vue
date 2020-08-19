@@ -155,8 +155,8 @@
                 value:"",
                 dialogFormVisible: false,
                 dialogVisible: false,
-                docId:sessionStorage.getItem("docId"),
                 docId:0,
+                dialogTableVisible: false,
             }
         },
         created() {

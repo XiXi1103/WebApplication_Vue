@@ -105,6 +105,14 @@
                     pageList : [],
                 },
                 dialogVisible: false,
+                permission:["查看","评论","分享","修改","管理"],
+                drawer:false,
+                direction:"rtl",
+                searchList: [],
+                value:"",
+                dialogFormVisible: false,
+                docId:0,
+                dialogTableVisible: false,
             }
         },
         created() {

@@ -256,13 +256,7 @@
                     // ],
                     writerList:[]
                 },
-                drawer:false,
-                direction:"rtl",
-                dialogVisible: false,
-                dialogFormVisible : false,
-                searchList:[],
-                value:"",
-                docId:0,
+                dialogTableVisible: false,
             }
         },
         created() {

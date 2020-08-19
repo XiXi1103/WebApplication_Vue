@@ -1,6 +1,7 @@
 <template>
 <!--  <div :style="{backgroundImage:'url('+require('@/assets/backgroud1.jpg')+')'}" style="height: 100%;width: 100%">-->
   <div id="full">
+    <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect">
     <el-form  class="login-container" label-position="left"
               label-width="0px" v-loading="loading">
       <h3 class="login_title">登录</h3>
@@ -87,8 +88,9 @@
     text-align: left;
   }
 
-  body {
-    height: 0;
+  body{
+    margin:0;
+    padding:0;
   }
   #full{
     background:url("../assets/backgroud1.jpg");
