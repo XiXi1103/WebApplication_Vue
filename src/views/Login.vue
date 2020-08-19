@@ -2,8 +2,10 @@
 <!--  <div :style="{backgroundImage:'url('+require('@/assets/backgroud1.jpg')+')'}" style="height: 100%;width: 100%">-->
   <div id="full">
     <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu-item style="font-weight: bold">金刚石文档</el-menu-item>
+    </el-menu>
     <el-form  class="login-container" label-position="left"
-              label-width="0px" v-loading="loading">
+              label-width="0px" v-loading="loading" style="margin-top: 7%">
       <h3 class="login_title">登录</h3>
       <el-form-item prop="account">
         <el-input type="text" v-model="user.username" auto-complete="off" placeholder="账号"></el-input>
