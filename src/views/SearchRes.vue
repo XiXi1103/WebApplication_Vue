@@ -33,61 +33,97 @@
                     </el-aside>
                     <el-container>
                         <el-main>
-                            <div v-if="documentOrGroup && pageList.length===0">
+                            <div v-if="documentOrGroup && res.pageList.length===0">
                                 <span style="font-size: 16px;color: #8492a6">这里什么都没有~</span>
                             </div>
-                            <div v-if="!documentOrGroup && groupList.length===0">
+                            <div v-if="!documentOrGroup && res.groupList.length===0">
                                 <span style="font-size: 16px;color: #8492a6">这里什么都没有~</span>
                             </div>
-                            <div id="doc" v-if="documentOrGroup" style="line-height: normal">
-                                <el-row :gutter="14">
-                                    <el-col :span="12" v-for="Page in pageList" :key="Page.id">
-                                        <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
-                                            <el-image
-                                                    style="width: 50px; height: 50px; float: left; margin-left: 10px"
-                                                    :src="require('@/assets/document-gray.png')"
-                                                    :fit="fit"></el-image>
-                                            <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
-                                                <el-button style="border-color: white">
-                                                    <i class="el-icon-more"></i>
-                                                </el-button>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>
-                                                    <el-dropdown-item @click.native="reserveId(Page.id);dialogFormVisible = true">邀请协作</el-dropdown-item>
-                                                    <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
-                                                    <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
-                                            <h4>{{Page.title}}</h4>
-                                            <p>{{Page.dates}}</p>
-                                        </el-card>
-                                    </el-col>
-                                </el-row>
+                            <div class="block" style="line-height: normal" v-if="documentOrGroup">
+                                <el-timeline>
+                                    <el-timeline-item v-for="Pages in this.res.pageList" :key="Pages.date" :timestamp="Pages.dates" placement="top">
+                                        <el-row :gutter="14">
+                                            <el-col :span="12" v-for="Page in Pages.pageList" :key="Page.id">
+                                                <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">
+                                                    <el-image
+                                                            style="width: 50px; height: 50px; float: left; margin-left: 10px"
+                                                            :src="require('@/assets/document-gray.png')"
+                                                            :fit="fit"></el-image>
+                                                    <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
+                                                        <el-button style="border-color: white">
+                                                            <i class="el-icon-more"></i>
+                                                        </el-button>
+                                                        <el-dropdown-menu slot="dropdown">
+                                                            <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>
+                                                            <el-dropdown-item @click.native="reserveId(Page.id);dialogFormVisible = true">邀请协作</el-dropdown-item>
+                                                            <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
+                                                            <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
+                                                        </el-dropdown-menu>
+                                                    </el-dropdown>
+                                                    <h4>{{Page.title}}</h4>
+                                                    <p>{{Page.dates}}</p>
+                                                </el-card>
+                                            </el-col>
+                                        </el-row>
+                                    </el-timeline-item>
+                                </el-timeline>
                             </div>
-                            <div id="group" v-if="!documentOrGroup" style="line-height: normal">
-                                <el-row :gutter="14">
-                                    <el-col :span="12" v-for="Group in groupList" :key="Group.id">
-                                        <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="GotoGroupDoc(Group.id)">
-                                            <el-image
-                                                    style="width: 50px; height: 50px; float: left; margin-left: 10px"
-                                                    :src="require('@/assets/group1-gray.png')"
-                                                    :fit="fit"></el-image>
-                                            <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
-                                                <el-button style="border-color: white">
-                                                    <i class="el-icon-more"></i>
-                                                </el-button>
-                                                <el-dropdown-menu slot="dropdown">
+<!--                            <div id="doc" v-if="documentOrGroup" style="line-height: normal">-->
+<!--                                <el-row :gutter="14">-->
+<!--                                    <el-col :span="12" v-for="Page in pageList" :key="Page.id">-->
+<!--                                        <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="viewmk(Page.id)">-->
+<!--                                            <el-image-->
+<!--                                                    style="width: 50px; height: 50px; float: left; margin-left: 10px"-->
+<!--                                                    :src="require('@/assets/document-gray.png')"-->
+<!--                                                    :fit="fit"></el-image>-->
+<!--                                            <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">-->
+<!--                                                <el-button style="border-color: white">-->
+<!--                                                    <i class="el-icon-more"></i>-->
+<!--                                                </el-button>-->
+<!--                                                <el-dropdown-menu slot="dropdown">-->
 <!--                                                    <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>-->
 <!--                                                    <el-dropdown-item @click.native="reserveId(Page.id);dialogFormVisible = true">邀请协作</el-dropdown-item>-->
 <!--                                                    <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>-->
 <!--                                                    <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>-->
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
-                                            <h4>{{Group.name}}</h4>
-                                            <p>{{Group.creator}}</p>
-                                        </el-card>
-                                    </el-col>
-                                </el-row>
+<!--                                                </el-dropdown-menu>-->
+<!--                                            </el-dropdown>-->
+<!--                                            <h4>{{Page.title}}</h4>-->
+<!--                                            <p>{{Page.dates}}</p>-->
+<!--                                        </el-card>-->
+<!--                                    </el-col>-->
+<!--                                </el-row>-->
+<!--                            </div>-->
+                            <div class="block" style="line-height: normal" v-if="!documentOrGroup">
+                                <el-timeline>
+                                    <el-timeline-item v-for="groupList in this.res.groupList" :key="groupList.date" :timestamp="Pages.dates" placement="top">
+                                        <el-row :gutter="14">
+                                            <el-col :span="12" v-for="Group in groupList" :key="Group.id">
+                                                <el-card shadow="hover" :body-style="{ padding: '0px' }" style="margin-bottom: 10px" @click.native="GotoGroupDoc(Group.id)">
+                                                    <el-image
+                                                            style="width: 50px; height: 50px; float: left; margin-left: 10px"
+                                                            :src="require('@/assets/group1-gray.png')"
+                                                            :fit="fit"></el-image>
+                                                    <el-dropdown style="float: right;margin-top: -15px;margin-right: 5px">
+                                                        <el-button style="border-color: white">
+                                                            <i class="el-icon-more"></i>
+                                                        </el-button>
+                                                        <el-dropdown-menu slot="dropdown">
+                                                            <!--                                                    <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>-->
+                                                            <!--                                                    <el-dropdown-item @click.native="reserveId(Page.id);dialogFormVisible = true">邀请协作</el-dropdown-item>-->
+                                                            <!--                                                    <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>-->
+                                                            <!--                                                    <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>-->
+                                                        </el-dropdown-menu>
+                                                    </el-dropdown>
+                                                    <h4>{{Group.name}}</h4>
+                                                    <p>{{Group.creator}}</p>
+                                                </el-card>
+                                            </el-col>
+                                        </el-row>
+                                    </el-timeline-item>
+                                </el-timeline>
+                            </div>
+                            <div id="group" v-if="!documentOrGroup" style="line-height: normal">
+
 <!--                                <el-row :gutter="12">-->
 <!--                                    <el-col :span="6" v-for="Group in groupList" :key="Group.id">-->
 <!--                                        <el-card shadow="hover" @click.native="GotoGroupDoc(Group.id)" style="font-size: 20px; font-weight: bold; height: 210px;">-->
@@ -194,7 +230,8 @@
                 text:sessionStorage.getItem("text"),
                 res : {
                     pageList : [],
-                    writerList:[]
+                    writerList:[],
+                    groupList:[]
                 },
                 permission:["查看","评论","分享","修改","管理"],
                 drawer:false,
@@ -233,7 +270,7 @@
                     }
                 }).then(res => {
                     console.log(res.data);
-                    this.pageList = res.data;
+                    this.res.pageList = res.data;
             });
            this.$http.get(this.requestUrl + "/searchGroup",{
                     params:{
@@ -242,7 +279,7 @@
                     }
                 }).then(res => {
                     console.log(res.data);
-                    this.groupList = res.data;    
+                    this.res.groupList = res.data;
             })             
             sessionStorage.setItem("type",4);
             this.getGroupPage(this.res);

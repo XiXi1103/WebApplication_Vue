@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="full">
         <el-container>
             <el-header>
                 <Topbar></Topbar>
@@ -59,6 +59,8 @@
 
 <script>
     import Topbar from "../components/Topbar";
+    import "@/css/myCSS.css"
+
     export default {
         name: "Template",
         components:{

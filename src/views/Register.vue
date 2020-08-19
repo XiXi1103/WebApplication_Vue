@@ -1,28 +1,31 @@
 <template>
-  <el-form  class="Register-container" label-position="left"
-           label-width="80px" v-loading="loading">
-    <h3 class="Register_title">注册</h3>
-    <el-form-item prop="account" label="账号">
-      <el-input type="text" v-model="RegisterForm.username" auto-complete="off" placeholder="账号"></el-input>
-    </el-form-item>
-    <el-form-item prop="checkPass" label="密码">
-      <el-input type="password" v-model="RegisterForm.password1" auto-complete="off" placeholder="请输入您的密码"></el-input>
-    </el-form-item>
-    <el-form-item prop="checkPass">
-      <el-input type="password" v-model="RegisterForm.password2" auto-complete="off" placeholder="请重复输入密码"></el-input>
-    </el-form-item>
-    <el-form-item prop="checkPass" label="邮箱">
-      <el-input type="email" v-model="RegisterForm.email" auto-complete="off" placeholder="请输入您的邮箱" style="float:left;width: 160px"></el-input>
-      <el-button type="primary" style="float: right;font-size: 5px" @click="sendEmail">发送验证码</el-button>
-    </el-form-item>
-    <el-form-item prop="checkPass" label="验证码">
-      <el-input type="text" v-model="RegisterForm.code" auto-complete="off" placeholder="请输入验证码" ></el-input>
-    </el-form-item>
-    <br>
-    <el-form-item style="width: 80%">
-      <el-button type="primary" @click="submit" style="width: 100%">注册</el-button>
-    </el-form-item>
-  </el-form>
+  <div class="full">
+    <el-form  class="Register-container" label-position="left"
+              label-width="80px" v-loading="loading">
+      <h3 class="Register_title">注册</h3>
+      <el-form-item prop="account" label="账号">
+        <el-input type="text" v-model="RegisterForm.username" auto-complete="off" placeholder="账号"></el-input>
+      </el-form-item>
+      <el-form-item prop="checkPass" label="密码">
+        <el-input type="password" v-model="RegisterForm.password1" auto-complete="off" placeholder="请输入您的密码"></el-input>
+      </el-form-item>
+      <el-form-item prop="checkPass">
+        <el-input type="password" v-model="RegisterForm.password2" auto-complete="off" placeholder="请重复输入密码"></el-input>
+      </el-form-item>
+      <el-form-item prop="checkPass" label="邮箱">
+        <el-input type="email" v-model="RegisterForm.email" auto-complete="off" placeholder="请输入您的邮箱" style="float:left;width: 160px"></el-input>
+        <el-button type="primary" style="float: right;font-size: 5px" @click="sendEmail">发送验证码</el-button>
+      </el-form-item>
+      <el-form-item prop="checkPass" label="验证码">
+        <el-input type="text" v-model="RegisterForm.code" auto-complete="off" placeholder="请输入验证码" ></el-input>
+      </el-form-item>
+      <br>
+      <el-form-item style="width: 80%">
+        <el-button type="primary" @click="submit" style="width: 100%">注册</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+
 </template>
 <script>
   export default{
@@ -127,5 +130,12 @@
   .Register_remember {
     margin: 0px 0px 35px 0px;
     text-align: left;
+  }
+  .full{
+    background:url("../assets/backgroud1.jpg");
+    width:100%;
+    height:100%;
+    position:fixed;
+    background-size:100% 100%;
   }
 </style>

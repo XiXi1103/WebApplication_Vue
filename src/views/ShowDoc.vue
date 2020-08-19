@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="full">
         <el-container style="height: 100%">
             <el-header>
                 <Topbar></Topbar>
@@ -112,6 +112,7 @@
 <script>
     import Topbar from "../components/Topbar";
     import Asidebar from "../components/Asidebar";
+    import "@/css/myCSS.css"
 
     export default {
         name: "ShowDoc",
