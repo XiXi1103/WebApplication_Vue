@@ -137,8 +137,13 @@ export default {
                 }
             })
         };
-        Vue.prototype.GotoMarkDown = function (){
-            this.$router.push({path:'/markdown'});
+        Vue.prototype.GotoMarkDown = function (tem){
+            this.$router.push({
+                path:'/markdown',
+                query:{
+                    isTemplate: tem,
+                }
+            });
         };
         Vue.prototype.ArrayIndexOfByDocID = function (array, DocID) {
             for (var i = 0; i < array.length; i++) {

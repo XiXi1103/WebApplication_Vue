@@ -77,7 +77,9 @@
             $imgAdd(pos,$img){
                 let formdata = new FormData();
                 formdata.append('file', $img)
-                this.$http.post('http://localhost:8081/imgAdd', formdata).then(res => {
+                alert(111231);
+                this.$http.post(this.requestUrl+"/imgAdd", formdata).then(res => {
+                    alert(res.data.url);
                     this.$refs.md.$img2Url(pos, res.data.url);
                 })
             },
@@ -103,6 +105,7 @@
                     this.result.otherPermission = this.permissionLevel;
                     this.result.title = this.title;
                     this.result.groupId = this.$route.query.groupId;
+                    this.result.isTemplate = this.$route.query.isTemplate;
                     var re1 = new RegExp("<.+?>","g");
                     this.result.summary = this.result.html.replace(re1,'').substring(0,30);
                     this.$http.post(this.requestUrl+"/newDoc",this.result).then(res=>{
