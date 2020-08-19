@@ -170,11 +170,11 @@
                                     size="mini"
                                     @click="handleEdit(scope.$index, scope.row)">改变权限</el-button>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item @click.native="writerPermission(scope.row.id,1)">查看</el-dropdown-item>
-                                <el-dropdown-item @click.native="writerPermission(scope.row.id,2)">评论</el-dropdown-item>
-                                <el-dropdown-item @click.native="writerPermission(scope.row.id,3)">分享</el-dropdown-item>
-                                <el-dropdown-item @click.native="writerPermission(scope.row.id,4)">修改</el-dropdown-item>
-                                <el-dropdown-item @click.native="writerPermission(scope.row.id,5)">管理</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(docId,scope.row.id,1)">查看</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(docId,scope.row.id,2)">评论</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(docId,scope.row.id,3)">分享</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(docId,scope.row.id,4)">修改</el-dropdown-item>
+                                <el-dropdown-item @click.native="writerPermission(docId,scope.row.id,5)">管理</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
                         <!--                        <el-button-->
