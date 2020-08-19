@@ -9,8 +9,8 @@ Vue.use(mavonEditor)
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    redirect: '/homepage',
+    name:'Login',
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/register',

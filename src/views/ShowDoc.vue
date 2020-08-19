@@ -11,7 +11,7 @@
                         <div>
                             <mavon-editor  v-model="value" :toolbars="markdownOption" :editable = "false" :toolbarsFlag = "false" defaultOpen="preview" :subfield="false" style="z-index:1;border: 1px solid #d9d9d9;height:auto"/>
                         </div>
-                        <div v-if = isTemplate style="float: right">
+                        <div v-if = "this.$route.query.isTemplate==true" style="float: right">
                             <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(docId)">添加模板</el-button>
                             <el-popover
                                     title="复制以下连接来进行分享"
@@ -23,7 +23,7 @@
                         </div>
 
                         <!--        <el-button type="danger" icon="el-icon-link" round  style="float: right;font-size:20px;width: 160px" @click="shareDoc()" v-if="isTemplate&&permission>=3" >分享文档</el-button>-->
-                        <div v-if=!isTemplate style="float: right">
+                        <div v-else style="float: right">
                             <el-button type="primary" icon="el-icon-edit" round style="" @click="editmk(docId)">编辑</el-button>
                             <el-button type="danger" icon="el-icon-star-off" round  style="" @click="collection()" v-show=!isCollect>收藏</el-button>
                             <el-button type="danger" icon="el-icon-star-on" round  style="" @click="collection()" v-show=isCollect>已收藏</el-button>
@@ -190,7 +190,6 @@
                     }
                 }).then(res=>{
                     if (res.data.success){
-                        alert(111)
                         this.isCollect=!this.isCollect;
                     }
                     else{
@@ -209,7 +208,7 @@
                 }
             }
         },
-        created() {
+        mounted() {
             if (this.$route.query.content==null&&this.$route.query.docId!=null){
                 this.$http.get(this.requestUrl+"/viewDoc",{
                     params:{
@@ -220,8 +219,14 @@
                     if (res.data.success){
                         if (res.data.isCollect) this.isCollect=true;
                         else this.isCollect=false;
-                        if (res.data.isTemplate) this.isTemplate=true;
-                        else this.isTemplate=false;
+                        if (res.data.isTemplate) {
+                            // alert(1);
+                            this.isTemplate=true;
+                        }
+                        else{
+                            // alert(0);
+                            this.isTemplate=false;
+                        }
                         this.value = res.data.content;
                         this.docId = this.$route.query.docId;
                         this.permission = res.data.userPermission;
@@ -236,15 +241,21 @@
             else{
                 if (this.$route.query.isCollect) this.isCollect=true;
                 else this.isCollect=false;
-                if (this.$route.query.isTemplate) this.isTemplate=true;
-                else this.isTemplate=false;
+                if (this.$route.query.isTemplate==true) {
+                    // alert(1);
+                    this.isTemplate=false;
+                }
+                else {
+                    // alert(0);
+                    this.isTemplate=true;
+                }
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;
                 this.permission = this.$route.query.permission;
                 this.findAllReply();
                 this.$forceUpdate();
             }
-            // alert(this.isTemplate);
+
         }
     }
 </script>
