@@ -151,9 +151,9 @@
             }
         },
         methods:{
+
             GotoGroupDoc:function(id){
-                sessionStorage.setItem("groupid",id);
-                this.$router.push({path: '/groupdoc'});
+                this.$router.push({path:'/groupdoc',query:{id:id}});
             },
             GotoGroupSpace:function(){
                 this.$router.push({path: '/groupspace'});
@@ -162,6 +162,7 @@
                 this.$router.push({
                     path:'/markdown',
                     query:{
+                        isTemplate:false,
                         groupId:id
                     }
                 })
@@ -246,8 +247,9 @@
                 // sessionStorage.setItem("groupId",id);
             }
         },
-        created() {
-            this.getGroup(this.res);
+        created(){
+            sessionStorage.setItem("type",4);
+            this.getGroupPage(this.groupId,this.res);
         }
     }
 

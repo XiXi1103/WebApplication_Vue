@@ -11,7 +11,7 @@
                         <div>
                             <mavon-editor  v-model="value" :toolbars="markdownOption" :editable = "false" :toolbarsFlag = "false" defaultOpen="preview" :subfield="false" style="z-index:1;border: 1px solid #d9d9d9;height:auto"/>
                         </div>
-                        <div v-if = "this.$route.query.isTemplate==true" style="float: right">
+                        <div v-if = isTemplate style="float: right">
                             <el-button type="danger" icon="el-icon-s-promotion" round  style="" @click="addTem(docId)">添加模板</el-button>
                             <el-popover
                                     title="复制以下连接来进行分享"
@@ -72,15 +72,15 @@
 
                             <el-tag style="position: relative; float: right;font-size: 15px; margin-bottom: 20px; margin-right: 2px">评论于{{reply.date}}</el-tag>
                         </el-card>
-<!--                        <div class="replyBox" v-for="reply in replyList" :key="reply.replyId">-->
-<!--                            <button class="el-icon-close" @click="delReply(reply.replyID)" style=""></button>-->
-<!--                            <span style="float:left;padding-left:20px;font-size:25px">{{reply.username}}:</span>-->
-<!--                            <span style="float:left;padding-left:9%;padding-top:1%">{{reply.content}}</span>-->
-<!--                            &lt;!&ndash;                <article>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                    <h1 style="float: left">{{reply.username}}:</h1>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                    <p> {{reply.content}}</p>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                </article>&ndash;&gt;-->
-<!--                        </div>-->
+                        <!--                        <div class="replyBox" v-for="reply in replyList" :key="reply.replyId">-->
+                        <!--                            <button class="el-icon-close" @click="delReply(reply.replyID)" style=""></button>-->
+                        <!--                            <span style="float:left;padding-left:20px;font-size:25px">{{reply.username}}:</span>-->
+                        <!--                            <span style="float:left;padding-left:9%;padding-top:1%">{{reply.content}}</span>-->
+                        <!--                            &lt;!&ndash;                <article>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                    <h1 style="float: left">{{reply.username}}:</h1>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                    <p> {{reply.content}}</p>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                </article>&ndash;&gt;-->
+                        <!--                        </div>-->
                     </el-main>
 
                     <el-footer>
@@ -255,7 +255,7 @@
                 this.findAllReply();
                 this.$forceUpdate();
             }
-
+            // alert(this.isTemplate);
         }
     }
 </script>

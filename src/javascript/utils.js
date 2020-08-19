@@ -50,15 +50,15 @@ export default {
                 PageList.pageList = res.data; 
             });
         };
-        Vue.prototype.getGroupPage = function (PageList){
+        Vue.prototype.getGroupPage=function(id,PageList){
             this.$http.get(this.requestUrl+"/getGroupDoc",{
                 params:{
-                    groupID:sessionStorage.getItem("groupid"),
+                    groupID:id,
                     userId:sessionStorage.getItem("userId")
                 }
             }).then(res=>{
                 console.log(res.data);
-                PageList.groupPage = res.data;
+                PageList.groupPage=res.data;
             });
         };
         Vue.prototype.getGroup = function (GroupList){
