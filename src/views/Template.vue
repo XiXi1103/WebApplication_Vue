@@ -126,7 +126,7 @@
                     }
                     else {
                         // this.templateList = res.data;
-                        this.res.pageList = res.data;
+                        this.templateList = res.data;
                     }
                     // location.reload();
                     // alert(this.templateList.length);
@@ -136,7 +136,11 @@
                 this.flag=true;
                 this.templateList = null;
                 this.$http.get(this.requestUrl+"/getAllTemplate",).then(res=>{
-                    this.res.pageList = res.data;
+                    this.templateList = res.data;
+                    // console.log(1);
+                    // console.log(res.data);
+                    // console.log(2);
+                    console.log(this.templateList);
                 })
             },
 

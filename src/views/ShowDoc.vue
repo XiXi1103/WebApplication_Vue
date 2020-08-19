@@ -239,16 +239,8 @@
                 })
             }
             else{
-                if (this.$route.query.isCollect) this.isCollect=true;
-                else this.isCollect=false;
-                if (this.$route.query.isTemplate==true) {
-                    // alert(1);
-                    this.isTemplate=false;
-                }
-                else {
-                    // alert(0);
-                    this.isTemplate=true;
-                }
+                this.isCollect = this.$route.query.isCollect;
+                this.isTemplate = this.$route.query.isTemplate === true;
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;
                 this.permission = this.$route.query.permission;
