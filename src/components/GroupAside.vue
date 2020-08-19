@@ -136,7 +136,8 @@
         data(){
             return{
                 res : {
-                    groupList: [{name:"团队1",id:"1"}],
+                    groupList:[],
+                    // groupList: [{name:"团队1",id:"1"}],
                     memberList: [],
                 },
                 permission:["查看","评论","分享","修改","管理"],
