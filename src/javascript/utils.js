@@ -319,6 +319,25 @@ export default {
                 else alert("权限不足");
             })
         };
+        Vue.prototype.getOtherInfo = function(id){
+            this.$http.get(this.requestUrl+"/getOtherInfo",{
+                params:{
+                    userID1:sessionStorage.getItem("userId"),
+                    userID2:id,
+                }
+            }).then(res=>{
+                console.log(res.data);
+                if(res.data.success){
+                    this.$router.push({
+                        path:'/personalinfo',
+                        query:{
+                            isother: res.data.isother
+                        }
+                    })
+                }
+                else alert("查看失败");
+            })
+        };
         // Vue.prototype.addCollection=function(docId){
         //     this.$http.get(this.requestUrl+"/collection",{
         //         params:{
