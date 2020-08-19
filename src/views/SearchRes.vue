@@ -93,7 +93,7 @@
 <!--                                    </el-col>-->
 <!--                                </el-row>-->
 <!--                            </div>-->
-                            <div class="block" style="line-height: normal" v-if="!documentOrGroup">
+                            <div class="block" v-if="!documentOrGroup">
                                 <el-timeline>
                                     <el-timeline-item v-for="groupList in this.res.groupList" :key="groupList.date" :timestamp="Pages.dates" placement="top">
                                         <el-row :gutter="14">

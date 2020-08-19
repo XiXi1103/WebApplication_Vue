@@ -31,7 +31,7 @@
 <!--                                </el-col>-->
 <!--                            </el-row>-->
 <!--                        </div>-->
-                        <div class="block" style="line-height: normal">
+                        <div class="block">
                             <el-timeline>
                                 <el-timeline-item v-for="Pages in res.groupPage" :key="Pages.date" :timestamp="Pages.dates" placement="top">
                                     <el-row :gutter="14">
