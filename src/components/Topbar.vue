@@ -416,7 +416,7 @@
                 this.$http.get(this.requestUrl + "/confirmDocInvitation",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
-                        groupId:notification.objectID,
+                        docId:notification.objectID,
                         userResponse:userResponse,
                         noticeId:notification.id
                     }

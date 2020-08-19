@@ -24,7 +24,7 @@
                                                     </el-button>
                                                     <el-dropdown-menu slot="dropdown">
                                                         <el-dropdown-item @click.native="catwriter(Page.id)">查看协作者</el-dropdown-item>
-                                                        <el-dropdown-item @click.native="dialogFormVisible = true">邀请协作</el-dropdown-item>
+                                                        <el-dropdown-item @click.native="reserveId(Page.id);dialogFormVisible = true">邀请协作</el-dropdown-item>
                                                         <el-dropdown-item @click.native="dropwrite(Page.id)" v-show="!Page.isCreator">退出协作</el-dropdown-item>
                                                         <el-dropdown-item @click.native="delDoc(Page.id)" v-show="Page.isCreator" style="color:red">移至回收站</el-dropdown-item>
                                                     </el-dropdown-menu>
@@ -148,7 +148,8 @@
                 <el-option
                         v-for="user in searchList"
                         :key="user.id"
-                        :label="user.name">
+                        :label="user.name"
+                        :value="user.name">
                 </el-option>
             </el-select>
             <div slot="footer" class="dialog-footer">
@@ -215,18 +216,20 @@
             <el-select
                     v-model="value"
                     placeholder="输入用户名"
+                    reserve-keyword
                     filterable
                     remote
                     :remote-method="remoteMethod">
                 <el-option
                         v-for="user in searchList"
                         :key="user.id"
-                        :label="user.name">
+                        :label="user.name"
+                        :value="user.name">
                 </el-option>
             </el-select>
             <div slot="footer" class="dialog-footer">
                 <el-button @click.native="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click.native="addWriter(docId,value);dialogFormVisible = false">添 加</el-button>
+                <el-button type="primary" @click="addWriter(docId,value);dialogFormVisible = false">添 加</el-button>
             </div>
         </el-dialog>
     </div>
@@ -241,39 +244,43 @@
         data() {
             return {
                 res : {
-                    pageList : [
-                        {
-                            "title": "最近浏览",
-                            "id": 1,
-                            "isCreator": false
-                        },
-                        {
-                            "title": "最近浏览",
-                            "id": 2,
-                            "isCreator": false
-                        },
-                        {
-                            "title": "最近浏览",
-                            "id": 3,
-                            "isCreator": false
-                        },
-                        {
-                            "title": "最近浏览",
-                            "id": 4,
-                            "isCreator": false
-                        },
-                        {
-                            "title": "最近浏览",
-                            "id": 5,
-                            "isCreator": false
-                        }
-                    ],
+                    pageList : [],
+                    // pageList : [
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 1,
+                    //         "isCreator": false
+                    //     },
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 2,
+                    //         "isCreator": false
+                    //     },
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 3,
+                    //         "isCreator": false
+                    //     },
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 4,
+                    //         "isCreator": false
+                    //     },
+                    //     {
+                    //         "title": "最近浏览",
+                    //         "id": 5,
+                    //         "isCreator": false
+                    //     }
+                    // ],
                     writerList:[]
                 },
                 drawer:false,
                 direction:"rtl",
                 dialogVisible: false,
-                dialogFormVisible : false
+                dialogFormVisible : false,
+                searchList:[],
+                value:"",
+                docId:0,
             }
         },
         created() {
@@ -285,6 +292,10 @@
             Asidebar
         },
         methods : {
+            reserveId:function(id){
+                this.docId = id ;
+                // sessionStorage.setItem("groupId",id);
+            },
             removeRecentBrowsing:function(docId){
                 this.$http.post(this.requestUrl+"/removeRecentBrowsing",{
                     params:{
@@ -315,7 +326,27 @@
                 // this.drawer = true;
                 // this.openDialog();
             },
+            remoteMethod(query){
+                if(query !== ''){
+                    this.$http.get(this.requestUrl+"/searchUser",{
+                        params:{
+                            text:query,
+                        }
+                    }).then(res => {
+                        console.log(res.data);
+                        this.searchList = res.data;
+                        /*this.searchList = res.data.filter(user =>{
+                            return user.name.toLowerCase()
+                            .indexOf(query.toLowerCase()) > -1;
+                        });*/
+                    })
+                }
+                else{
+                    this.searchList = [];
+                }
+            },
         },
+
     }
 </script>
 <style scoped>
