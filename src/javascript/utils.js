@@ -105,14 +105,12 @@ export default {
                     docID:DocID
                 }
             }).then(res=>{
-                console.log(res.data);
                 if (res.data.success){
-                    if (res.data.msg=="isTemplate"){//模板编辑不传ID
+                    if (res.data.isTemplate){//模板编辑不传ID
                         this.$router.push({
                             path: '/markdown',
                             query:{
                                 content: res.data.content,
-                                html: res.data.html,
                                 permission:res.data.userPermission,
                                 currentPermission:res.data.currentPermission,
                                 title:res.data.title,

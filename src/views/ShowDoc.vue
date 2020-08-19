@@ -40,30 +40,30 @@
                         <div id="doc">
                             <div v-if="this.permission>=2">
                                 <el-input v-model="comment.content" placeholder="快来评论吧" style="width: 65%;"></el-input>
-<!--                                <el-input class="commentBox"-->
-<!--                                          type="textarea"-->
-<!--                                          :rows="5"-->
-<!--                                          placeholder="快来评论吧"-->
-<!--                                          v-model="comment.content">-->
-<!--                                </el-input>-->
+                                <!--                                <el-input class="commentBox"-->
+                                <!--                                          type="textarea"-->
+                                <!--                                          :rows="5"-->
+                                <!--                                          placeholder="快来评论吧"-->
+                                <!--                                          v-model="comment.content">-->
+                                <!--                                </el-input>-->
                                 <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" style="margin-left: 15px">发射！</el-button>
                             </div>
                             <div v-else>
                                 <el-input v-model="comment.content" placeholder="该文档不支持评论哦" style="width: 65%"></el-input>
-<!--                                <el-input class="commentBox"-->
-<!--                                          type="textarea"-->
-<!--                                          :rows="5"-->
-<!--                                          placeholder="该文档不支持评论哦"-->
-<!--                                          :disabled="true"-->
-<!--                                >-->
-<!--                                </el-input>-->
+                                <!--                                <el-input class="commentBox"-->
+                                <!--                                          type="textarea"-->
+                                <!--                                          :rows="5"-->
+                                <!--                                          placeholder="该文档不支持评论哦"-->
+                                <!--                                          :disabled="true"-->
+                                <!--                                >-->
+                                <!--                                </el-input>-->
                                 <el-button id="commentButton" icon="el-icon-position" type="success" round :loading="false" @click="sendComment()" style="margin-left: 15px" :disabled="true">发射！</el-button>
                             </div>
                         </div>
                         <el-divider style=""></el-divider>
                         <el-card class="box-card" v-for="reply in replyList" :key="reply.id" style="width: 100%; margin-top: 10px">
                             <div slot="header" class="clearfix" style="height: 15px">
-                                <span style="position: relative;top: -70px; float: left; font-size: 20px;font-weight: bold;height: 10px ;cursor:pointer" @click.native="GotoPersonalInfo(reply.userId)">{{reply.username}}</span>
+                                <span style="position: relative;top: -70px; float: left; font-size: 20px;font-weight: bold;height: 10px ;cursor:pointer" @click="GotoPersonalInfo(reply.userId)">{{reply.username}}</span>
                                 <el-button style="float: right; padding: 3px 0;" type="text" class="textbutton" @click = "delReply(reply.id)" v-if="permission==5">删除</el-button>
                             </div>
                             <div style="height: auto;font-size: 25px">
@@ -132,7 +132,7 @@
                     content:'',
                 },
                 replyList:[],
-                isCollect:'',
+                isCollect:false,
                 isTemplate:'',
                 permission:'',
                 link:'',
@@ -209,7 +209,7 @@
             }
         },
         mounted() {
-            if (this.$route.query.content==null&&this.$route.query.docId!=null){
+            if (this.$route.query.content==null&&this.$route.query.docId!=null){//分享
                 this.$http.get(this.requestUrl+"/viewDoc",{
                     params:{
                         userId:sessionStorage.getItem("userId"),
@@ -239,15 +239,14 @@
                 })
             }
             else{
-                if (this.$route.query.isCollect) this.isCollect=true;
+                if (this.$route.query.isCollect==='true') this.isCollect=true;
                 else this.isCollect=false;
-                if (this.$route.query.isTemplate==true) {
-                    // alert(1);
-                    this.isTemplate=false;
+                if (this.$route.query.isTemplate==='true') {
+                    this.isTemplate=true;
                 }
                 else {
                     // alert(0);
-                    this.isTemplate=true;
+                    this.isTemplate=false;
                 }
                 this.value = this.$route.query.content;
                 this.docId = this.$route.query.docId;

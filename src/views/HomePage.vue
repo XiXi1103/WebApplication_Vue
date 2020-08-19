@@ -383,6 +383,28 @@
                 // this.drawer = true;
                 // this.openDialog();
             },
+            delDoc:function(docId){
+                this.$http.get(this.requestUrl+"/delDoc",{
+                    params:{
+                        userId:sessionStorage.getItem("userId"),
+                        docId:docId
+                    }
+                }).then(res=>{
+                    if (res.data.success){
+                        // alert("删除成功");
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                        location.reload();
+                        this.res.pageList.splice(this.ArrayIndexOfBydocId(this.res.pageList, docId),1);
+                    }
+                    else {
+                        // alert("删除失败");
+                        this.$message.error('删除失败！请重试');
+                    }
+                });
+            },
             remoteMethod(query){
                 if(query !== ''){
                     this.$http.get(this.requestUrl+"/searchUser",{

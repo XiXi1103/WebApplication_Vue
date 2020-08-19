@@ -31,7 +31,7 @@
 <!--                                    </el-submenu>-->
 <!--                                </el-submenu>-->
                     <el-menu-item index="/homepage">
-                        <i class="el-icon-document"></i>
+                        <i class="el-icon-time"></i>
                         <span slot="title">最近使用</span>
                     </el-menu-item>
                     <el-menu-item index="/Mycreate">
@@ -43,7 +43,7 @@
                         <span slot="title">我的收藏</span>
                     </el-menu-item>
                     <el-menu-item index="/RecycleBin">
-                        <i class="el-icon-document"></i>
+                        <i class="el-icon-delete"></i>
                         <span slot="title">  回  收  站  </span>
                     </el-menu-item>
 <!--                                <el-menu-item index="5" disabled>-->

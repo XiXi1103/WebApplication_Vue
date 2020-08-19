@@ -15,7 +15,8 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false;
  // Vue.prototype.requestUrl = "http://rap2.taobao.org:38080/app/mock/262266";
 Vue.prototype.requestUrl = "http://localhost:8081";
-Vue.prototype.baseUrl = "http://localhost:8080/#/";
+Vue.prototype.baseUrl = "http://39.97.126.242:8081/index.html#/";
+Vue.prototype.recentDoc = "";
 
 new Vue({
   el: '#app',

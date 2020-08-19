@@ -70,16 +70,16 @@
                 docID:'',
                 drawer: false,
                 historyList: [],
+                beforeUnload_time:'',
+                gap_time:'',
             }
         },
         methods: {
             // 将图片上传到服务器，返回地址替换到md中
             $imgAdd(pos,$img){
                 let formdata = new FormData();
-                formdata.append('file', $img)
-                alert(111231);
+                formdata.append('file', $img);
                 this.$http.post(this.requestUrl+"/imgAdd", formdata).then(res => {
-                    alert(res.data.url);
                     this.$refs.md.$img2Url(pos, res.data.url);
                 })
             },
@@ -100,12 +100,14 @@
                 else{
                     this.result.docID=this.$route.query.docID;
                     this.result.userID = sessionStorage.getItem("userId");
+                    this.result.authorID = sessionStorage.getItem("userId");
                     this.result.content = this.content;
                     this.result.html = this.html;
                     this.result.otherPermission = this.permissionLevel;
                     this.result.title = this.title;
                     this.result.groupId = this.$route.query.groupId;
                     this.result.isTemplate = this.$route.query.isTemplate;
+                    alert(this.permissionLevel);
                     var re1 = new RegExp("<.+?>","g");
                     this.result.summary = this.result.html.replace(re1,'').substring(0,30);
                     this.$http.post(this.requestUrl+"/newDoc",this.result).then(res=>{
@@ -136,14 +138,60 @@
                 }).then(res=>{
                     this.historyList=res.data;
                 })
+            },
+            beforeunloadHandler(){
+                this.beforeUnload_time=new Date().getTime();
+                alert("aha");
+            },
+            unloadHandler(){
+                this.gap_time=new Date().getTime()-this.beforeUnload_time;
+                //console.log(this.gap_time);
+
+                //判断是窗口关闭还是刷新  要发送同步请求
+                if(this.gap_time<=5 && this.$route.name == "/MarkDown"){
+                    this.$http.get(this.requestUrl+"/exitEditDoc",{
+                        params:{
+                            userId:sessionStorage.getItem("userId"),
+                            docId: this.docID,
+                        }
+                    })
+                }
+            },
+            setDocId(){
+                this.docID = this.$route.query.docID;
             }
+            ,
+            popstateHandler(){
+                // this.setDocId();
+                // console.log('我监听到了回退事件2');    // 在回退时进行某种操作。
+                // console.log(this.$route.name);
+                // console.log(this.recentDoc);
+                window.removeEventListener('popstate', e => this.popstateHandler(e));
+                this.$http.get(this.requestUrl+"/rollBackEditDoc",{
+                    params:{
+                        userId:sessionStorage.getItem("userId"),
+                        docId: this.recentDoc,
+                    }
+                })
+            },
+        },
+        destroyed() {
+            window.removeEventListener('beforeunload', e => this.beforeunloadHandler(e))
+            window.removeEventListener('unload', e => this.unloadHandler(e))
+            window.removeEventListener('popstate', e => this.popstateHandler(e))
         },
         mounted() {
+            this.setDocId();
+            window.addEventListener('beforeunload', e => this.beforeunloadHandler(e));
+            window.addEventListener('unload', e => this.unloadHandler(e));
+            window.addEventListener('popstate', e => this.popstateHandler(e));
+            this.docID=this.$route.query.docID;
             this.content = this.$route.query.content;
             this.html = this.$route.query.html;
             this.changePermission(this.$route.query.currentPermission);
             this.userPermission=this.$route.query.permission;
             this.title=this.$route.query.title;
+            this.recentDoc = this.docID;
         },
     }
 </script>

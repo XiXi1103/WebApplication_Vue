@@ -289,7 +289,10 @@
             },
             search(){
                 sessionStorage.setItem("text",this.text);
-                this.$router.push({path:'/searchres'});
+                if (this.$route.path=='/searchres')
+                    location.reload();
+                else
+                    this.$router.push({path:'/searchres'});
             },
             confirmGroupInvitationPopout(notification) {
                 // var msg = {};

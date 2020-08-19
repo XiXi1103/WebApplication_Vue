@@ -30,7 +30,7 @@ Vue.use(mavonEditor)
   {
     path: '/markdown',
     name: '/MarkDown',
-    component: () => import('../views/Markdown.vue')
+    component: () => import('../views/Markdown.vue'),
   },
   {
     path: '/personalinfo',
