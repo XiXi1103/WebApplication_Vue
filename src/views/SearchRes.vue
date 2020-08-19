@@ -263,16 +263,17 @@
             }
         },
         created() {
-           this.$http.get(this.requestUrl + "/searchDoc",{
-                    params:{
-                        text:this.text,                        
-                        userId:sessionStorage.getItem("userId"),
-                    }
-                }).then(res => {
-                    console.log(res.data);
-                    this.res.pageList = res.data;
-                    console.log(this.res.pageList);
-            });
+           // this.$http.get(this.requestUrl + "/searchDoc",{
+           //          params:{
+           //              text:this.text,
+           //              userId:sessionStorage.getItem("userId"),
+           //          }
+           //      }).then(res => {
+           //          console.log(res.data);
+           //          this.res.pageList = res.data;
+           //          console.log(this.res.pageList);
+           //  });
+            this.getSearchPage(this.res);
            this.$http.get(this.requestUrl + "/searchGroup",{
                     params:{
                         text:this.text,   
